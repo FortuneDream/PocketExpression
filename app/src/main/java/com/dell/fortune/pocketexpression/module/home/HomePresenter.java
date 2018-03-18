@@ -1,22 +1,34 @@
 package com.dell.fortune.pocketexpression.module.home;
 
-import com.dell.fortune.pocketexpression.common.BasePresenter;
-import com.dell.fortune.pocketexpression.common.IBaseView;
+import android.support.v4.app.Fragment;
+
+import com.dell.fortune.pocketexpression.common.BaseMutiPresenter;
+import com.dell.fortune.pocketexpression.common.IBaseMutiView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 81256 on 2018/3/17.
  */
 
-public class HomePresenter extends BasePresenter<HomePresenter.IView> {
-    private IView mView;
+public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
+    private HomeCategoryFragment homeCategoryFragment;
 
-    public HomePresenter(IView mView){
-        attachView(mView);
-        this.mView=getIViewRef();
+    public HomePresenter(IView view) {
+        super(view);
+    }
+
+    @Override
+    public List<Fragment> initFragment() {
+        List<Fragment> list = new ArrayList<>();
+        homeCategoryFragment = new HomeCategoryFragment();
+        list.add(homeCategoryFragment);
+        return list;
     }
 
 
-    public interface IView extends IBaseView{
+    public interface IView extends IBaseMutiView {
 
     }
 }

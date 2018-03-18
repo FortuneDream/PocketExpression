@@ -51,7 +51,6 @@ public abstract class BaseFragment<V extends IBaseView, T extends BasePresenter<
         super.onCreate(savedInstanceState);
         this.context = getContext();
         presenter = createPresenter();
-        presenter.attachView((V) this);
         if (mLoadingDialog == null) {
             mLoadingDialog = new AlertDialog.Builder(getActivity())
                     .setCancelable(false)
@@ -122,11 +121,4 @@ public abstract class BaseFragment<V extends IBaseView, T extends BasePresenter<
         presenter.detachView();
     }
 
-    @Override
-    public String getResString(int resId) {
-        if (getContext() == null) {
-            return "";
-        }
-        return getContext().getResources().getString(resId);
-    }
 }

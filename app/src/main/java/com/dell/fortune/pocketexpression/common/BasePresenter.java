@@ -13,7 +13,11 @@ public abstract class BasePresenter<T extends IBaseView> {
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.CHINA);
     public final String TAG = this.getClass().getName();
     protected Reference<T> mViewRef;// View借口类型的弱引用
-
+    protected T mView;
+    public BasePresenter(T view) {
+        attachView(view);
+        mView=getIViewRef();
+    }
 
     protected T getIViewRef() {
         return mViewRef.get();
@@ -34,8 +38,6 @@ public abstract class BasePresenter<T extends IBaseView> {
             mViewRef = null;
         }
     }
-
-
 
 
 }
