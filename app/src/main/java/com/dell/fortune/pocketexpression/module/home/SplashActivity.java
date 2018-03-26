@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.module.HomeActivity;
 import com.dell.fortune.pocketexpression.util.common.RxTimerUtil;
 
 public class SplashActivity extends AppCompatActivity {

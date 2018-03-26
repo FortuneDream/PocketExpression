@@ -13,10 +13,13 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,7 +36,7 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity<V extends IBaseView, T extends BasePresenter<V>> extends AppCompatActivity implements IBaseView {
-    public Activity context;
+    protected Activity mContext;
     protected T presenter;
     public final String TAG = this.getClass().getName();
     private static final int FLAG_DISMISS_DIALOG = 2001;
@@ -82,7 +85,7 @@ public abstract class BaseActivity<V extends IBaseView, T extends BasePresenter<
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         presenter = createPresenter();
-        this.context = this;
+        this.mContext = this;
         initView();
         initLoadingView();
     }
@@ -98,10 +101,17 @@ public abstract class BaseActivity<V extends IBaseView, T extends BasePresenter<
         return this;
     }
 
+    public void initRecycler(RecyclerView recyclerView, BaseQuickAdapter adapter) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+    }
+
     public void initToolbar(Toolbar toolbar, String titleName) {
         toolbar.setTitle(titleName);
-        toolbar.setTitleTextColor(ContextCompat.getColor(context, R.color.colorAccent));
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        toolbar.setTitleTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+        toolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

@@ -1,0 +1,55 @@
+package com.dell.fortune.pocketexpression.module;
+
+import android.content.Intent;
+import android.os.Build;
+import android.provider.Settings;
+import android.support.v4.app.Fragment;
+
+import com.dell.fortune.pocketexpression.common.BaseMutiPresenter;
+import com.dell.fortune.pocketexpression.common.IBaseMutiView;
+import com.dell.fortune.pocketexpression.module.home.category.HomeCategoryFragment;
+import com.dell.fortune.pocketexpression.module.service.SuspendService;
+import com.dell.fortune.pocketexpression.util.common.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by 81256 on 2018/3/17.
+ */
+
+public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
+    private HomeCategoryFragment homeCategoryFragment;
+
+    public HomePresenter(IView view) {
+        super(view);
+    }
+
+    @Override
+    public List<Fragment> initFragment() {
+        List<Fragment> list = new ArrayList<>();
+        homeCategoryFragment = new HomeCategoryFragment();
+        list.add(homeCategoryFragment);
+        return list;
+    }
+
+    public void openSuspendWindows() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (Settings.canDrawOverlays(mContext)) {//悬浮权限
+                Intent intent = new Intent(mContext, SuspendService.class);
+                mView.getCurrentContext().startService(intent);
+            } else {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                ToastUtil.showToast("需要取得悬浮窗权限");
+                mContext.startActivity(intent);
+            }
+        } else {
+            Intent intent = new Intent(mContext, SuspendService.class);
+            mContext.startService(intent);
+        }
+    }
+
+    public interface IView extends IBaseMutiView {
+
+    }
+}

@@ -1,5 +1,7 @@
 package com.dell.fortune.pocketexpression.common;
 
+import android.content.Context;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -12,11 +14,14 @@ import java.util.Locale;
 public abstract class BasePresenter<T extends IBaseView> {
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.CHINA);
     public final String TAG = this.getClass().getName();
+    protected Context mContext;
     protected Reference<T> mViewRef;// View借口类型的弱引用
     protected T mView;
+
     public BasePresenter(T view) {
         attachView(view);
-        mView=getIViewRef();
+        mView = getIViewRef();
+        mContext = mView.getCurrentContext();
     }
 
     protected T getIViewRef() {
