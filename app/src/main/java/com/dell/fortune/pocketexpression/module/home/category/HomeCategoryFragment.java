@@ -37,11 +37,8 @@ public class HomeCategoryFragment extends BaseFragment<HomeCategoryPresenter.IVi
 
     @Override
     public void initView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getCurrentContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
         adapter = new HomeCategoryAdapter(R.layout.item_category);
-        recyclerView.setAdapter(adapter);
+        initRecycler(recyclerView,adapter);
         adapter.setOnItemClickListener(this);
         adapter.setOnLoadMoreListener(this, recyclerView);
         presenter.getList(true);
@@ -57,11 +54,9 @@ public class HomeCategoryFragment extends BaseFragment<HomeCategoryPresenter.IVi
     public void setList(boolean isRefreshing, List<ExpressionCategory> list) {
         if (list == null) {
             adapter.loadMoreEnd();
-            Log.e("TAG","jjjj");
         } else {
             adapter.addData(list);
-            adapter.loadMoreComplete();
-            Log.e("TAG",String.valueOf(list.size()));
+            adapter.loadMoreEnd();
         }
     }
 

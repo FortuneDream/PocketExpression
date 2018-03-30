@@ -1,0 +1,41 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="title_right_margin">16dp</dimen>
+    <dimen name="text">15sp</dimen>
+    <dimen name="sub_text">13sp</dimen>
+
+    <dimen name="banner_height">215dp</dimen>
+
+    <dimen name="item_padding_16dp">16dp</dimen>
+
+    <dimen name="item_two_txt_main">14sp</dimen>
+    <dimen name="item_two_txt_second">12sp</dimen>
+
+    <dimen name="item_three_txt_main">14sp</dimen>
+    <dimen name="item_three_txt_second">13sp</dimen>
+    <dimen name="item_three_txt_third">12sp</dimen>
+
+    <dimen name="item_head">48dp</dimen>
+
+    <dimen name="ico_launcher_72dp">72dp</dimen>
+    <dimen name="text_press_width">80dp</dimen>
+    <dimen name="text_press_height">48dp</dimen>
+
+    <dimen name="button_send_width">48dp</dimen>
+    <dimen name="button_send_height">32dp</dimen>
+
+    <dimen name="button_sign_width">48dp</dimen>
+    <dimen name="button_sign_height">32dp</dimen>
+
+    <dimen name="edit_send_height">@dimen/button_send_height</dimen>
+
+    <dimen name="item_head_two_txt_margin_left_8dp">8dp</dimen>
+
+    <dimen name="setting_big_divider">8dp</dimen>
+    <dimen name="setting_divider">0.5dp</dimen>
+
+    <dimen name="net_fragment_text">16sp</dimen>
+
+    <dimen name="gua_gua_ka_width">200dp</dimen>
+    <dimen name="gua_gua_ka_height">100dp</dimen>
+</resources>

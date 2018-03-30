@@ -3,9 +3,74 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/ui_yellow</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SettingDivider">
+        <item name="android:background">@color/divider_deep</item>
+        <item name="android:layout_height">@dimen/setting_divider</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="HeadDivider" parent="SettingDivider">
+        <item name="android:layout_marginLeft">56dp</item>
+    </style>
+
+    <style name="SettingBigDivider">
+        <item name="android:background">@color/divider</item>
+        <item name="android:layout_height">@dimen/setting_big_divider</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+
+    <style name="transText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#0000</item>
+    </style>
+
+    <style name="TextAppearance_TitleBar_Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/colorTitle</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance_TitleBar_subTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <!-- 左右文字样式 （和toolbar副标题样式一样，可自行修改）-->
+    </style>
+
+    <!--两行文字-->
+    <style name="TwoTextMain">
+        <item name="android:textSize">@dimen/item_two_txt_main</item>
+        <item name="android:textColor">@color/item_two_text_main</item>
+    </style>
+
+    <style name="TwoTextSecond">
+        <item name="android:textSize">@dimen/item_two_txt_second</item>
+        <item name="android:textColor">@color/item_two_text_second</item>
+    </style>
+
+    <!--三行文字-->
+    <style name="ThreeTextMain">
+        <item name="android:textSize">@dimen/item_three_txt_main</item>
+        <item name="android:textColor">@color/item_three_text_main</item>
+    </style>
+
+    <style name="ThreeTextSecond">
+        <item name="android:textSize">@dimen/item_three_txt_second</item>
+        <item name="android:textColor">@color/item_three_text_second</item>
+    </style>
+
+    <style name="ThreeTextThird">
+        <item name="android:textSize">@dimen/item_three_txt_third</item>
+        <item name="android:textColor">@color/item_three_text_third</item>
+    </style>
+
+    <style name="TwoTextLinear">
+        <item name="android:layout_marginLeft">@dimen/item_head_two_txt_margin_left_8dp</item>
+    </style>
+
+    <style name="TextPress" parent="TwoTextMain">
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="IcoTextItem">
+        <attr name="itemTitleIco" format="integer" />
+        <attr name="itemTitleText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="BottomTabView">
+        <attr name="itemTabNoSelectIco" format="reference" />
+        <attr name="itemTabSelectIco" format="reference" />
+        <attr name="itemTabName" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="TypeView">
+        <attr name="itemIco" format="reference" />
+        <attr name="itemName" format="string" />
+    </declare-styleable>
+
+
+    <declare-styleable name="TextEdit">
+        <attr name="itemIcoResource" format="reference" />
+        <attr name="itemInputPassword" format="boolean" />
+        <attr name="itemInputHint" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="GuaGuaKa">
+        <attr name="Reward_Text" format="string" />
+        <attr name="Reward_Text_Color" format="color" />
+        <attr name="Reward_Text_Size" format="dimension" />
+        <attr name="Reward_Eraser_Size" format="dimension" />
+        <attr name="Reward_Resource" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="TopTabView">
+        <attr name="tabs" format="reference" />
+    </declare-styleable>
+</resources>

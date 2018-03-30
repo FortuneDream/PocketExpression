@@ -41,10 +41,11 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
     @Override
     public void initView() {
         ExpressionCategory category = (ExpressionCategory) getIntent().getSerializableExtra(IntentConstant.EXTRA_CATEGORY_LIST_ITEM);
+        adapter = new CategoryListAdapter(R.layout.item_category_list);
         initToolbar(toolbar, category.getName());
         initRecycler(recyclerView, adapter);
         adapter.setOnLoadMoreListener(this, recyclerView);
-
+        presenter.getList(true);
     }
 
 
@@ -61,7 +62,7 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
             adapter.loadMoreEnd();
         } else {
             adapter.addData(list);
-            adapter.loadMoreComplete();
+            adapter.loadMoreEnd();
         }
 
     }
