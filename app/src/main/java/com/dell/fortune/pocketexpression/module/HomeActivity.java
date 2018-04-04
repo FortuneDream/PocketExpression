@@ -3,12 +3,15 @@ package com.dell.fortune.pocketexpression.module;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +22,13 @@ import android.widget.TextView;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.config.FlagConstant;
+import com.dell.fortune.pocketexpression.config.IntentConstant;
+import com.dell.fortune.pocketexpression.util.common.DoubleExitUtil;
+import com.dell.fortune.pocketexpression.util.common.IntentUtil;
 import com.dell.fortune.pocketexpression.util.common.LogUtils;
+import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 import com.dell.fortune.pocketexpression.util.common.UserUtil;
+import com.dell.fortune.pocketexpression.util.common.update.UpdateUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.BindView;
@@ -67,10 +75,31 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
             LinearLayout headerLl = (LinearLayout) homeUserNv.getHeaderView(0);
             SimpleDraweeView headerHeadIv = headerLl.findViewById(R.id.user_head_sdv);
             headerHeadIv.setImageURI(Uri.parse(UserUtil.user.getHeadUrl()));
+            headerHeadIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //点击头像，修改头像
+
+                }
+            });
             TextView headerNickNameTv = headerLl.findViewById(R.id.user_nick_name_tv);
             headerNickNameTv.setText(UserUtil.user.getNickName());
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (UserUtil.user != null && drawerLayout.isDrawerOpen(Gravity.START)) {
+                drawerLayout.closeDrawer(Gravity.START);//先关闭侧拉栏
+            } else {
+                presenter.doubleExit(keyCode);
+            }
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     @Override
     public int getContentResId() {
@@ -114,10 +143,13 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getGroupId()) {
             case R.id.collection_group:
+                presenter.enterUserCollectionActivity();
                 break;
             case R.id.invite_group:
+                IntentUtil.shareText(mContext, "斗图斗图！下载地址：");
                 break;
             case R.id.upgrade_group:
+                UpdateUtils.getInstance().update(mContext);
                 break;
             case R.id.joy_group:
                 break;

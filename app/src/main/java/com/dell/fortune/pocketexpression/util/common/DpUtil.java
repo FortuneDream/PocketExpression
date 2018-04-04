@@ -1,12 +1,15 @@
 package com.dell.fortune.pocketexpression.util.common;
 
 import android.content.Context;
+import android.text.BoringLayout;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 /**
  * Created by 鹏君 on 2016/9/10.
  */
 //转换工具包
-public class ConvertUtil {
+public class DpUtil {
     //dp->px
     public static int Dp2Px(Context context, float dp) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -18,4 +21,12 @@ public class ConvertUtil {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (px / scale + 0.5f);
     }
+
+    public static DisplayMetrics getScreenMetrics(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        return dm;
+    }
+
 }

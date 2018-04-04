@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.util.common.ConvertUtil;
+import com.dell.fortune.pocketexpression.util.common.DpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class MorePopupWindow {
 
     //生成item
     public LinearLayout getContentLl(@DrawableRes int resId, String text) {
-        int dp_8 = ConvertUtil.Dp2Px(context, 8);
+        int dp_8 = DpUtil.Dp2Px(context, 8);
         LinearLayout contentLl = getLinearLayout(context);
         contentLl.setGravity(Gravity.CENTER_VERTICAL);
         AppCompatImageView appCompatImageView = getAppCompatImageView(resId);
@@ -72,7 +72,7 @@ public class MorePopupWindow {
 
     @NonNull
     private LinearLayout getLinearLayout(Context context) {
-        int dp_8 = ConvertUtil.Dp2Px(context, 8);
+        int dp_8 = DpUtil.Dp2Px(context, 8);
         LinearLayout contentLl = new LinearLayout(context);
         LinearLayout.LayoutParams contentLlParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         contentLlParam.setMargins(dp_8, dp_8, dp_8, dp_8);

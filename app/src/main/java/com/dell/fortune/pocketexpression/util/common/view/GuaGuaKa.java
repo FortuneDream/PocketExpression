@@ -17,7 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.util.common.ConvertUtil;
+import com.dell.fortune.pocketexpression.util.common.DpUtil;
 
 
 /**
@@ -41,8 +41,8 @@ public class GuaGuaKa extends View {
     private int measureWidth;
     private int measureHeight;
     private boolean isComplete;
-    private final int DEFAULT_ERASER_SIZE = ConvertUtil.Dp2Px(getContext(), 16);
-    private final int DEFAULT_TEXT_SIZE = ConvertUtil.Dp2Px(getContext(), 20);
+    private final int DEFAULT_ERASER_SIZE = DpUtil.Dp2Px(getContext(), 16);
+    private final int DEFAULT_TEXT_SIZE = DpUtil.Dp2Px(getContext(), 20);
     private final int DEFAULT_TEXT_COLOR = getResources().getColor(R.color.md_red_400);
     private OnCompleteListener onCompleteListener;
     private String mTopContent = "刮开有奖";//顶层文字

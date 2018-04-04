@@ -9,6 +9,8 @@ import com.dell.fortune.pocketexpression.common.BaseMutiPresenter;
 import com.dell.fortune.pocketexpression.common.IBaseMutiView;
 import com.dell.fortune.pocketexpression.module.home.category.HomeCategoryFragment;
 import com.dell.fortune.pocketexpression.module.service.SuspendService;
+import com.dell.fortune.pocketexpression.module.user.UserCollectionActivity;
+import com.dell.fortune.pocketexpression.util.common.DoubleExitUtil;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 
 import java.util.ArrayList;
@@ -20,9 +22,11 @@ import java.util.List;
 
 public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     private HomeCategoryFragment homeCategoryFragment;
+    private DoubleExitUtil doubleExitUtil;
 
     public HomePresenter(IView view) {
         super(view);
+        doubleExitUtil = new DoubleExitUtil();
     }
 
     @Override
@@ -47,6 +51,16 @@ public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
             Intent intent = new Intent(mContext, SuspendService.class);
             mContext.startService(intent);
         }
+    }
+
+    public void doubleExit(int keyCode) {
+        doubleExitUtil.doubleExit(mContext, keyCode);
+    }
+
+    //用户收藏Activity
+    public void enterUserCollectionActivity() {
+        Intent intent = new Intent(mContext, UserCollectionActivity.class);
+        mContext.startActivity(intent);
     }
 
     public interface IView extends IBaseMutiView {

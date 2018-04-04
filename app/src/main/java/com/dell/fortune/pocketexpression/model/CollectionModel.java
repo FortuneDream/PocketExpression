@@ -41,7 +41,9 @@ public class CollectionModel extends BaseModel<ExpressionItem> {
     public void addCollection(Context context, List<ExpressionItem> expressionItems, final OnAddCollectionResult onAddCollectionResult) {
         if (!checkCollection(context, expressionItems)) return;
         BmobRelation relation = new BmobRelation();
-        relation.add(expressionItems);
+        for (ExpressionItem item:expressionItems){
+            relation.add(item);
+        }
         user.setCollections(relation);//添加用户收藏
         user.update(new ToastUpdateListener() {
             @Override

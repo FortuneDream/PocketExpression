@@ -7,6 +7,7 @@ import com.dell.fortune.pocketexpression.common.IBaseView;
 import com.dell.fortune.pocketexpression.config.StrConstant;
 import com.dell.fortune.pocketexpression.model.CollectionModel;
 import com.dell.fortune.pocketexpression.model.ItemModel;
+import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 
@@ -24,12 +25,12 @@ public class CategoryListPresenter extends BasePresenter<CategoryListPresenter.I
         collectionModel = new CollectionModel();
     }
 
-    public void getList(final boolean isRefreshing) {
+    public void getList(ExpressionCategory category, final boolean isRefreshing) {
         mPage++;
         if (isRefreshing) {
             mPage = 0;
         }
-        itemModel.getList(mPage, new ToastQueryListener<ExpressionItem>() {
+        itemModel.getCategoryList(category, mPage, new ToastQueryListener<ExpressionItem>() {
             @Override
             public void onSuccess(List<ExpressionItem> list) {
                 mView.setList(isRefreshing, list);

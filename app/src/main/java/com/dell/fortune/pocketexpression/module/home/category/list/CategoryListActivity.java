@@ -4,6 +4,8 @@ package com.dell.fortune.pocketexpression.module.home.category.list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -32,6 +34,7 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     private CategoryListAdapter mAdapter;
+    public ExpressionCategory mCategory;
 
     @Override
     protected CategoryListPresenter createPresenter() {
@@ -46,13 +49,15 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
 
     @Override
     public void initView() {
-        ExpressionCategory category = (ExpressionCategory) getIntent().getSerializableExtra(IntentConstant.EXTRA_CATEGORY_LIST_ITEM);
+        mCategory = (ExpressionCategory) getIntent().getSerializableExtra(IntentConstant.EXTRA_CATEGORY_LIST_ITEM);
         mAdapter = new CategoryListAdapter(R.layout.item_category_list);
-        initToolbar(toolbar, category.getName());
-        initRecycler(recyclerView, mAdapter);
+        initToolbar(toolbar, mCategory.getName());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(this, recyclerView);
         mAdapter.setOnItemLongClickListener(this);
-        presenter.getList(true);
+        presenter.getList(mCategory, true);
     }
 
 
@@ -75,7 +80,7 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
 
     @Override
     public void onLoadMoreRequested() {
-        presenter.getList(false);
+        presenter.getList(mCategory,false);
     }
 
     //长按收藏

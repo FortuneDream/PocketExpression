@@ -3,6 +3,7 @@ package com.dell.fortune.pocketexpression.config;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.dell.fortune.pocketexpression.common.BmobConstant;
 import com.dell.fortune.pocketexpression.model.dao.DaoMaster;
 import com.dell.fortune.pocketexpression.util.common.GreenDaoUtil;
 import com.dell.fortune.pocketexpression.util.common.SharedPrefsUtil;
@@ -10,6 +11,8 @@ import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.statistics.AppStat;
+import cn.bmob.v3.update.BmobUpdateAgent;
 
 /**
  * Created by 81256 on 2018/3/17.
@@ -23,7 +26,10 @@ public class MyApplication extends Application {
         ToastUtil.init(this);
         initFresco();
         initGreenDao();
-        Bmob.initialize(this, "224ac7cab8fe75623e271b06d7495323");
+        Bmob.initialize(this, BmobConstant.APP_ID);
+        AppStat.i(BmobConstant.APP_ID, "Bmob");
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(this);
     }
 
     private void initGreenDao() {

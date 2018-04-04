@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.util.common.ConvertUtil;
+import com.dell.fortune.pocketexpression.util.common.DpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,8 +80,8 @@ public class TopTabView extends LinearLayout {
 
     public TextView createTextView(String text) {
         TextView textView = new TextView(getContext());
-        int dp_16 = ConvertUtil.Dp2Px(getContext(), 16);
-        int dp_8 = ConvertUtil.Dp2Px(getContext(), 8);
+        int dp_16 = DpUtil.Dp2Px(getContext(), 16);
+        int dp_8 = DpUtil.Dp2Px(getContext(), 8);
         textView.setPadding(dp_16, dp_8, dp_16, dp_8);
         textView.setText(text);
         return textView;

@@ -1,5 +1,8 @@
 package com.dell.fortune.pocketexpression.model.bean;
 
+import com.dell.fortune.pocketexpression.common.BmobConstant;
+
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobRelation;
 
@@ -14,6 +17,10 @@ public class MyUser extends BmobUser {
     private BmobRelation collections;
     //头像
     private String headUrl;
+
+    public MyUser() {
+        headUrl = BmobConstant.DEFAULT_HEAD;
+    }
 
     public String getNickName() {
         return nickName;
