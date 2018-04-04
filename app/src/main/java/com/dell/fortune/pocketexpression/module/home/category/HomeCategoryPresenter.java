@@ -1,8 +1,6 @@
 package com.dell.fortune.pocketexpression.module.home.category;
 
 
-import android.util.Log;
-
 import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
 import com.dell.fortune.pocketexpression.common.BasePresenter;
 import com.dell.fortune.pocketexpression.common.IBaseView;

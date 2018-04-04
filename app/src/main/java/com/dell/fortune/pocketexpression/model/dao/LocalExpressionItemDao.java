@@ -1,4 +1,4 @@
-package com.dell.fortune.pocketexpression.model.bean;
+package com.dell.fortune.pocketexpression.model.dao;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;

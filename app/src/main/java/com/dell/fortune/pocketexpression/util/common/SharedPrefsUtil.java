@@ -22,7 +22,7 @@ import android.content.SharedPreferences;
  */
 public class SharedPrefsUtil {
     private static SharedPreferences sp;
-    private static final String defaultFileName = "bmob_sp";
+    private static final String defaultFileName = "expression_sp";
 
     private SharedPrefsUtil() {
     }

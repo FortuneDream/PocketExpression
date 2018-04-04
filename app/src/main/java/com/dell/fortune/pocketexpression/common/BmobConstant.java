@@ -5,4 +5,5 @@ package com.dell.fortune.pocketexpression.common;
  */
 public class BmobConstant {
     public static final String BMOB_CREATE_AT = "-createdAt";
+    public static final String BMOB_COLLECTIONS = "collections";
 }

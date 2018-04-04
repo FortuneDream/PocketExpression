@@ -42,8 +42,11 @@
         <activity
             android:name=".module.home.category.list.CategoryListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.auth.login.LoginActivity"/>
-        <activity android:name=".module.auth.register.RegisterActivity"/>
+        <activity android:name=".module.auth.login.LoginActivity" />
+        <activity android:name=".module.auth.register.RegisterActivity" />
+        <activity
+            android:name=".module.user.UserCollectionActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

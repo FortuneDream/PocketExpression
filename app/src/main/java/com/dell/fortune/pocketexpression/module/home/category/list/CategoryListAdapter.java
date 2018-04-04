@@ -1,7 +1,6 @@
 package com.dell.fortune.pocketexpression.module.home.category.list;
 
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;

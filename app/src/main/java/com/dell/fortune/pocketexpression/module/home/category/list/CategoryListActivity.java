@@ -3,8 +3,11 @@ package com.dell.fortune.pocketexpression.module.home.category.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
@@ -16,16 +19,19 @@ import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IView, CategoryListPresenter>
-        implements CategoryListPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener {
+        implements CategoryListPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemLongClickListener {
 
-
+    @BindView(R.id.collection_all_btn)
+    Button collectionAllBtn;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    private CategoryListAdapter adapter;
+    private CategoryListAdapter mAdapter;
 
     @Override
     protected CategoryListPresenter createPresenter() {
@@ -41,10 +47,11 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
     @Override
     public void initView() {
         ExpressionCategory category = (ExpressionCategory) getIntent().getSerializableExtra(IntentConstant.EXTRA_CATEGORY_LIST_ITEM);
-        adapter = new CategoryListAdapter(R.layout.item_category_list);
+        mAdapter = new CategoryListAdapter(R.layout.item_category_list);
         initToolbar(toolbar, category.getName());
-        initRecycler(recyclerView, adapter);
-        adapter.setOnLoadMoreListener(this, recyclerView);
+        initRecycler(recyclerView, mAdapter);
+        mAdapter.setOnLoadMoreListener(this, recyclerView);
+        mAdapter.setOnItemLongClickListener(this);
         presenter.getList(true);
     }
 
@@ -59,16 +66,31 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
     @Override
     public void setList(boolean isRefreshing, List<ExpressionItem> list) {
         if (list == null) {
-            adapter.loadMoreEnd();
+            mAdapter.loadMoreEnd();
         } else {
-            adapter.addData(list);
-            adapter.loadMoreEnd();
+            mAdapter.addData(list);
+            mAdapter.loadMoreEnd();
         }
-
     }
 
     @Override
     public void onLoadMoreRequested() {
         presenter.getList(false);
     }
+
+    //长按收藏
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        ExpressionItem item = mAdapter.getItem(position);
+        presenter.collectionItem(item);
+        return true;
+    }
+
+
+    @OnClick(R.id.collection_all_btn)
+    public void onViewClicked() {
+        presenter.collectionAllItem(mAdapter.getData());
+    }
+
+
 }

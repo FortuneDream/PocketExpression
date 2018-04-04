@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.dell.fortune.pocketexpression.model.bean.LocalExpressionItem;
+import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
 
 /**
  * Created by 81256 on 2018/3/28.

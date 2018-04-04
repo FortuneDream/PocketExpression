@@ -17,11 +17,13 @@ public class UserUtil {
     public static MyUser user;
     public static final String RESULT_USER = "result_user";//返回的User
 
-    public static boolean checkLocalUser(Fragment fragment) {
+    public static boolean checkLocalUser(boolean enterLoginActivity,Fragment fragment) {
         MyUser user = MyUser.getCurrentUser(MyUser.class);
         if (user == null) {
-            Intent intent = new Intent(fragment.getContext(), LoginActivity.class);
-            fragment.startActivityForResult(intent, FlagConstant.REQUEST_LOGIN);
+            if (enterLoginActivity) {
+                Intent intent = new Intent(fragment.getContext(), LoginActivity.class);
+                fragment.startActivityForResult(intent, FlagConstant.REQUEST_LOGIN);
+            }
             return false;
         } else {
             UserUtil.user = user;
@@ -30,11 +32,13 @@ public class UserUtil {
         }
     }
 
-    public static boolean checkLocalUser(FragmentActivity activity) {
+    public static boolean checkLocalUser(boolean enterLoginActivity,FragmentActivity activity) {
         MyUser user = MyUser.getCurrentUser(MyUser.class);
         if (user == null) {
-            Intent intent = new Intent(activity, LoginActivity.class);
-            activity.startActivityForResult(intent, FlagConstant.REQUEST_LOGIN);
+            if (enterLoginActivity){
+                Intent intent = new Intent(activity, LoginActivity.class);
+                activity.startActivityForResult(intent, FlagConstant.REQUEST_LOGIN);
+            }
             return false;
         } else {
             UserUtil.user = user;

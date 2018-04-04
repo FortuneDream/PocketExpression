@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.config.FlagConstant;
+import com.dell.fortune.pocketexpression.util.common.LogUtils;
 import com.dell.fortune.pocketexpression.util.common.UserUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -28,8 +29,6 @@ import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresenter>
         implements HomePresenter.IView, NavigationView.OnNavigationItemSelectedListener {
-
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.home_content)
@@ -50,6 +49,8 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
 
     @Override
     public void initView() {
+        homeUserNv.setNavigationItemSelectedListener(this);
+        UserUtil.checkLocalUser(false, this);
         presenter.clickBottomTab(0);
     }
 
@@ -58,15 +59,15 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         super.onResume();
         //判断用户是否登录
         if (UserUtil.user != null) {
+            LogUtils.e(UserUtil.user.toString());
             //Toolbar
             SimpleDraweeView contentHeadSdv = findViewById(R.id.content_user_head_sdv);
             contentHeadSdv.setImageURI(Uri.parse(UserUtil.user.getHeadUrl()));
             //侧拉
-            homeUserNv.setNavigationItemSelectedListener(this);
             LinearLayout headerLl = (LinearLayout) homeUserNv.getHeaderView(0);
             SimpleDraweeView headerHeadIv = headerLl.findViewById(R.id.user_head_sdv);
             headerHeadIv.setImageURI(Uri.parse(UserUtil.user.getHeadUrl()));
-            TextView headerNickNameTv = headerHeadIv.findViewById(R.id.user_nick_name_tv);
+            TextView headerNickNameTv = headerLl.findViewById(R.id.user_nick_name_tv);
             headerNickNameTv.setText(UserUtil.user.getNickName());
         }
     }
@@ -96,10 +97,9 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.content_user_head_sdv:
+                UserUtil.checkLocalUser(true, this);
                 if (UserUtil.user != null) {
                     drawerLayout.openDrawer(Gravity.START);//点击头像出侧拉栏
-                } else {
-                    UserUtil.checkLocalUser(this);
                 }
                 break;
             case R.id.open_suspend_window_btn:
@@ -129,7 +129,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FlagConstant.REQUEST_LOGIN) {//请求登录
-            UserUtil.onActivityResult(resultCode,data);
+            UserUtil.onActivityResult(resultCode, data);
         }
     }
 }

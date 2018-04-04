@@ -3,13 +3,11 @@ package com.dell.fortune.pocketexpression.config;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.dell.fortune.pocketexpression.model.bean.DaoMaster;
-import com.dell.fortune.pocketexpression.model.bean.DaoSession;
+import com.dell.fortune.pocketexpression.model.dao.DaoMaster;
 import com.dell.fortune.pocketexpression.util.common.GreenDaoUtil;
+import com.dell.fortune.pocketexpression.util.common.SharedPrefsUtil;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
-
-import org.greenrobot.greendao.AbstractDaoMaster;
 
 import cn.bmob.v3.Bmob;
 
@@ -21,6 +19,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        SharedPrefsUtil.init(this);
         ToastUtil.init(this);
         initFresco();
         initGreenDao();

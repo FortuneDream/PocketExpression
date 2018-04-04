@@ -11,7 +11,7 @@ public class MyUser extends BmobUser {
     //昵称
     private String nickName;
     //拥有的表情包数量
-    private BmobRelation expressionItems;
+    private BmobRelation collections;
     //头像
     private String headUrl;
 
@@ -23,12 +23,13 @@ public class MyUser extends BmobUser {
         this.nickName = nickName;
     }
 
-    public BmobRelation getExpressionItems() {
-        return expressionItems;
+
+    public BmobRelation getCollections() {
+        return collections;
     }
 
-    public void setExpressionItems(BmobRelation expressionItems) {
-        this.expressionItems = expressionItems;
+    public void setCollections(BmobRelation collections) {
+        this.collections = collections;
     }
 
     public String getHeadUrl() {
@@ -38,4 +39,5 @@ public class MyUser extends BmobUser {
     public void setHeadUrl(String headUrl) {
         this.headUrl = headUrl;
     }
+
 }

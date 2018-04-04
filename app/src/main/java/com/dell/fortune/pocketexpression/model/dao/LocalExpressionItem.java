@@ -1,4 +1,4 @@
-package com.dell.fortune.pocketexpression.model.bean;
+package com.dell.fortune.pocketexpression.model.dao;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;

@@ -1,12 +1,7 @@
 package com.dell.fortune.pocketexpression.module.home.category;
 
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
@@ -16,8 +11,6 @@ import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by 81256 on 2018/3/18.
