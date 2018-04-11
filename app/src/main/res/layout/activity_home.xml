@@ -31,6 +31,14 @@
                 android:text="打开悬浮窗" />
         </android.support.v7.widget.Toolbar>
 
+        <ViewFlipper
+            android:id="@+id/info_flipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:flipInterval="2000"
+            android:inAnimation="@animator/anim_flipper_come_in"
+            android:outAnimation="@animator/anim_flipper_get_out" />
+
         <FrameLayout
             android:id="@+id/home_content"
             android:layout_width="match_parent"

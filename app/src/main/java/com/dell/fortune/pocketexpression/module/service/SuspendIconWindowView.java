@@ -18,13 +18,13 @@ import com.dell.fortune.pocketexpression.util.common.DpUtil;
  * Created by 81256 on 2018/4/4.
  */
 
-public class IconWindowView {
+public class SuspendIconWindowView {
     private WindowManager.LayoutParams mIconParams;
     private RelativeLayout mIconLayout;
     private Context mContext;
 
 
-    public IconWindowView(Context context) {
+    public SuspendIconWindowView(Context context) {
         this.mContext = context;
         LayoutInflater inflater = LayoutInflater.from(mContext);
         mIconLayout = (RelativeLayout) inflater.inflate(R.layout.view_suspend_window_icon, null);
@@ -56,7 +56,7 @@ public class IconWindowView {
     }
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
-        onClickListener.onClick(mIconLayout);
+        mIconLayout.setOnClickListener(onClickListener);
     }
 
     public void setOnTouchListener(View.OnTouchListener onTouchListener) {

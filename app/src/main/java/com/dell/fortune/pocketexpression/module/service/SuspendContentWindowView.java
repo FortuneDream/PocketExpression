@@ -15,13 +15,12 @@ import com.dell.fortune.pocketexpression.util.common.DpUtil;
  * Created by 81256 on 2018/4/4.
  */
 
-public class ContentWindowView {
+public class SuspendContentWindowView {
     private RelativeLayout mContentLayout;
     private WindowManager.LayoutParams mContentParams;
-    private WindowManager mWindowManager;
+    private SuspendContentAdapter mAdapter;
 
-    public ContentWindowView(Context context, WindowManager windowManager) {
-        this.mWindowManager = windowManager;
+    public SuspendContentWindowView(Context context) {
         mContentParams = new WindowManager.LayoutParams();
         mContentParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;//系统提示性窗口，在普通App图层之上
         mContentParams.format = PixelFormat.RGBA_8888;//透明背景
@@ -45,5 +44,21 @@ public class ContentWindowView {
             }
         });
 
+    }
+
+    public RelativeLayout getContentLayout() {
+        return mContentLayout;
+    }
+
+    public void setContentLayout(RelativeLayout mContentLayout) {
+        this.mContentLayout = mContentLayout;
+    }
+
+    public WindowManager.LayoutParams getContentParams() {
+        return mContentParams;
+    }
+
+    public void setContentParams(WindowManager.LayoutParams mContentParams) {
+        this.mContentParams = mContentParams;
     }
 }

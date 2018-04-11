@@ -23,17 +23,15 @@ public class CategoryListPresenter extends BasePresenter<CategoryListPresenter.I
         super(view);
         itemModel = new ItemModel();
         collectionModel = new CollectionModel();
+        mPage = -1;
     }
 
-    public void getList(ExpressionCategory category, final boolean isRefreshing) {
+    public void getList(ExpressionCategory category) {
         mPage++;
-        if (isRefreshing) {
-            mPage = 0;
-        }
         itemModel.getCategoryList(category, mPage, new ToastQueryListener<ExpressionItem>() {
             @Override
             public void onSuccess(List<ExpressionItem> list) {
-                mView.setList(isRefreshing, list);
+                mView.setList(list);
             }
         });
 
@@ -61,6 +59,6 @@ public class CategoryListPresenter extends BasePresenter<CategoryListPresenter.I
 
     interface IView extends IBaseView {
 
-        void setList(boolean isRefreshing, List<ExpressionItem> list);
+        void setList(List<ExpressionItem> list);
     }
 }

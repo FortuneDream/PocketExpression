@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v4.view.KeyEventCompat;
+
 import android.view.KeyEvent;
 
 import com.dell.fortune.pocketexpression.common.BaseActivity;

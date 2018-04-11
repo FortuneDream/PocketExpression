@@ -24,7 +24,7 @@ public class CategoryListAdapter extends BaseQuickAdapter<ExpressionItem, Catego
     protected void convert(MyHolder helper, ExpressionItem item) {
         SimpleDraweeView picSdv = helper.getView(R.id.pic_sdv);
         picSdv.setImageURI(Uri.parse(item.getUrl()));
-        LogUtils.e(item.getUrl());
+//        LogUtils.e(item.getUrl());
     }
 
     class MyHolder extends BaseViewHolder {

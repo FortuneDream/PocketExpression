@@ -87,9 +87,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter.IView, LoginPrese
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == FlagConstant.REQUEST_REGISTER) {
-            if (resultCode == FlagConstant.SUCCESS) {
-                finish();
+        if (resultCode==RESULT_OK){
+            switch (requestCode){
+                case FlagConstant.REQUEST_REGISTER:
+                    finish();
+                    break;
             }
         }
     }

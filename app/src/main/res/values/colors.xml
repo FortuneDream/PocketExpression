@@ -5,7 +5,7 @@
 
     <color name="test">@color/ui_black_1</color>
     <!--518400  1638400   2156800   1468  #2cc17b-->
-    <color name="colorPrimary">@color/ui_green</color>
+    <color name="colorPrimary">@color/ui_yellow</color>
     <color name="colorPrimaryDark">@color/ui_yellow</color>
     <color name="colorAccent">@color/ui_orange</color>
     <color name="colorTitle">@color/ui_black_1</color>

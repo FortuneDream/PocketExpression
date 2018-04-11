@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 
 import com.dell.fortune.pocketexpression.callback.ToastSaveListener;
+import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.common.BasePresenter;
 import com.dell.fortune.pocketexpression.common.IBaseView;
 import com.dell.fortune.pocketexpression.config.FlagConstant;
@@ -39,14 +40,14 @@ public class LoginPresenter extends BasePresenter<LoginPresenter.IView> {
             @Override
             public void onSuccess(MyUser user) {
                 ToastUtil.showToast("欢迎尊贵的VIP！ ");
-                mView.loginToResult(FlagConstant.SUCCESS, user);
+                mView.loginToResult(BaseActivity.RESULT_OK,user);
                 mView.finish();//关闭登录界面
             }
 
             @Override
             public void onFail(MyUser user, BmobException e) {
                 super.onFail(user, e);
-                mView.loginToResult(FlagConstant.FAIL, null);
+                mView.loginToResult(BaseActivity.RESULT_CANCELED, null);
             }
         });
 

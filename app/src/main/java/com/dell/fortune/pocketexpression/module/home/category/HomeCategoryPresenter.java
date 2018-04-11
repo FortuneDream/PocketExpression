@@ -7,6 +7,7 @@ import com.dell.fortune.pocketexpression.common.IBaseView;
 import com.dell.fortune.pocketexpression.model.CategoryModel;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.module.home.category.list.CategoryListActivity;
+import com.dell.fortune.pocketexpression.util.common.LogUtils;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 
 import java.util.List;
@@ -17,22 +18,26 @@ import java.util.List;
 
 public class HomeCategoryPresenter extends BasePresenter<HomeCategoryPresenter.IView> {
     private CategoryModel categoryModel;
-    private int page;
+    private int mPage;
+
 
     public HomeCategoryPresenter(IView view) {
         super(view);
         categoryModel = new CategoryModel();
+        mPage = -1;
     }
 
-    public void getList(final boolean isRefreshing) {
-        page++;
-        if (isRefreshing) {
-            page = 0;
-        }
-        categoryModel.getList(page, new ToastQueryListener<ExpressionCategory>() {
+    public void setPage(int page) {
+        this.mPage = page;
+    }
+
+    public void getRefreshList() {
+        mPage++;
+        LogUtils.e("当前页数:" + mPage);
+        categoryModel.getList(mPage, new ToastQueryListener<ExpressionCategory>() {
             @Override
             public void onSuccess(List<ExpressionCategory> list) {
-                mView.setList(isRefreshing, list);
+                mView.setList(list);
             }
         });
     }
@@ -48,6 +53,6 @@ public class HomeCategoryPresenter extends BasePresenter<HomeCategoryPresenter.I
 
     public interface IView extends IBaseView {
 
-        void setList(boolean isRefreshing, List<ExpressionCategory> list);
+        void setList(List<ExpressionCategory> list);
     }
 }

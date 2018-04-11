@@ -3,8 +3,6 @@ package com.dell.fortune.pocketexpression.module;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -12,24 +10,29 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.config.FlagConstant;
-import com.dell.fortune.pocketexpression.config.IntentConstant;
-import com.dell.fortune.pocketexpression.util.common.DoubleExitUtil;
+import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
 import com.dell.fortune.pocketexpression.util.common.IntentUtil;
 import com.dell.fortune.pocketexpression.util.common.LogUtils;
-import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 import com.dell.fortune.pocketexpression.util.common.UserUtil;
 import com.dell.fortune.pocketexpression.util.common.update.UpdateUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +52,8 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     Button openSuspendWindowBtn;
     @BindView(R.id.home_user_nv)
     NavigationView homeUserNv;
+    @BindView(R.id.info_flipper)
+    ViewFlipper infoFlipper;
 
     @Override
     public int setContentResource() {
@@ -59,7 +64,18 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     public void initView() {
         homeUserNv.setNavigationItemSelectedListener(this);
         UserUtil.checkLocalUser(false, this);
+        initFlipper();
         presenter.clickBottomTab(0);
+    }
+
+    private void initFlipper() {
+        for (int i = 0; i < 5; i++) {
+            LinearLayout contentLl = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_info_flipper, null);
+            TextView infoTv = contentLl.findViewById(R.id.info_tv);
+            infoTv.setText("这是第" + i + "条");
+            infoFlipper.addView(contentLl);
+        }
+        infoFlipper.startFlipping();
     }
 
     @Override
@@ -67,10 +83,10 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         super.onResume();
         //判断用户是否登录
         if (UserUtil.user != null) {
-            LogUtils.e(UserUtil.user.toString());
+            LogUtils.e("已登录用户：",UserUtil.user.toString());
             //Toolbar
             SimpleDraweeView contentHeadSdv = findViewById(R.id.content_user_head_sdv);
-            contentHeadSdv.setImageURI(Uri.parse(UserUtil.user.getHeadUrl()));
+            FrescoProxy.showSimpleView(contentHeadSdv, UserUtil.user.getHeadUrl());
             //侧拉
             LinearLayout headerLl = (LinearLayout) homeUserNv.getHeaderView(0);
             SimpleDraweeView headerHeadIv = headerLl.findViewById(R.id.user_head_sdv);
@@ -79,7 +95,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
                 @Override
                 public void onClick(View view) {
                     //点击头像，修改头像
-
+                    presenter.openPictureSelector();
                 }
             });
             TextView headerNickNameTv = headerLl.findViewById(R.id.user_nick_name_tv);
@@ -163,5 +179,27 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         if (requestCode == FlagConstant.REQUEST_LOGIN) {//请求登录
             UserUtil.onActivityResult(resultCode, data);
         }
+
+        if (resultCode == RESULT_OK) {//选择图片后的回调
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片、视频、音频选择结果回调
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                    LocalMedia localMedia = selectList.get(0);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

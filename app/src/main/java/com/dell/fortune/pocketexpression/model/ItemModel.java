@@ -14,6 +14,14 @@ import cn.bmob.v3.datatype.BmobPointer;
  */
 
 public class ItemModel extends BaseModel<ExpressionItem> {
+    private int LIMIT_NUMBER = 9;//每次加载9个;
+
+    @Override
+    public void initDefaultListQuery(BmobQuery<?> query, int mPage) {
+        super.initDefaultListQuery(query);
+        query.setLimit(LIMIT_NUMBER);
+        query.setSkip(mPage * LIMIT_NUMBER);
+    }
 
     //所有的图片
     @Override
@@ -24,11 +32,14 @@ public class ItemModel extends BaseModel<ExpressionItem> {
         query.findObjects(listener);
     }
 
+
+
     //某种种类的图片列表
     public void getCategoryList(ExpressionCategory category, int page, ToastQueryListener<ExpressionItem> listener) {
         BmobQuery<ExpressionItem> query = new BmobQuery<>();
-        initDefaultListQuery(query,page);
-        query.addWhereEqualTo(BmobConstant.CATEGORY,new BmobPointer(category));
+        initDefaultListQuery(query, page);
+        query.setLimit(9);//九宫格
+        query.addWhereEqualTo(BmobConstant.CATEGORY, new BmobPointer(category));
         query.findObjects(listener);
     }
 }

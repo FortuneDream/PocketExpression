@@ -17,6 +17,7 @@ import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.config.IntentConstant;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
+import com.dell.fortune.pocketexpression.util.common.LogUtils;
 
 import java.util.List;
 
@@ -55,9 +56,9 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.setOnLoadMoreListener(this, recyclerView);
+        mAdapter.setOnLoadMoreListener(this);
         mAdapter.setOnItemLongClickListener(this);
-        presenter.getList(mCategory, true);
+        presenter.getList(mCategory);
     }
 
 
@@ -69,18 +70,20 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
 
 
     @Override
-    public void setList(boolean isRefreshing, List<ExpressionItem> list) {
-        if (list == null) {
+    public void setList(List<ExpressionItem> list) {
+        if (list == null || list.size() == 0) {
+            LogUtils.e("loading", "继续加载");
             mAdapter.loadMoreEnd();
         } else {
+            LogUtils.e("loading", "加载结束");
             mAdapter.addData(list);
-            mAdapter.loadMoreEnd();
+            mAdapter.loadMoreComplete();
         }
     }
 
     @Override
     public void onLoadMoreRequested() {
-        presenter.getList(mCategory,false);
+        presenter.getList(mCategory);
     }
 
     //长按收藏

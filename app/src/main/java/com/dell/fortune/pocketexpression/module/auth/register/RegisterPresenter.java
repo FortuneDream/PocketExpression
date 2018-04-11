@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 
 import com.dell.fortune.pocketexpression.callback.ToastSaveListener;
+import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.common.BasePresenter;
 import com.dell.fortune.pocketexpression.common.IBaseView;
 import com.dell.fortune.pocketexpression.config.FlagConstant;
@@ -51,7 +52,7 @@ public class RegisterPresenter extends BasePresenter<RegisterPresenter.IView> {
                 public void onSuccess(MyUser user) {
                     mView.showLoading(false);
                     ToastUtil.showToast("注册成功，\\(^o^)/~");
-                    ((Activity) mContext).setResult(FlagConstant.SUCCESS);
+                    ((Activity) mContext).setResult(BaseActivity.RESULT_OK);
                     mView.finish();
                 }
             });

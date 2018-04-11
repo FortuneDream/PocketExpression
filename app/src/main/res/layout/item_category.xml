@@ -8,4 +8,38 @@
         android:id="@+id/category_name_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/cover_dv_1"
+            layout="@layout/view_simple_drawee_view"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1" />
+
+        <include
+            android:id="@+id/cover_dv_2"
+            layout="@layout/view_simple_drawee_view"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1" />
+
+        <include
+            android:id="@+id/cover_dv_3"
+            layout="@layout/view_simple_drawee_view"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 </LinearLayout>

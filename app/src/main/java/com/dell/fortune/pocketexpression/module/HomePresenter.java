@@ -5,13 +5,20 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 
+import com.dell.fortune.pocketexpression.MainActivity;
+import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.common.BaseMutiPresenter;
 import com.dell.fortune.pocketexpression.common.IBaseMutiView;
 import com.dell.fortune.pocketexpression.module.home.category.HomeCategoryFragment;
 import com.dell.fortune.pocketexpression.module.service.SuspendService;
 import com.dell.fortune.pocketexpression.module.user.UserCollectionActivity;
 import com.dell.fortune.pocketexpression.util.common.DoubleExitUtil;
+import com.dell.fortune.pocketexpression.util.common.PictureSelectorUtil;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +30,7 @@ import java.util.List;
 public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     private HomeCategoryFragment homeCategoryFragment;
     private DoubleExitUtil doubleExitUtil;
+
 
     public HomePresenter(IView view) {
         super(view);
@@ -61,6 +69,11 @@ public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     public void enterUserCollectionActivity() {
         Intent intent = new Intent(mContext, UserCollectionActivity.class);
         mContext.startActivity(intent);
+    }
+
+    public void openPictureSelector() {
+        PictureSelectorUtil.showPictureSelector((BaseActivity)mContext);
+
     }
 
     public interface IView extends IBaseMutiView {

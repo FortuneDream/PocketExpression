@@ -28,8 +28,8 @@ public class MyApplication extends Application {
         initGreenDao();
         Bmob.initialize(this, BmobConstant.APP_ID);
         AppStat.i(BmobConstant.APP_ID, "Bmob");
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(this);
+//        CrashHandler crashHandler = CrashHandler.getInstance();
+//        crashHandler.init(this);
     }
 
     private void initGreenDao() {
