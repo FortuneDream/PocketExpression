@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 
 import com.dell.fortune.pocketexpression.MainActivity;
 import com.dell.fortune.pocketexpression.R;
@@ -11,6 +12,8 @@ import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.common.BaseMutiPresenter;
 import com.dell.fortune.pocketexpression.common.IBaseMutiView;
 import com.dell.fortune.pocketexpression.module.home.category.HomeCategoryFragment;
+import com.dell.fortune.pocketexpression.module.home.find.HomeFindFragment;
+import com.dell.fortune.pocketexpression.module.home.make.HomeMakeFragment;
 import com.dell.fortune.pocketexpression.module.service.SuspendService;
 import com.dell.fortune.pocketexpression.module.user.UserCollectionActivity;
 import com.dell.fortune.pocketexpression.util.common.DoubleExitUtil;
@@ -29,6 +32,8 @@ import java.util.List;
 
 public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     private HomeCategoryFragment homeCategoryFragment;
+    private HomeFindFragment homeFindFragment;
+    private HomeMakeFragment homeMakeFragment;
     private DoubleExitUtil doubleExitUtil;
 
 
@@ -41,7 +46,11 @@ public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     public List<Fragment> initFragment() {
         List<Fragment> list = new ArrayList<>();
         homeCategoryFragment = new HomeCategoryFragment();
+        homeFindFragment = new HomeFindFragment();
+        homeMakeFragment = new HomeMakeFragment();
         list.add(homeCategoryFragment);
+        list.add(homeFindFragment);
+        list.add(homeMakeFragment);
         return list;
     }
 
@@ -72,7 +81,12 @@ public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     }
 
     public void openPictureSelector() {
-        PictureSelectorUtil.showPictureSelector((BaseActivity)mContext);
+        PictureSelectorUtil.showPictureSelector((BaseActivity) mContext);
+
+    }
+
+    //注销登录
+    public void exitUser() {
 
     }
 

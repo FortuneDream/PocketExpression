@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -42,8 +44,6 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         implements HomePresenter.IView, NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.home_content)
-    FrameLayout homeContent;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     @BindView(R.id.content_user_head_sdv)
@@ -54,6 +54,16 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     NavigationView homeUserNv;
     @BindView(R.id.info_flipper)
     ViewFlipper infoFlipper;
+    @BindView(R.id.category_tv)
+    TextView categoryTv;
+    @BindView(R.id.find_tv)
+    TextView findTv;
+    @BindView(R.id.make_tv)
+    TextView makeTv;
+    @BindView(R.id.tab_ll)
+    LinearLayout tabLl;
+    @BindView(R.id.home_content)
+    FrameLayout homeContent;
 
     @Override
     public int setContentResource() {
@@ -63,10 +73,12 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     @Override
     public void initView() {
         homeUserNv.setNavigationItemSelectedListener(this);
+        homeUserNv.setItemIconTintList(null);
         UserUtil.checkLocalUser(false, this);
         initFlipper();
         presenter.clickBottomTab(0);
     }
+
 
     private void initFlipper() {
         for (int i = 0; i < 5; i++) {
@@ -83,7 +95,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         super.onResume();
         //判断用户是否登录
         if (UserUtil.user != null) {
-            LogUtils.e("已登录用户：",UserUtil.user.toString());
+            LogUtils.e("已登录用户：", UserUtil.user.toString());
             //Toolbar
             SimpleDraweeView contentHeadSdv = findViewById(R.id.content_user_head_sdv);
             FrescoProxy.showSimpleView(contentHeadSdv, UserUtil.user.getHeadUrl());
@@ -129,6 +141,16 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
 
     @Override
     public void onSelectTabResult(int curIndex, int nextIndex) {
+        if (curIndex != -1 && nextIndex != -1) {
+            tabLl.getChildAt(curIndex).setBackgroundResource(R.drawable.shape_home_tab_normal);
+            tabLl.getChildAt(nextIndex).setBackgroundResource(R.drawable.shape_home_tab_press);
+        } else {
+            //第一次加载
+            tabLl.getChildAt(0).setBackgroundResource(R.drawable.shape_home_tab_press);
+            for (int i = 1; i < 3; i++) {
+                tabLl.getChildAt(i).setBackgroundResource(R.drawable.shape_home_tab_normal);
+            }
+        }
 
     }
 
@@ -138,7 +160,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     }
 
 
-    @OnClick({R.id.content_user_head_sdv, R.id.open_suspend_window_btn})
+    @OnClick({R.id.content_user_head_sdv, R.id.open_suspend_window_btn, R.id.category_tv, R.id.find_tv, R.id.make_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.content_user_head_sdv:
@@ -150,6 +172,15 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
             case R.id.open_suspend_window_btn:
                 presenter.openSuspendWindows();
                 break;
+            case R.id.category_tv:
+                presenter.clickBottomTab(0);
+                break;
+            case R.id.find_tv:
+                presenter.clickBottomTab(1);
+                break;
+            case R.id.make_tv:
+                presenter.clickBottomTab(2);
+                break;
         }
     }
 
@@ -157,18 +188,20 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     //侧拉点击事件
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getGroupId()) {
-            case R.id.collection_group:
+        switch (item.getItemId()) {
+            case R.id.collection_item:
                 presenter.enterUserCollectionActivity();
                 break;
-            case R.id.invite_group:
+            case R.id.invite_item:
                 IntentUtil.shareText(mContext, "斗图斗图！下载地址：");
                 break;
-            case R.id.upgrade_group:
+            case R.id.upgrade_item:
                 UpdateUtils.getInstance().update(mContext);
                 break;
-            case R.id.joy_group:
+            case R.id.exit_item:
+                presenter.exitUser();
                 break;
+
         }
         return true;
     }

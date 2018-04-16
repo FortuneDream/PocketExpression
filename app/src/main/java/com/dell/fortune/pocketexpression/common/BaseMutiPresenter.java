@@ -13,24 +13,25 @@ import java.util.List;
 public abstract class BaseMutiPresenter<V extends IBaseMutiView> extends BasePresenter<V> {
     private FragmentManager fm;
     private List<Fragment> fragments;
+
     public abstract List<Fragment> initFragment();
+
     private Fragment totalFragment;
     private int mCurIndex = -1;//标记当前Fragment
 
     public BaseMutiPresenter(V mView) {
         super(mView);
-        fragments=initFragment();
-        fm= mView.getFm();
+        fragments = initFragment();
+        fm = mView.getFm();
     }
 
     public void clickBottomTab(int index) {
-        if (mCurIndex!=index){
+        if (mCurIndex != index) {
             showFragment(fragments.get(index));
-            mView.onSelectTabResult(mCurIndex,index);
+            mView.onSelectTabResult(mCurIndex, index);
             mCurIndex = index;
         }
     }
-
 
 
     private void showFragment(Fragment fragment) {

@@ -1,13 +1,13 @@
-package com.dell.fortune.pocketexpression.module.home.recommend;
+package com.dell.fortune.pocketexpression.module.home.make;
 
 
 import com.dell.fortune.pocketexpression.common.BasePresenter;
 import com.dell.fortune.pocketexpression.common.IBaseView;
 
-public class HomeRecommendPresenter extends BasePresenter<HomeRecommendPresenter.IView> {
+public class HomeMakePresenter extends BasePresenter<HomeMakePresenter.IView> {
 
 
-    public HomeRecommendPresenter(IView view) {
+    public HomeMakePresenter(IView view) {
         super(view);
     }
 

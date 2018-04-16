@@ -3,6 +3,7 @@ package com.dell.fortune.pocketexpression.callback;
 import android.app.Application;
 
 import com.dell.fortune.pocketexpression.model.event.LoadingViewEvent;
+import com.dell.fortune.pocketexpression.model.event.RefreshingViewEvent;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 
 
@@ -35,6 +36,7 @@ public abstract class ToastQueryListener<T> extends FindListener<T> {
 
     public void onFail(BmobException e) {
         EventBus.getDefault().post(new LoadingViewEvent(false));
+        EventBus.getDefault().post(new RefreshingViewEvent(false));
         ToastUtil.showToast(e.getMessage());
         e.printStackTrace();
     }

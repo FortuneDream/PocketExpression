@@ -9,8 +9,13 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseFragment;
+import com.dell.fortune.pocketexpression.common.LoadingDialogEvent;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
+import com.dell.fortune.pocketexpression.model.event.RefreshingViewEvent;
 import com.dell.fortune.pocketexpression.util.common.LogUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -62,6 +67,11 @@ public class HomeCategoryFragment extends BaseFragment<HomeCategoryPresenter.IVi
             presenter.setPage(-1);
             onRefresh();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void showRefreshing(RefreshingViewEvent event) {
+        swipeRefreshLayout.setRefreshing(event.isShow());
     }
 
 

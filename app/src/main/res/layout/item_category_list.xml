@@ -6,11 +6,10 @@
     android:layout_margin="4dp"
     app:cardCornerRadius="@dimen/dp_4"
     app:contentPadding="8dp">
-
-    <com.facebook.drawee.view.SimpleDraweeView
+    <include
         android:id="@+id/pic_sdv"
         android:layout_width="64dp"
-        android:layout_height="64dp" />
-    <include layout="@layout/view_simple_drawee_view"/>
+        android:layout_height="64dp"
+        layout="@layout/view_simple_drawee_view"/>
 
 </android.support.v7.widget.CardView>

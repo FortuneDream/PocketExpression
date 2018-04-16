@@ -4,10 +4,12 @@ package com.dell.fortune.pocketexpression.module.home.category;
 import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
 import com.dell.fortune.pocketexpression.common.BasePresenter;
 import com.dell.fortune.pocketexpression.common.IBaseView;
+import com.dell.fortune.pocketexpression.config.FlagConstant;
 import com.dell.fortune.pocketexpression.model.CategoryModel;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.module.home.category.list.CategoryListActivity;
 import com.dell.fortune.pocketexpression.util.common.LogUtils;
+import com.dell.fortune.pocketexpression.util.common.SharedPrefsUtil;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 
 import java.util.List;
@@ -24,11 +26,12 @@ public class HomeCategoryPresenter extends BasePresenter<HomeCategoryPresenter.I
     public HomeCategoryPresenter(IView view) {
         super(view);
         categoryModel = new CategoryModel();
-        mPage = -1;
+        mPage = SharedPrefsUtil.getInt(FlagConstant.SP_CURRENT_PAGE, -1);
     }
 
     public void setPage(int page) {
         this.mPage = page;
+        SharedPrefsUtil.putInt(FlagConstant.SP_CURRENT_PAGE,page);
     }
 
     public void getRefreshList() {

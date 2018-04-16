@@ -47,6 +47,9 @@
         <activity
             android:name=".module.user.UserCollectionActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.joy.BarrageActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

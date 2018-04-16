@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:id="@+id/collection_group">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/collection_item"
             android:icon="@drawable/ico_collection"
             android:title="表情收藏" />
-    </group>
-
-    <group android:id="@+id/invite_group">
         <item
             android:id="@+id/invite_item"
             android:icon="@drawable/ico_invite"
             android:title="邀请好友" />
-    </group>
-
-    <group android:id="@+id/upgrade_group">
         <item
             android:id="@+id/upgrade_item"
             android:icon="@drawable/ico_upgrade"
             android:title="升级应用" />
-    </group>
-    <group android:id="@+id/joy_group">
         <item
-            android:id="@+id/joy_item"
-            android:icon="@drawable/icon_joy"
-            android:title="自制小玩具" />
-
+            android:id="@+id/exit_item"
+            android:icon="@drawable/ico_exit"
+            android:title="退出登录" />
     </group>
+    <item android:title="自制小玩具">
+        <menu>
+            <item
+                android:id="@+id/rolling_barrage_item"
+                android:icon="@drawable/icon_joy"
+                android:title="滚动弹幕" />
+            <item
+                android:id="@+id/listen_screen_item"
+                android:icon="@drawable/icon_joy"
+                android:title="截屏监听" />
+        </menu>
+    </item>
+
+
 </menu>

@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.config.StrConstant;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
+import com.dell.fortune.pocketexpression.util.common.LogUtils;
 
 import java.util.List;
 
@@ -17,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter.IView, UserCollectionPresenter>
-        implements UserCollectionPresenter.IView {
+        implements UserCollectionPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemLongClickListener {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.toolbar)
@@ -42,16 +45,29 @@ public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter
         mAdapter = new UserCollectionAdapter(R.layout.item_user_collection);
         initRecycler(recyclerView, mAdapter);
         initToolbar(toolbar, "我的收藏");
-        presenter.getList(true);
+        mAdapter.setOnLoadMoreListener(this);
+        mAdapter.setOnItemLongClickListener(this);
+        presenter.getList();
     }
 
     @Override
-    public void setList(boolean isRefreshing, List<ExpressionItem> list) {
-        if (list == null) {
-            mAdapter.loadMoreEnd();
-        } else {
+    public void setList(List<ExpressionItem> list) {
+        if (list != null && list.size() > 0) {
             mAdapter.addData(list);
+            mAdapter.loadMoreComplete();
+        } else {
             mAdapter.loadMoreEnd();
         }
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        presenter.getList();
+    }
+
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        presenter.shareImage(mAdapter.getData().get(position));
+        return false;
     }
 }

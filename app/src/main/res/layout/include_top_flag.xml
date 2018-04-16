@@ -13,12 +13,12 @@
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/ico_tag" />
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         style="@style/TwoTextMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="把音乐装进口袋" />
+        android:text="斗图！斗图！斗图" />
 </LinearLayout>
