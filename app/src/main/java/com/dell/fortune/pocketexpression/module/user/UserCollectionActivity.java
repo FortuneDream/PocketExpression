@@ -3,6 +3,7 @@ package com.dell.fortune.pocketexpression.module.user;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,14 +11,13 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
-import com.dell.fortune.pocketexpression.config.StrConstant;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
-import com.dell.fortune.pocketexpression.util.common.LogUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter.IView, UserCollectionPresenter>
         implements UserCollectionPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemLongClickListener {
@@ -27,6 +27,8 @@ public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter
     Toolbar toolbar;
     @BindView(R.id.app_bar)
     AppBarLayout appBar;
+    @BindView(R.id.refresh_fab)
+    FloatingActionButton refreshFab;
     private UserCollectionAdapter mAdapter;
 
     @Override
@@ -69,5 +71,12 @@ public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
         presenter.shareImage(mAdapter.getData().get(position));
         return false;
+    }
+
+
+
+    @OnClick(R.id.refresh_fab)
+    public void onViewClicked() {
+        presenter.synLocal();
     }
 }

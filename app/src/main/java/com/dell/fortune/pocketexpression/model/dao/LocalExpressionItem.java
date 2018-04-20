@@ -16,10 +16,13 @@ public class LocalExpressionItem extends BmobObject {
     private Long id;
     @Property
     private String path;
-    @Generated(hash = 801340885)
-    public LocalExpressionItem(Long id, String path) {
+    @Property
+    private String md5;
+    @Generated(hash = 92202490)
+    public LocalExpressionItem(Long id, String path, String md5) {
         this.id = id;
         this.path = path;
+        this.md5 = md5;
     }
     @Generated(hash = 994931195)
     public LocalExpressionItem() {
@@ -35,5 +38,11 @@ public class LocalExpressionItem extends BmobObject {
     }
     public void setPath(String path) {
         this.path = path;
+    }
+    public String getMd5() {
+        return this.md5;
+    }
+    public void setMd5(String md5) {
+        this.md5 = md5;
     }
 }

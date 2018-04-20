@@ -7,6 +7,7 @@ package com.dell.fortune.pocketexpression.common;
 public interface IBaseView extends IBase{
     void showLoading(boolean isShow);
 
+
     void finish();
 
     int setContentResource();

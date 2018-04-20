@@ -24,6 +24,7 @@ public class LocalExpressionItemDao extends AbstractDao<LocalExpressionItem, Lon
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Path = new Property(1, String.class, "path", false, "PATH");
+        public final static Property Md5 = new Property(2, String.class, "md5", false, "MD5");
     }
 
 
@@ -40,7 +41,8 @@ public class LocalExpressionItemDao extends AbstractDao<LocalExpressionItem, Lon
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"LOCAL_EXPRESSION_ITEM\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"PATH\" TEXT);"); // 1: path
+                "\"PATH\" TEXT," + // 1: path
+                "\"MD5\" TEXT);"); // 2: md5
     }
 
     /** Drops the underlying database table. */
@@ -62,6 +64,11 @@ public class LocalExpressionItemDao extends AbstractDao<LocalExpressionItem, Lon
         if (path != null) {
             stmt.bindString(2, path);
         }
+ 
+        String md5 = entity.getMd5();
+        if (md5 != null) {
+            stmt.bindString(3, md5);
+        }
     }
 
     @Override
@@ -77,6 +84,11 @@ public class LocalExpressionItemDao extends AbstractDao<LocalExpressionItem, Lon
         if (path != null) {
             stmt.bindString(2, path);
         }
+ 
+        String md5 = entity.getMd5();
+        if (md5 != null) {
+            stmt.bindString(3, md5);
+        }
     }
 
     @Override
@@ -88,7 +100,8 @@ public class LocalExpressionItemDao extends AbstractDao<LocalExpressionItem, Lon
     public LocalExpressionItem readEntity(Cursor cursor, int offset) {
         LocalExpressionItem entity = new LocalExpressionItem( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // path
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // path
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // md5
         );
         return entity;
     }
@@ -97,6 +110,7 @@ public class LocalExpressionItemDao extends AbstractDao<LocalExpressionItem, Lon
     public void readEntity(Cursor cursor, LocalExpressionItem entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setPath(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setMd5(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
     @Override

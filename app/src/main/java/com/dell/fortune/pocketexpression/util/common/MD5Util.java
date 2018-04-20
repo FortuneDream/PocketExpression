@@ -38,6 +38,7 @@ public class MD5Util {
         return bufferToHex(sMessageDigest.digest());
     }
 
+    //字符串MD5
     public static String getStringMD5(String str) {
         byte[] buffer = str.getBytes();
         sMessageDigest.update(buffer);
@@ -52,17 +53,14 @@ public class MD5Util {
             InputStream inputStream = new BufferedInputStream(url.openStream());
             byte[] bytes = new byte[1024];
             int len = 0;
-            MessageDigest messagedigest = MessageDigest.getInstance("MD5");
             while ((len = inputStream.read(bytes)) > 0) {
-                messagedigest.update(bytes, 0, len);
+                sMessageDigest.update(bytes, 0, len);
             }
-            name = MD5Util.bufferToHex(messagedigest.digest());
+            name = MD5Util.bufferToHex(sMessageDigest.digest());
             inputStream.close();
         } catch (MalformedURLException e) {
 //            LogUtil.getLogger().warn(e);
         } catch (IOException e) {
-//            LogUtil.getLogger().warn(e);
-        } catch (NoSuchAlgorithmException e) {
 //            LogUtil.getLogger().warn(e);
         }
         return name;

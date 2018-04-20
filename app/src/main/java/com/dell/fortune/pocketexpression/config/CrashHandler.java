@@ -9,6 +9,7 @@ import android.os.Process;
 import android.util.Log;
 
 
+import com.dell.fortune.pocketexpression.model.FindModel;
 import com.dell.fortune.pocketexpression.model.bean.ExceptionBean;
 
 import java.io.BufferedWriter;
@@ -27,7 +28,7 @@ import cn.bmob.v3.listener.SaveListener;
  */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private static final String TAG = "CrashHandler";
-    private static final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/YuPuCrash/log/";
+    private static final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+"ExpressionCrash"+File.separator+"log"+ File.separator;
     private static CrashHandler instance = new CrashHandler();
     private static Thread.UncaughtExceptionHandler mDefaultCrashHandler;
     private Context mContext;

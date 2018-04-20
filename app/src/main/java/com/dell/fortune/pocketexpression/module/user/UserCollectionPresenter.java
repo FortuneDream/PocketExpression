@@ -47,6 +47,10 @@ public class UserCollectionPresenter extends BasePresenter<UserCollectionPresent
         mContext.startActivity(Intent.createChooser(shareIntent, "分享图片"));
     }
 
+    public void synLocal() {
+        collectionModel.synLocal();
+    }
+
     interface IView extends IBaseView {
 
         void setList(List<ExpressionItem> list);

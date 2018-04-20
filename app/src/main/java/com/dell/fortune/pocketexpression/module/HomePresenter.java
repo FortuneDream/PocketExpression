@@ -1,7 +1,9 @@
 package com.dell.fortune.pocketexpression.module;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,20 +13,25 @@ import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.common.BaseMutiPresenter;
 import com.dell.fortune.pocketexpression.common.IBaseMutiView;
+import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.pocketexpression.module.home.category.HomeCategoryFragment;
 import com.dell.fortune.pocketexpression.module.home.find.HomeFindFragment;
 import com.dell.fortune.pocketexpression.module.home.make.HomeMakeFragment;
 import com.dell.fortune.pocketexpression.module.service.SuspendService;
 import com.dell.fortune.pocketexpression.module.user.UserCollectionActivity;
 import com.dell.fortune.pocketexpression.util.common.DoubleExitUtil;
+import com.dell.fortune.pocketexpression.util.common.IntentUtil;
 import com.dell.fortune.pocketexpression.util.common.PictureSelectorUtil;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
 
 /**
  * Created by 81256 on 2018/3/17.
@@ -82,11 +89,15 @@ public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
 
     public void openPictureSelector() {
         PictureSelectorUtil.showPictureSelector((BaseActivity) mContext);
-
     }
 
     //注销登录
     public void exitUser() {
+
+    }
+
+    public void synLocal() {
+
 
     }
 

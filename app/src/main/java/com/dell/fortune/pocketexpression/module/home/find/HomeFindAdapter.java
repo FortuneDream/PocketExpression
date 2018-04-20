@@ -33,6 +33,7 @@ public class HomeFindAdapter extends BaseQuickAdapter<ExpressionShare, HomeFindA
         FrescoProxy.showSimpleView(shareUserHead,item.getShareUser().getHeadUrl());
     }
 
+
     public class MyViewHolder extends BaseViewHolder {
 
         public MyViewHolder(View view) {

@@ -10,9 +10,13 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseFragment;
+import com.dell.fortune.pocketexpression.model.bean.ExpressionShare;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -22,6 +26,8 @@ public class HomeFindFragment extends BaseFragment<HomeFindPresenter.IView, Home
     RecyclerView findRecycler;
     @BindView(R.id.upload_fab)
     FloatingActionButton uploadFab;
+    Unbinder unbinder;
+    Unbinder unbinder1;
     private HomeFindAdapter mAdapter;
 
     @Override
@@ -32,8 +38,9 @@ public class HomeFindFragment extends BaseFragment<HomeFindPresenter.IView, Home
     @Override
     public void initView() {
         mAdapter = new HomeFindAdapter(R.layout.item_home_find);
-        initRecycler(findRecycler,mAdapter);
+        initRecycler(findRecycler, mAdapter);
         mAdapter.setOnLoadMoreListener(this);
+        presenter.getList();
     }
 
 
@@ -44,6 +51,21 @@ public class HomeFindFragment extends BaseFragment<HomeFindPresenter.IView, Home
 
     @Override
     public void onLoadMoreRequested() {
+        presenter.getList();
+    }
 
+    @Override
+    public void setList(List<ExpressionShare> list) {
+        if (list == null || list.size() == 0) {
+            mAdapter.loadMoreComplete();
+        } else {
+            mAdapter.addData(list);
+            mAdapter.loadMoreEnd();
+        }
+    }
+
+    @OnClick(R.id.upload_fab)
+    public void onViewClicked() {
+        presenter.uploadExpression();
     }
 }
