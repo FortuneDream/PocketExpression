@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -85,7 +86,14 @@ public class SuspendService extends Service {
 
     //表情包列表
     private void alertSuspendContent() {
+        LogUtils.e("sdfsdfsdfsd");
         mSuspendContentWindowView = new SuspendContentWindowView(this);
+        mSuspendContentWindowView.setOnClickCloseListener(new SuspendContentWindowView.OnClickCloseListener() {
+            @Override
+            public void onClick(View view) {
+                mWindowManager.removeView(mSuspendContentWindowView.getContentLayout());
+            }
+        });
         mWindowManager.addView(mSuspendContentWindowView.getContentLayout(), mSuspendContentWindowView.getContentParams());
     }
 

@@ -11,15 +11,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.model.CollectionModel;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionDaoOpe;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
-import com.dell.fortune.pocketexpression.util.common.DpUtil;
 import com.dell.fortune.pocketexpression.util.common.LogUtils;
 import com.dell.fortune.pocketexpression.util.common.RxApi;
 import com.dell.fortune.pocketexpression.util.common.ScreenUtil;
@@ -28,6 +26,8 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -35,29 +35,37 @@ import io.reactivex.functions.Consumer;
  */
 
 public class SuspendContentWindowView extends LinearLayout implements BaseQuickAdapter.OnItemClickListener {
+    ImageView closeContentIv;
+    RecyclerView recyclerView;
     private WindowManager.LayoutParams mContentParams;
     private SuspendContentAdapter mAdapter;
-    private RecyclerView recyclerView;
     private LocalExpressionDaoOpe localExpressionDaoOpe;
+    private OnClickCloseListener onClickCloseListener;
+
+    public void setOnClickCloseListener(OnClickCloseListener onClickCloseListener) {
+        this.onClickCloseListener = onClickCloseListener;
+    }
+
+    public interface OnClickCloseListener {
+        void onClick(View view);
+    }
 
     public SuspendContentWindowView(Context context) {
         super(context);
-        initWindowParams(context);
+        initWindowParams();
         init();
     }
 
-    private void initWindowParams(Context context) {
+
+    private void initWindowParams() {
         mContentParams = new WindowManager.LayoutParams();
-        mContentParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;//系统提示性窗口，在普通App图层之上
+        mContentParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;//不同的window 要不用不同的type,起始位置默认是屏幕的中央
         mContentParams.format = PixelFormat.RGBA_8888;//透明背景
         mContentParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;//不操作？？
         //初始位置
-        mContentParams.gravity = Gravity.BOTTOM;//或操作,表示同时拥有，求并集
-        mContentParams.x = 0;
-        mContentParams.y = ScreenUtil.getScreenHeight(getContext());
         //长宽数值
-        mContentParams.width = DpUtil.Dp2Px(context, 300);
-        mContentParams.height = DpUtil.Dp2Px(context, 300);
+        mContentParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        mContentParams.height = WindowManager.LayoutParams.MATCH_PARENT;
     }
 
     @Override
@@ -67,9 +75,6 @@ public class SuspendContentWindowView extends LinearLayout implements BaseQuickA
 
     private void initRecycler() {
         mAdapter = new SuspendContentAdapter(R.layout.item_suspend_content);
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        inflater.inflate(R.layout.view_suspend_window_content, this);
-        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4, VERTICAL, false));
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
@@ -79,23 +84,34 @@ public class SuspendContentWindowView extends LinearLayout implements BaseQuickA
     private void getList() {
         RxApi.create(new Callable<List<LocalExpressionItem>>() {
             @Override
-            public List<LocalExpressionItem>call() throws Exception {
+            public List<LocalExpressionItem> call() throws Exception {
                 return localExpressionDaoOpe.findAll();
             }
         }).subscribe(new Consumer<List<LocalExpressionItem>>() {
             @Override
             public void accept(List<LocalExpressionItem> localExpressionItems) throws Exception {
                 mAdapter.addData(localExpressionItems);
-                LogUtils.e("sdfsdf:"+localExpressionItems.size());
+                LogUtils.e("sdfsdf:" + localExpressionItems.size());
             }
         });
     }
 
     private void init() {
         setOrientation(VERTICAL);
-        localExpressionDaoOpe=new LocalExpressionDaoOpe();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        inflater.inflate(R.layout.view_suspend_window_content, this);
+        measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+        recyclerView = findViewById(R.id.recycler_view);
+        closeContentIv = findViewById(R.id.close_content_iv);
+        closeContentIv.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickCloseListener.onClick(v);//点击关闭
+            }
+        });
+        localExpressionDaoOpe = new LocalExpressionDaoOpe();
         initRecycler();
-        measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
     }
 
     public LinearLayout getContentLayout() {
