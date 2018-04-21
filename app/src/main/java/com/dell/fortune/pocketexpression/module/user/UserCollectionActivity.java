@@ -21,12 +21,13 @@ import butterknife.OnClick;
 
 public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter.IView, UserCollectionPresenter>
         implements UserCollectionPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemLongClickListener {
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.app_bar)
     AppBarLayout appBar;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
     @BindView(R.id.refresh_fab)
     FloatingActionButton refreshFab;
     private UserCollectionAdapter mAdapter;
@@ -74,9 +75,15 @@ public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter
     }
 
 
-
     @OnClick(R.id.refresh_fab)
     public void onViewClicked() {
         presenter.synLocal();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

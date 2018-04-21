@@ -16,25 +16,34 @@ import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.model.CollectionModel;
+import com.dell.fortune.pocketexpression.model.dao.LocalExpressionDaoOpe;
+import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
 import com.dell.fortune.pocketexpression.util.common.DpUtil;
+import com.dell.fortune.pocketexpression.util.common.LogUtils;
+import com.dell.fortune.pocketexpression.util.common.RxApi;
 import com.dell.fortune.pocketexpression.util.common.ScreenUtil;
 
 import java.io.File;
+import java.util.List;
+import java.util.concurrent.Callable;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by 81256 on 2018/4/4.
  */
 
 public class SuspendContentWindowView extends LinearLayout implements BaseQuickAdapter.OnItemClickListener {
-    private RelativeLayout mContentLayout;
     private WindowManager.LayoutParams mContentParams;
     private SuspendContentAdapter mAdapter;
     private RecyclerView recyclerView;
+    private LocalExpressionDaoOpe localExpressionDaoOpe;
 
     public SuspendContentWindowView(Context context) {
         super(context);
-        init();
         initWindowParams(context);
+        init();
     }
 
     private void initWindowParams(Context context) {
@@ -64,16 +73,33 @@ public class SuspendContentWindowView extends LinearLayout implements BaseQuickA
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4, VERTICAL, false));
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
+        getList();
+    }
+
+    private void getList() {
+        RxApi.create(new Callable<List<LocalExpressionItem>>() {
+            @Override
+            public List<LocalExpressionItem>call() throws Exception {
+                return localExpressionDaoOpe.findAll();
+            }
+        }).subscribe(new Consumer<List<LocalExpressionItem>>() {
+            @Override
+            public void accept(List<LocalExpressionItem> localExpressionItems) throws Exception {
+                mAdapter.addData(localExpressionItems);
+                LogUtils.e("sdfsdf:"+localExpressionItems.size());
+            }
+        });
     }
 
     private void init() {
         setOrientation(VERTICAL);
+        localExpressionDaoOpe=new LocalExpressionDaoOpe();
         initRecycler();
         measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
     }
 
-    public RelativeLayout getContentLayout() {
-        return mContentLayout;
+    public LinearLayout getContentLayout() {
+        return this;
     }
 
 

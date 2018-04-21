@@ -11,6 +11,7 @@ import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.http.bean.Migration;
 import cn.bmob.v3.statistics.AppStat;
 import cn.bmob.v3.update.BmobUpdateAgent;
 

@@ -86,7 +86,7 @@ public class SuspendService extends Service {
     //表情包列表
     private void alertSuspendContent() {
         mSuspendContentWindowView = new SuspendContentWindowView(this);
-//        mWindowManager.addView(mSuspendContentWindowView.getContentLayout(), mSuspendContentWindowView.getContentParams());
+        mWindowManager.addView(mSuspendContentWindowView.getContentLayout(), mSuspendContentWindowView.getContentParams());
     }
 
     @Override
