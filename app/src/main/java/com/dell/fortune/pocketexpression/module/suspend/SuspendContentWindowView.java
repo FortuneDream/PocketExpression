@@ -6,7 +6,6 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,16 +17,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionDaoOpe;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
-import com.dell.fortune.pocketexpression.util.common.LogUtils;
 import com.dell.fortune.pocketexpression.util.common.RxApi;
-import com.dell.fortune.pocketexpression.util.common.ScreenUtil;
+import com.dell.fortune.tools.info.LogUtils;
 
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
 /**

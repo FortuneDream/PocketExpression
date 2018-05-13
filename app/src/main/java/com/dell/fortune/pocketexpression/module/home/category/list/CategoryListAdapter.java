@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
-import com.dell.fortune.pocketexpression.util.common.LogUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**

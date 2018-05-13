@@ -1,7 +1,7 @@
 package com.dell.fortune.pocketexpression.util.common.update;
 
 /**
- * Created by 鹏君 on 2017/7/1.
+ * Created by 鹏君 on 2018/4/22.
  * （￣m￣）
  */
 
@@ -11,7 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 
 
-import com.dell.fortune.pocketexpression.util.common.LogUtils;
+import com.dell.fortune.tools.info.LogUtils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -24,7 +24,6 @@ import java.net.MalformedURLException;
 public class DownFileThread implements Runnable {
     public final static int DOWNLOAD_COMPLETE = -2;
     public final static int DOWNLOAD_FAIL = -1;
-    public final static String TAG = "DownFileThread";
     private Handler mHandler; // 传入的Handler,用于像Activity或service通知下载进度
     private String urlStr; // 下载URL
     private File apkFile; // 文件保存路径
@@ -32,7 +31,6 @@ public class DownFileThread implements Runnable {
     private boolean interrupted = false; // 是否强制停止下载线程
 
     public DownFileThread(Handler handler, String urlStr, File file) {
-        LogUtils.i(TAG, urlStr);
         this.mHandler = handler;
         this.urlStr = urlStr;
         this.apkFile = file;
@@ -61,7 +59,7 @@ public class DownFileThread implements Runnable {
     @Override
     public void run() {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            LogUtils.e(TAG, "外部存储卡不存在，下载失败！");
+            LogUtils.e("外部存储卡不存在，下载失败！");
             mHandler.sendEmptyMessage(DOWNLOAD_FAIL);
         }
         InputStream iStream = null;
@@ -73,14 +71,14 @@ public class DownFileThread implements Runnable {
             conn.setReadTimeout(20 * 1000);
             iStream = conn.getInputStream();
         } catch (MalformedURLException e) {
-            LogUtils.e(TAG, "MalformedURLException");
+            LogUtils.e( "MalformedURLException");
             e.printStackTrace();
         } catch (Exception e) {
-            LogUtils.e(TAG, "获得输入流失败");
+            LogUtils.e("获得输入流失败");
             e.printStackTrace();
         }
         if (iStream == null) {
-            LogUtils.e(TAG, "isStream:null");
+            LogUtils.e( "isStream:null");
             return;
         }
         try {
@@ -116,12 +114,12 @@ public class DownFileThread implements Runnable {
             if (total == length) {
                 isFinished = true;
                 mHandler.sendEmptyMessage(DOWNLOAD_COMPLETE);
-                LogUtils.e(TAG, "下载完成结束");
+                LogUtils.e( "下载完成结束");
                 return;
             }
-            LogUtils.e(TAG, "强制中途结束");
+            LogUtils.e("强制中途结束");
         } catch (IOException e) {
-            LogUtils.e(TAG, "异常中途结束");
+            LogUtils.e( "异常中途结束");
             mHandler.sendEmptyMessage(DOWNLOAD_FAIL);
             e.printStackTrace();
         }

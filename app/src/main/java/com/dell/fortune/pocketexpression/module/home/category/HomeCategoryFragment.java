@@ -12,7 +12,6 @@ import com.dell.fortune.pocketexpression.common.BaseFragment;
 import com.dell.fortune.pocketexpression.common.LoadingDialogEvent;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.event.RefreshingViewEvent;
-import com.dell.fortune.pocketexpression.util.common.LogUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

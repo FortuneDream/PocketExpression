@@ -6,14 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import com.dell.fortune.pocketexpression.common.BmobConstant;
 import com.dell.fortune.pocketexpression.model.dao.DaoMaster;
 import com.dell.fortune.pocketexpression.util.common.GreenDaoUtil;
-import com.dell.fortune.pocketexpression.util.common.SharedPrefsUtil;
+
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
+import com.dell.fortune.tools.info.SharedPrefsUtil;
+import com.dell.fortune.tools.info.crash.CrashCatch;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.http.bean.Migration;
 import cn.bmob.v3.statistics.AppStat;
-import cn.bmob.v3.update.BmobUpdateAgent;
 
 /**
  * Created by 81256 on 2018/3/17.
@@ -29,8 +29,9 @@ public class MyApplication extends Application {
         initGreenDao();
         Bmob.initialize(this, BmobConstant.APP_ID);
         AppStat.i(BmobConstant.APP_ID, "Bmob");
-//        CrashHandler crashHandler = CrashHandler.getInstance();
-//        crashHandler.init(this);
+        CrashCatch crashCatch = CrashCatch.getInstance();
+        crashCatch.setListener(new CrashDefaultHandler(this));
+        crashCatch.init();
     }
 
     private void initGreenDao() {
@@ -39,6 +40,8 @@ public class MyApplication extends Application {
         DaoMaster master = new DaoMaster(db);
         GreenDaoUtil.setSession(master.newSession());
     }
+
+
 
     private void initFresco() {
         Fresco.initialize(this);

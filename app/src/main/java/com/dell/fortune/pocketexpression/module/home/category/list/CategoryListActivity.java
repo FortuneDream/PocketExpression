@@ -17,7 +17,8 @@ import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.config.IntentConstant;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
-import com.dell.fortune.pocketexpression.util.common.LogUtils;
+import com.dell.fortune.tools.info.LogUtils;
+
 
 import java.util.List;
 

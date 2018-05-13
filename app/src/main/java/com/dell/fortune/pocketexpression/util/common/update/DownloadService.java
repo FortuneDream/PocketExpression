@@ -13,8 +13,8 @@ import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.module.HomeActivity;
 import com.dell.fortune.pocketexpression.util.common.FileUtils;
 import com.dell.fortune.pocketexpression.util.common.IntentUtil;
-import com.dell.fortune.pocketexpression.util.common.LogUtils;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
+import com.dell.fortune.tools.info.LogUtils;
 
 
 import java.io.File;

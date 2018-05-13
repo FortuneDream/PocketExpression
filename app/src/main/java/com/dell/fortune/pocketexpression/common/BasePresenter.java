@@ -1,6 +1,7 @@
 package com.dell.fortune.pocketexpression.common;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
@@ -42,6 +43,10 @@ public abstract class BasePresenter<T extends IBaseView> {
             mViewRef.clear();
             mViewRef = null;
         }
+    }
+
+    public void startActivity(Class targetActivity){
+        mView.getCurrentContext().startActivity(new Intent(mContext,targetActivity));
     }
 
 

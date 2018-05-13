@@ -8,7 +8,7 @@ import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionShare;
 import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
-import com.dell.fortune.pocketexpression.util.common.LogUtils;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 
 public class HomeFindAdapter extends BaseQuickAdapter<ExpressionShare, HomeFindAdapter.MyViewHolder> {

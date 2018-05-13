@@ -13,14 +13,14 @@ import android.view.WindowManager;
 import com.dell.fortune.pocketexpression.module.suspend.SuspendContentWindowView;
 import com.dell.fortune.pocketexpression.module.suspend.SuspendIconWindowView;
 import com.dell.fortune.pocketexpression.util.common.DpUtil;
-import com.dell.fortune.pocketexpression.util.common.LogUtils;
+import com.dell.fortune.tools.info.LogUtils;
+
 
 public class SuspendService extends Service {
     private SuspendIconWindowView mSuspendIconWindowView;
     private SuspendContentWindowView mSuspendContentWindowView;
     private WindowManager mWindowManager;
     private int mStatusBarHeight;
-
     public SuspendService() {
 
     }

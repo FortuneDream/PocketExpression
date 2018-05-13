@@ -1,28 +1,14 @@
-package com.dell.fortune.pocketexpression.util.common;
+package com.dell.fortune.tools.info;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * SharedPreference工具类，获取实例后直接set值。
- * 用该工具存储用户偏好设置：震动、声音、是否推送、是否第一次进入软件等信息
- * <p/>
- * 方式一：
- * 写入文件：
- * SharedPrefsUtil.getInstance().edit().putString("username", username).putString("mac", mac).apply();
- * 从文件读出：
- * String username1 = SharedPrefsUtil.getInstance().getString("username","");
- * <p/>
- * <p/>
- * 方式二：
- * 也可调用putString("xx","yy")、putInt("num", 1);
- * getString("xxx", "defaultValue");
- * <p/>
- * Created by Heyiyong on 2015/7/4.
+ * Created by 鹏君 on 2018/4/22.
  */
 public class SharedPrefsUtil {
     private static SharedPreferences sp;
-    private static final String defaultFileName = "expression_sp";
+    private static final String defaultFileName = "default_sp";
 
     private SharedPrefsUtil() {
     }
@@ -56,7 +42,8 @@ public class SharedPrefsUtil {
 
     /**
      * 不为空的情况下，保存到本地，并且去掉值的前后空格
-     * @param key 键
+     *
+     * @param key   键
      * @param value 值
      */
     public static void putString(String key, String value) {
@@ -99,6 +86,7 @@ public class SharedPrefsUtil {
 
     /**
      * 清除某个值
+     *
      * @param key key
      */
     public static void remove(String key) {

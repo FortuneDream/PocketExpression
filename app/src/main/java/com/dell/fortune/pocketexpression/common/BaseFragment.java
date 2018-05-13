@@ -55,6 +55,7 @@ public abstract class BaseFragment<V extends IBaseView, T extends BasePresenter<
         super.onCreate(savedInstanceState);
         this.mContext = getContext();
         presenter = createPresenter();
+        presenter.attachView((V)this);
         if (mLoadingDialog == null) {
             mLoadingDialog = new AlertDialog.Builder(getActivity())
                     .setCancelable(false)

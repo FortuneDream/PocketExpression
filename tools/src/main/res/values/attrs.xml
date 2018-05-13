@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RxShapeLoadingView">
+        <attr name="loadingText" format="string"/>
+        <attr name="loadingTextAppearance" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="RxPorterImageView">
+        <attr name="siShape" format="integer|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="RxShineButton">
+        <attr name="btn_color" format="color"/>
+        <attr name="btn_fill_color" format="color"/>
+        <attr name="shine_count" format="integer"/>
+        <attr name="shine_turn_angle" format="float"/>
+        <attr name="small_shine_offset_angle" format="float"/>
+        <attr name="enable_flashing" format="boolean"/>
+        <attr name="allow_random_color" format="boolean"/>
+        <attr name="small_shine_color" format="color"/>
+        <attr name="big_shine_color" format="color"/>
+        <attr name="shine_animation_duration" format="integer"/>
+        <attr name="click_animation_duration" format="integer"/>
+        <attr name="shine_distance_multiple" format="float"/>
+        <attr name="shine_size" format="dimension"/>
+    </declare-styleable>
+</resources>

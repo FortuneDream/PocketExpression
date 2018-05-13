@@ -17,10 +17,9 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.update.AppVersion;
 
 /**
- * Created by 鹏君 on 2017/7/1.
+ * Created by 鹏君 on 2018/4/22.
  * （￣m￣）
  */
-//待测试
 public class UpdateUtils {
 
     public static UpdateUtils mUpdateUtils;

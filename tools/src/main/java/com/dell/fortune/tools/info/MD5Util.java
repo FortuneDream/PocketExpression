@@ -1,4 +1,4 @@
-package com.dell.fortune.pocketexpression.util.common;
+package com.dell.fortune.tools.info;
 
 import java.io.BufferedInputStream;
 import java.io.File;
