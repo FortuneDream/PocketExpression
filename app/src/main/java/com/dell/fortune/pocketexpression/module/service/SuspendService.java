@@ -5,7 +5,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,7 +12,7 @@ import android.view.WindowManager;
 import com.dell.fortune.pocketexpression.module.suspend.SuspendContentWindowView;
 import com.dell.fortune.pocketexpression.module.suspend.SuspendIconWindowView;
 import com.dell.fortune.pocketexpression.util.common.DpUtil;
-import com.dell.fortune.tools.info.LogUtils;
+import com.dell.fortune.tools.LogUtils;
 
 
 public class SuspendService extends Service {

@@ -1,4 +1,4 @@
-package com.dell.fortune.tools.info;
+package com.dell.fortune.tools;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import com.dell.fortune.tools.toast.Toasts;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class FileUtil {
     private static Context sContext;
@@ -17,7 +19,7 @@ public class FileUtil {
     }
 
     //获得内部存储路径
-    public static String getDirPath(){
+    public static String getDirPath() {
         return sContext.getFilesDir().getAbsolutePath();
     }
 
@@ -49,6 +51,28 @@ public class FileUtil {
             return file;
         } else {
             return null;
+        }
+    }
+
+    public static void copyFile(String oldPath, String newPath) {
+        if (oldPath != null) {
+            File s = new File(oldPath);
+            if (s.exists()) {
+                s.renameTo(new File(newPath));
+            }
+        }
+    }
+
+    //深搜删除
+    public static void deleteFile(File file) {
+        if (file != null && file.exists()) {
+            if (file.isDirectory()) {
+                File[] files = file.listFiles();
+                for (int i = 0; i < files.length; i++) {
+                    deleteFile(files[i]);
+                }
+            }
+            file.delete();
         }
     }
 

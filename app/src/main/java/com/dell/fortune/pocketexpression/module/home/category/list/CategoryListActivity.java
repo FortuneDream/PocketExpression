@@ -3,7 +3,6 @@ package com.dell.fortune.pocketexpression.module.home.category.list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,13 +16,12 @@ import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.config.IntentConstant;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
-import com.dell.fortune.tools.info.LogUtils;
+import com.dell.fortune.tools.LogUtils;
 
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IView, CategoryListPresenter>

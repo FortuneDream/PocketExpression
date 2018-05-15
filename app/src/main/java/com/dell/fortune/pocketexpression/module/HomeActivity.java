@@ -2,7 +2,6 @@ package com.dell.fortune.pocketexpression.module;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -26,7 +25,7 @@ import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
 import com.dell.fortune.pocketexpression.util.common.IntentUtil;
 import com.dell.fortune.pocketexpression.util.common.UserUtil;
 import com.dell.fortune.pocketexpression.util.common.update.UpdateUtils;
-import com.dell.fortune.tools.info.LogUtils;
+import com.dell.fortune.tools.LogUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -35,7 +34,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresenter>

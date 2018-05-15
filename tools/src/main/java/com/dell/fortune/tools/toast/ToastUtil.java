@@ -1,4 +1,4 @@
-package com.dell.fortune.tools.info;
+package com.dell.fortune.tools.toast;
 
 import android.content.Context;
 import android.widget.Toast;

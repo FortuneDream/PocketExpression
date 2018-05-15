@@ -9,8 +9,8 @@ import com.dell.fortune.pocketexpression.model.CategoryModel;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.module.home.category.list.CategoryListActivity;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
-import com.dell.fortune.tools.info.LogUtils;
-import com.dell.fortune.tools.info.SharedPrefsUtil;
+import com.dell.fortune.tools.LogUtils;
+import com.dell.fortune.tools.SharedPrefsUtil;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.dell.fortune.tools.info;
+package com.dell.fortune.tools;
 
 import android.content.Context;
 import android.content.SharedPreferences;

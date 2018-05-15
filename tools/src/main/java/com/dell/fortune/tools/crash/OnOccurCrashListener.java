@@ -1,4 +1,4 @@
-package com.dell.fortune.tools.info.crash;
+package com.dell.fortune.tools.crash;
 
 public interface OnOccurCrashListener {
     void onCrash(Thread thread,Throwable ex);

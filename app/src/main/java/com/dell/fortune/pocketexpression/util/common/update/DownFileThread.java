@@ -11,7 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 
 
-import com.dell.fortune.tools.info.LogUtils;
+import com.dell.fortune.tools.LogUtils;
 
 import java.io.BufferedInputStream;
 import java.io.File;

@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 
+/**
+ * Created by 鹏君 on 2017/7/1.
+ * （￣m￣）
+ */
+//待测试
 public class UpdateBuilder {
-    private UpdateNotificationConfiguration mNotificationConfiguration;
     private Context mContext;
     private String mVersionCodeStr;
     private String mVersionContent;
@@ -15,9 +19,8 @@ public class UpdateBuilder {
     private boolean mIsForce;
     private String mDir;
 
-    public UpdateBuilder(Context context, UpdateNotificationConfiguration notificationConfiguration) {
+    public UpdateBuilder(Context context) {
         this.mContext = context;
-        this.mNotificationConfiguration = notificationConfiguration;
         this.mVersionCodeStr = "1";
         this.mVersionContent = "暂无";
         this.mUrl = "";
@@ -81,10 +84,9 @@ public class UpdateBuilder {
 
     //开始下载
     private void startDownloadApkService() {
-        Intent intent = new Intent(mContext, UpdateService.class);
-        intent.putExtra(UpdateService.PARAM_URL, mUrl);
-        intent.putExtra(UpdateService.PARAM_DIR, mDir);
-        intent.putExtra(UpdateService.PARAM_NOTIFICATION_CONFIGURATION, mNotificationConfiguration);
+        Intent intent = new Intent(mContext, UpdateIntentService.class);
+        intent.putExtra(UpdateIntentService.PARAM_URL, mUrl);
+        intent.putExtra(UpdateIntentService.PARAM_DIR, mDir);
         mContext.startService(intent);
     }
 }

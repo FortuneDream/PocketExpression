@@ -1,15 +1,13 @@
-package com.dell.fortune.pocketexpression.util.common;
+package com.dell.fortune.tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-
 import android.view.KeyEvent;
 
-import com.dell.fortune.pocketexpression.common.BaseActivity;
-
-import java.security.Key;
+import com.dell.fortune.tools.toast.ToastUtil;
 
 /**
  * Created by 81256 on 2018/4/4.
@@ -33,8 +31,8 @@ public class DoubleExitUtil {
                 ToastUtil.showToast("再按一次退出程序");
                 mHandler.sendEmptyMessageDelayed(0, 2000);
             } else {
-                if (context instanceof BaseActivity) {
-                    ((BaseActivity) context).finish();
+                if (context instanceof Activity) {
+                    ((Activity) context).finish();
                     System.exit(0);
                 }
             }

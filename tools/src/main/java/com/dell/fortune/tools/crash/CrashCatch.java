@@ -1,4 +1,4 @@
-package com.dell.fortune.tools.info.crash;
+package com.dell.fortune.tools.crash;
 
 import android.os.Environment;
 import android.os.Process;

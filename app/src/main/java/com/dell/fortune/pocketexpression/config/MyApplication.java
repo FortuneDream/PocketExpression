@@ -8,8 +8,8 @@ import com.dell.fortune.pocketexpression.model.dao.DaoMaster;
 import com.dell.fortune.pocketexpression.util.common.GreenDaoUtil;
 
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
-import com.dell.fortune.tools.info.SharedPrefsUtil;
-import com.dell.fortune.tools.info.crash.CrashCatch;
+import com.dell.fortune.tools.SharedPrefsUtil;
+import com.dell.fortune.tools.crash.CrashCatch;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import cn.bmob.v3.Bmob;

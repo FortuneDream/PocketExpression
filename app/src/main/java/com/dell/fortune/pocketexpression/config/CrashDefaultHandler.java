@@ -7,7 +7,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.dell.fortune.pocketexpression.model.bean.ExceptionBean;
-import com.dell.fortune.tools.info.crash.OnOccurCrashListener;
+import com.dell.fortune.tools.crash.OnOccurCrashListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -10,15 +10,16 @@
 * **T-MVP** 架构
 * 加载图片 [Fresco](https://github.com/facebook/fresco)
 * 事件调度器 [RxJava2](https://github.com/ReactiveX/RxJava)
-* [BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+* 万能适配器[BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
 * 本地数据库 [GreenDao](https://github.com/greenrobot/greenDAO)
-
+* 事件总线 [EventBus](https://github.com/greenrobot/EventBus)
 ### 技术尝试
 * AccessibilityService监控Activity跳转
 * Window悬浮窗
 * Scrapy爬虫框架
 * 图片压缩上传
 * ContentProvider应用间共享数据（与口袋乐谱账号关联）
+* 抽取共有Module，做成aar文件,模块化开发
 
 ### 项目进度
 
@@ -32,7 +33,6 @@
 
 * 权限说明
     * 手机信息（上传手机型号，Android版本，Crash分析）   
-    * SD卡权限（本地存储表情包） 
-    * 录制音频需要开启录音权限（运行时权限）
+    * SD卡权限（本地存储表情包）
 
 #### By 兔子先生（毕业以后不叫鹏君了）

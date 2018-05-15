@@ -18,7 +18,7 @@ import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionDaoOpe;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
 import com.dell.fortune.pocketexpression.util.common.RxApi;
-import com.dell.fortune.tools.info.LogUtils;
+import com.dell.fortune.tools.LogUtils;
 
 import java.io.File;
 import java.util.List;
