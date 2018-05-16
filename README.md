@@ -1,6 +1,6 @@
 ![image](https://github.com/FortuneDream/PocketExpression/blob/master/readme_logo.png)
 
-# 表情表斗图
+# 表情包斗图
 
 ### 功能简介
 斗图神器！
@@ -9,10 +9,13 @@
 ### 开源库
 * **T-MVP** 架构
 * 加载图片 [Fresco](https://github.com/facebook/fresco)
+* 图片选择器[TakePhoto](https://github.com/crazycodeboy/TakePhoto)
 * 事件调度器 [RxJava2](https://github.com/ReactiveX/RxJava)
 * 万能适配器[BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
 * 本地数据库 [GreenDao](https://github.com/greenrobot/greenDAO)
 * 事件总线 [EventBus](https://github.com/greenrobot/EventBus)
+* 权限 [AndPermission](https://github.com/yanzhenjie/AndPermission)
+
 ### 技术尝试
 * AccessibilityService监控Activity跳转
 * Window悬浮窗
@@ -20,11 +23,11 @@
 * 图片压缩上传
 * ContentProvider应用间共享数据（与口袋乐谱账号关联）
 * 抽取共有Module，做成aar文件,模块化开发
-* 各种适配
+* 各种适配高低版本
 
 ### 项目进度
 
-* 目前正在全力研发Android端
+* 目前从图片获取到图片分享到QQ这一过程基本完成，接下来的工作需要是精细化功能。
 
 * [官方网站](http://http://pocketexpression.bmob.site/)
 
@@ -34,6 +37,9 @@
 
 * 权限说明
     * 手机信息（上传手机型号，Android版本，Crash分析）   
-    * SD卡权限（本地存储表情包）
+    * SD卡读写权限（本地存储表情包）
 
 #### By 兔子先生（毕业以后不叫鹏君了）
+为什么想做这个东西呢？
+* 学习新技术：这个App所依赖的框架和实现过程与口袋乐谱80%左右是不一样的。前者主要目的是圈子，搜索，收集，而本App重点在制图，分享和小玩具。
+* 我的表情包好少。。。市场上相似软件的广告太多，没有情怀。

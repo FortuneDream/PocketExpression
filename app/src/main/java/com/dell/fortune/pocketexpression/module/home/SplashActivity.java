@@ -1,24 +1,20 @@
 package com.dell.fortune.pocketexpression.module.home;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.module.HomeActivity;
 import com.dell.fortune.pocketexpression.util.common.RxTimerUtil;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
-import com.dell.fortune.tools.dialog.DialogSure;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
-import com.yanzhenjie.permission.Rationale;
-import com.yanzhenjie.permission.RequestExecutor;
 
 import java.util.List;
 
+//这里还需要做的更加的精细化，比如提示用户为什么需要权限
 public class SplashActivity extends AppCompatActivity {
 //    private Rationale mRationale = new Rationale() {
 //        @Override

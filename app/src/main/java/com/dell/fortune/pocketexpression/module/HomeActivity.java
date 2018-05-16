@@ -26,9 +26,11 @@ import android.widget.ViewFlipper;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.config.FlagConstant;
+import com.dell.fortune.pocketexpression.module.joy.BarrageActivity;
 import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
-import com.dell.fortune.pocketexpression.util.common.IntentUtil;
+
 import com.dell.fortune.pocketexpression.util.common.UserUtil;
+import com.dell.fortune.tools.IntentUtil;
 import com.dell.fortune.tools.LogUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
@@ -201,6 +203,9 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
                 break;
             case R.id.exit_item:
                 presenter.exitUser();
+                break;
+            case R.id.rolling_barrage_item:
+                presenter.startActivity(BarrageActivity.class);
                 break;
 
         }
