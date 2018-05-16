@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
+
 package com.dell.fortune.tools.update;
 
 import android.content.Context;
@@ -10,58 +15,25 @@ import android.support.v7.app.AlertDialog;
  * Created by 鹏君 on 2017/7/1.
  * （￣m￣）
  */
-//待测试
 public class UpdateBuilder {
     private Context mContext;
-    private String mVersionCodeStr;
-    private String mVersionContent;
-    private String mUrl;
-    private boolean mIsForce;
-    private String mDir;
+    private UpdateConfiguration mConfiguration;
 
     public UpdateBuilder(Context context) {
         this.mContext = context;
-        this.mVersionCodeStr = "1";
-        this.mVersionContent = "暂无";
-        this.mUrl = "";
-        this.mIsForce = false;//默认不强制
-        this.mDir = Environment.getExternalStorageDirectory().getPath();
+
     }
 
-    //版本号
-    public UpdateBuilder setVersionCodeStr(String versionCodeStr) {
-        this.mVersionCodeStr = versionCodeStr;
-        return this;
-    }
-
-    //版本信息
-    public UpdateBuilder setVersionContent(String versionContent) {
-        this.mVersionContent = versionContent;
-        return this;
-    }
-
-    //下载路径
-    public UpdateBuilder setUrl(String url) {
-        this.mUrl = url;
-        return this;
-    }
-
-    //下载的目录
-    public UpdateBuilder setDir(String dir) {
-        this.mDir = dir;
-        return this;
-    }
-
-    public UpdateBuilder setIsForce(boolean isForce) {
-        this.mIsForce = isForce;
+    public UpdateBuilder setConfiguration(UpdateConfiguration configuration) {
+        this.mConfiguration = configuration;
         return this;
     }
 
 
     public void update() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
-                .setTitle("新版本号：" + mVersionCodeStr)
-                .setMessage(mVersionContent)
+                .setTitle("新版本号：" + mConfiguration.getVersionCodeStr())
+                .setMessage(mConfiguration.getVersionContent())
                 .setPositiveButton("更新", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -69,7 +41,7 @@ public class UpdateBuilder {
                         startDownloadApkService();
                     }
                 });
-        if (mIsForce) {
+        if (mConfiguration.isForce()) {
             builder.setCancelable(false);
         } else {
             builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -85,8 +57,9 @@ public class UpdateBuilder {
     //开始下载
     private void startDownloadApkService() {
         Intent intent = new Intent(mContext, UpdateIntentService.class);
-        intent.putExtra(UpdateIntentService.PARAM_URL, mUrl);
-        intent.putExtra(UpdateIntentService.PARAM_DIR, mDir);
+        intent.putExtra(UpdateIntentService.PARAM_URL, mConfiguration.getUrl());
+        intent.putExtra(UpdateIntentService.PARAM_DIR, mConfiguration.getDir());
+        intent.putExtra(UpdateIntentService.PARAM_APP_LOGO, mConfiguration.getAppLogoResourceId());
         mContext.startService(intent);
     }
 }

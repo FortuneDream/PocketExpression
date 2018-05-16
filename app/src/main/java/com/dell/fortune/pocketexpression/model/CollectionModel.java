@@ -14,12 +14,14 @@ import com.dell.fortune.pocketexpression.model.bean.MyUser;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionDaoOpe;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItemDao;
+import com.dell.fortune.pocketexpression.util.common.RxApi;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 import com.dell.fortune.pocketexpression.util.common.UserUtil;
 
 import java.io.File;
 import java.net.URLConnection;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import cn.bmob.v3.BmobBatch;
 import cn.bmob.v3.BmobQuery;
@@ -28,6 +30,7 @@ import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
+import io.reactivex.functions.Consumer;
 
 import static com.dell.fortune.pocketexpression.util.common.UserUtil.user;
 
@@ -37,7 +40,7 @@ import static com.dell.fortune.pocketexpression.util.common.UserUtil.user;
 
 public class CollectionModel extends BaseModel<ExpressionItem> {
     //本地图片位置
-    private String mSaveDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "" + "ExpressionCollection" + File.separator;
+    private String mSaveDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "" + "ExpressionCollection";
     private LocalExpressionDaoOpe localExpressionDaoOpe;
 
     public CollectionModel() {
@@ -48,13 +51,14 @@ public class CollectionModel extends BaseModel<ExpressionItem> {
         void onResult();
     }
 
-    @Override
-    public void getList(int page, ToastQueryListener<ExpressionItem> listener) {
-        super.getList(page, listener);
-        BmobQuery<ExpressionItem> query = new BmobQuery<>();
-        initDefaultListQuery(query, page);
-        query.addWhereRelatedTo(BmobConstant.BMOB_COLLECTIONS, new BmobPointer(user));
-        query.findObjects(listener);
+    //这里应该是扫描本地
+    public void getLocalList(Consumer<List<LocalExpressionItem>> consumer){
+        RxApi.create(new Callable<List<LocalExpressionItem>>() {
+            @Override
+            public List<LocalExpressionItem> call() throws Exception {
+                return localExpressionDaoOpe.findAll();
+            }
+        }).subscribe(consumer);
     }
 
     public void addCollection(Context context, List<ExpressionItem> expressionItems, final OnAddCollectionResult onAddCollectionResult) {
@@ -109,7 +113,8 @@ public class CollectionModel extends BaseModel<ExpressionItem> {
                     String urlType = URLConnection.guessContentTypeFromName(item.getUrl());
                     String type = urlType.replaceAll("image/", "");
                     BmobFile file = new BmobFile(item.getMd5() + "." + type, "", item.getUrl());
-                    file.download(dir, new DownloadFileListener() {
+                    File targetDir = new File(mSaveDir, file.getFilename());//目标文件
+                    file.download(targetDir, new DownloadFileListener() {
                         @Override
                         public void done(String s, BmobException e) {
                             if (e == null) {

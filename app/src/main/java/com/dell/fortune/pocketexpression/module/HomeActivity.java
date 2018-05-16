@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
+
 package com.dell.fortune.pocketexpression.module;
 
 import android.content.Intent;
@@ -24,7 +29,6 @@ import com.dell.fortune.pocketexpression.config.FlagConstant;
 import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
 import com.dell.fortune.pocketexpression.util.common.IntentUtil;
 import com.dell.fortune.pocketexpression.util.common.UserUtil;
-import com.dell.fortune.pocketexpression.util.common.update.UpdateUtils;
 import com.dell.fortune.tools.LogUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
@@ -192,7 +196,8 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
                 IntentUtil.shareText(mContext, "斗图斗图！下载地址：");
                 break;
             case R.id.upgrade_item:
-                UpdateUtils.getInstance().update(mContext);
+                //更新
+                presenter.checkVersion();
                 break;
             case R.id.exit_item:
                 presenter.exitUser();

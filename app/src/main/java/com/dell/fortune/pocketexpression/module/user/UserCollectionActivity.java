@@ -1,7 +1,6 @@
 package com.dell.fortune.pocketexpression.module.user;
 
 
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -11,16 +10,15 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
-import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
+import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter.IView, UserCollectionPresenter>
-        implements UserCollectionPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemLongClickListener {
+        implements UserCollectionPresenter.IView, BaseQuickAdapter.OnItemLongClickListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -47,25 +45,19 @@ public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter
     public void initView() {
         mAdapter = new UserCollectionAdapter(R.layout.item_user_collection);
         initRecycler(recyclerView, mAdapter);
-        initToolbar(toolbar, "我的收藏");
-        mAdapter.setOnLoadMoreListener(this);
+        initToolbar(toolbar, "本地收藏");
         mAdapter.setOnItemLongClickListener(this);
         presenter.getList();
     }
 
     @Override
-    public void setList(List<ExpressionItem> list) {
+    public void setList(List<LocalExpressionItem> list) {
         if (list != null && list.size() > 0) {
             mAdapter.addData(list);
             mAdapter.loadMoreComplete();
         } else {
             mAdapter.loadMoreEnd();
         }
-    }
-
-    @Override
-    public void onLoadMoreRequested() {
-        presenter.getList();
     }
 
     @Override
@@ -78,12 +70,5 @@ public class UserCollectionActivity extends BaseActivity<UserCollectionPresenter
     @OnClick(R.id.refresh_fab)
     public void onViewClicked() {
         presenter.synLocal();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

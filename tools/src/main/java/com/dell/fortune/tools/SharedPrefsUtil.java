@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
+
 package com.dell.fortune.tools;
 
 import android.content.Context;
@@ -8,27 +13,17 @@ import android.content.SharedPreferences;
  */
 public class SharedPrefsUtil {
     private static SharedPreferences sp;
-    private static final String defaultFileName = "default_sp";
+    private static String defaultFileName = "default_sp";
 
     private SharedPrefsUtil() {
     }
 
-    /**
-     * 初始化SharedPreference实例，只需在全局Application调用
-     *
-     * @param context 上下文
-     */
     public static void init(Context context) {
         if (sp == null) {
             sp = context.getSharedPreferences(defaultFileName, Context.MODE_PRIVATE);
         }
     }
 
-    /**
-     * 获取SharedPreference实例
-     *
-     * @return SharedPreference实例
-     */
     public static SharedPreferences getInstance() {
         if (sp == null) {
             throw new ExceptionInInitializerError("SharedPreference尚未初始化，请在Application中进行初始化。");
@@ -40,12 +35,6 @@ public class SharedPrefsUtil {
         return sp.getString(key, defaultValue);
     }
 
-    /**
-     * 不为空的情况下，保存到本地，并且去掉值的前后空格
-     *
-     * @param key   键
-     * @param value 值
-     */
     public static void putString(String key, String value) {
         if (value != null) {
             sp.edit().putString(key, value.trim()).apply();
@@ -84,11 +73,6 @@ public class SharedPrefsUtil {
         return sp.getLong(key, defaultValue);
     }
 
-    /**
-     * 清除某个值
-     *
-     * @param key key
-     */
     public static void remove(String key) {
         sp.edit().remove(key).apply();
     }

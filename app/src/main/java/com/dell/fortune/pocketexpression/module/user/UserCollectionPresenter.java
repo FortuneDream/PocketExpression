@@ -3,48 +3,51 @@ package com.dell.fortune.pocketexpression.module.user;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 
-import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
 import com.dell.fortune.pocketexpression.common.BasePresenter;
 import com.dell.fortune.pocketexpression.common.IBaseView;
 import com.dell.fortune.pocketexpression.model.CollectionModel;
-import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
+import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
 
 import java.io.File;
-import java.security.MessageDigest;
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 public class UserCollectionPresenter extends BasePresenter<UserCollectionPresenter.IView> {
     private CollectionModel collectionModel;
-    private int mPage;
 
     public UserCollectionPresenter(IView view) {
         super(view);
         collectionModel = new CollectionModel();
-        mPage = -1;
+
     }
 
     public void getList() {
-        mPage++;
-        collectionModel.getList(mPage, new ToastQueryListener<ExpressionItem>() {
+        collectionModel.getLocalList(new Consumer<List<LocalExpressionItem>>() {
             @Override
-            public void onSuccess(List<ExpressionItem> list) {
-                mView.setList(list);
+            public void accept(List<LocalExpressionItem> localExpressionItems) throws Exception {
+                mView.setList(localExpressionItems);
             }
         });
     }
 
     //只能分享本地
-    public void shareImage(ExpressionItem item) {
-        String path = Environment.getExternalStorageDirectory() + File.separator + "";//sd根目录
-        File file = new File(path, "share" + ".jpg");//这里share.jpg是sd卡根目录下的一个图片文件
-        Uri imageUri = Uri.parse(item.getUrl());
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-        shareIntent.setType("image/*");
-        mContext.startActivity(Intent.createChooser(shareIntent, "分享图片"));
+    public void shareImage(LocalExpressionItem item) {
+        File file = new File(item.getPath());//这里share.jpg是sd卡根目录下的一个图片文件
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri uri = FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName() + ".fileProvider", file);
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+        } else {
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+        }
+        mContext.startActivity(Intent.createChooser(intent, "分享图片"));
     }
 
     public void synLocal() {
@@ -53,6 +56,6 @@ public class UserCollectionPresenter extends BasePresenter<UserCollectionPresent
 
     interface IView extends IBaseView {
 
-        void setList(List<ExpressionItem> list);
+        void setList(List<LocalExpressionItem> list);
     }
 }

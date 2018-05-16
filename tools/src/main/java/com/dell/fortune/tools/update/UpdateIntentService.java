@@ -16,6 +16,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.support.annotation.IdRes;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import java.io.File;
 public class UpdateIntentService extends IntentService {
     public final static String PARAM_URL = "url";
     public final static String PARAM_DIR = "dir_path";
+    public final static String PARAM_APP_LOGO = "app_logo";
     private Notification mNotification;
     private int mNotificationId = 1;
     private NotificationManager nm;
@@ -50,7 +52,8 @@ public class UpdateIntentService extends IntentService {
         String url = intent.getStringExtra(PARAM_URL);
         String dirPath = intent.getStringExtra(PARAM_DIR);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            openOreoUpdateNotification();//开启下载通知栏
+            int appLogoResourceId = intent.getIntExtra(PARAM_APP_LOGO, 0);
+            openOreoUpdateNotification(appLogoResourceId);//开启下载通知栏
         } else {
             openUpdateNotification();
         }
@@ -91,7 +94,7 @@ public class UpdateIntentService extends IntentService {
     //Oreo下载通知栏
     //加入了标记后就不会有代码提示API不够了
     @TargetApi(Build.VERSION_CODES.O)
-    private void openOreoUpdateNotification() {
+    private void openOreoUpdateNotification(int appLogoResourceId) {
         String mChannelId = "update";
         String mChannelName = "更新软件";
         NotificationChannel channel = new NotificationChannel(mChannelId, mChannelName, NotificationManager.IMPORTANCE_DEFAULT);
@@ -101,8 +104,8 @@ public class UpdateIntentService extends IntentService {
                     .setContentTitle(getAppName())
                     .setContentText("正在下载更新包...")
                     .setWhen(System.currentTimeMillis())
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                    .setSmallIcon(appLogoResourceId)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), appLogoResourceId))
                     .setAutoCancel(true)
                     .build();
             nm.notify(mNotificationId, mNotification);
