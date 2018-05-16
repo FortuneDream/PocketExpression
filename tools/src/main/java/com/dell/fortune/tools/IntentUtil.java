@@ -54,7 +54,30 @@ public class IntentUtil {
         }
     }
 
+    //分享图片
+    public static void sharePic(String path,Context context){
+        File file = new File(path);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".fileProvider", file);
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+        } else {
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+        }
+        context.startActivity(Intent.createChooser(intent, "分享图片"));
+    }
+
     //安装APk,manifest的provider.authorities=包名.fileProvider
+//    总而言之，就是Android不再允许在app中把file://Uri暴露给其他app，包括但不局限于通过Intent或ClipData 等方法。
+//
+//    原因在于使用file://Uri会有一些风险，比如：
+//
+//    文件是私有的，接收file://Uri的app无法访问该文件。
+//    在Android6.0之后引入运行时权限，如果接收file://Uri的app没有申请READ_EXTERNAL_STORAGE权限，在读取文件时会引发崩溃。
+//    因此，google提供了FileProvider，使用它可以生成content://Uri来替代file://Uri。
     public static void installApk(Context context, File apkFile) {
         //Android N以上需要特殊处理
         Intent intent = new Intent();
