@@ -26,13 +26,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".module.home.SplashActivity">
+        <activity android:name=".module.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.dell.fortune.pocketexpression.fileProvider"
@@ -48,18 +49,35 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".module.HomeActivity" />
+        <activity android:name=".module.home.HomeActivity" />
         <activity
-            android:name=".module.home.category.list.CategoryListActivity"
+            android:name=".module.home.list.CategoryListActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".module.auth.login.LoginActivity" />
         <activity android:name=".module.auth.register.RegisterActivity" />
         <activity
             android:name=".module.user.UserCollectionActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".module.joy.BarrageActivity"
-            android:screenOrientation="landscape" />
-    </application>
+        <service
+            android:name=".module.service.AccessibilityMonitorService"
+            android:enabled="true"
+            android:exported="true"
+            android:label="表情包斗图"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+
+        <!--状态栏最好也是透明的-->
+        <activity
+            android:name="com.dell.fortune.pocketexpression.module.suspend.SuspendContentActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/TranslucentFullScreenTheme" />
+    </application>
 </manifest>

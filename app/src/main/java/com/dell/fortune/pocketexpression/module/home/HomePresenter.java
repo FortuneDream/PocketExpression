@@ -1,4 +1,9 @@
-package com.dell.fortune.pocketexpression.module;
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
+
+package com.dell.fortune.pocketexpression.module.home;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -7,20 +12,20 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.common.BaseMutiPresenter;
 import com.dell.fortune.pocketexpression.common.IBaseMutiView;
-import com.dell.fortune.pocketexpression.module.home.category.HomeCategoryFragment;
-import com.dell.fortune.pocketexpression.module.home.find.HomeFindFragment;
-import com.dell.fortune.pocketexpression.module.home.make.HomeMakeFragment;
+
 import com.dell.fortune.pocketexpression.module.service.SuspendService;
 import com.dell.fortune.pocketexpression.module.user.UserCollectionActivity;
 import com.dell.fortune.pocketexpression.util.common.DoubleExitUtil;
 import com.dell.fortune.pocketexpression.util.common.PictureSelectorUtil;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
+import com.dell.fortune.tools.LogUtils;
 import com.dell.fortune.tools.update.UpdateBuilder;
 import com.dell.fortune.tools.update.UpdateConfiguration;
 
@@ -36,9 +41,9 @@ import cn.bmob.v3.update.AppVersion;
 
 public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     private HomeCategoryFragment homeCategoryFragment;
-    private HomeFindFragment homeFindFragment;
-    private HomeMakeFragment homeMakeFragment;
+
     private DoubleExitUtil doubleExitUtil;
+    private static final String accessibilityServiceName = "com.dell.fortune.pocketexpression.module.service.AccessibilityMonitorService";
 
 
     public HomePresenter(IView view) {
@@ -50,28 +55,65 @@ public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     public List<Fragment> initFragment() {
         List<Fragment> list = new ArrayList<>();
         homeCategoryFragment = new HomeCategoryFragment();
-        homeFindFragment = new HomeFindFragment();
-        homeMakeFragment = new HomeMakeFragment();
         list.add(homeCategoryFragment);
-        list.add(homeFindFragment);
-        list.add(homeMakeFragment);
         return list;
     }
 
     public void openSuspendWindows() {
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.canDrawOverlays(mContext)) {//悬浮权限
-                Intent intent = new Intent(mContext, SuspendService.class);
-                mView.getCurrentContext().startService(intent);
+                if (checkAccessibilityAuthority()) {//Accessibility权限
+                    ToastUtil.showToast("配置成功");
+                    Intent intent = new Intent(mContext, SuspendService.class);
+                    mContext.startService(intent);
+                } else {
+                    Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                    mContext.startActivity(intent);
+                }
             } else {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                 ToastUtil.showToast("需要取得悬浮窗权限");
                 mContext.startActivity(intent);
             }
         } else {
-            Intent intent = new Intent(mContext, SuspendService.class);
-            mContext.startService(intent);
+            if (checkAccessibilityAuthority()) {//Accessibility权限
+                ToastUtil.showToast("配置成功");
+                Intent intent = new Intent(mContext, SuspendService.class);
+                mContext.startService(intent);
+            } else {
+                Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                mContext.startActivity(intent);
+            }
         }
+    }
+
+    private boolean checkAccessibilityAuthority() {
+        //是否已经打开
+        int accessibilityEnable = 0;
+        String serviceName = mContext.getPackageName() + "/" + accessibilityServiceName;
+        try {
+            accessibilityEnable = Settings.Secure.getInt(mContext.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED, 0);
+        } catch (Exception e) {
+            LogUtils.e("get accessibility enable failed, the err:" + e.getMessage());
+        }
+        if (accessibilityEnable == 1) {
+            TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
+            String settingValue = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            if (settingValue != null) {
+                mStringColonSplitter.setString(settingValue);
+                while (mStringColonSplitter.hasNext()) {
+                    String accessibilityService = mStringColonSplitter.next();
+                    if (accessibilityService.equalsIgnoreCase(serviceName)) {
+                        LogUtils.v(TAG, "We've found the correct setting - accessibility is switched on!");
+                        return true;
+                    }
+                }
+            }
+        } else {
+            LogUtils.d(TAG, "Accessibility service disable");
+        }
+        return false;
+
     }
 
     public void doubleExit(int keyCode) {

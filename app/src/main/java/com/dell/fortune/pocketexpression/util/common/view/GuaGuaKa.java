@@ -17,7 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.util.common.DpUtil;
+import com.dell.fortune.tools.DpUtil;
 
 
 /**

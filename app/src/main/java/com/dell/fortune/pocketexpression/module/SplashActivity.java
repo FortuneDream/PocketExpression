@@ -1,11 +1,16 @@
-package com.dell.fortune.pocketexpression.module.home;
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
+
+package com.dell.fortune.pocketexpression.module;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.module.HomeActivity;
+import com.dell.fortune.pocketexpression.module.home.HomeActivity;
 import com.dell.fortune.pocketexpression.util.common.RxTimerUtil;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 import com.yanzhenjie.permission.Action;

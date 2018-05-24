@@ -1,4 +1,9 @@
-package com.dell.fortune.pocketexpression.module.home.category.list;
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
+
+package com.dell.fortune.pocketexpression.module.home.list;
 
 
 import com.dell.fortune.pocketexpression.callback.ToastQueryListener;

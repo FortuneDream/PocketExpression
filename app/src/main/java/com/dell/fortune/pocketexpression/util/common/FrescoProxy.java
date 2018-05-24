@@ -1,8 +1,5 @@
 package com.dell.fortune.pocketexpression.util.common;
 
-import android.net.Uri;
-import android.support.annotation.NonNull;
-
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
@@ -11,9 +8,16 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 public class FrescoProxy {
 
-    public static void showSimpleView(SimpleDraweeView draweeView, String uri) {
+    public static void showNetSimpleView(SimpleDraweeView draweeView, String uri) {
         if (uri != null) {
             draweeView.setImageURI(uri);
         }
     }
+
+    public static void showLocalSimpleView(SimpleDraweeView draweeView, String uri) {
+        if (uri != null) {
+            draweeView.setImageURI("file://" + uri);
+        }
+    }
+
 }

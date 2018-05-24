@@ -1,6 +1,10 @@
-package com.dell.fortune.pocketexpression.module.home.category;
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
 
-import android.net.Uri;
+package com.dell.fortune.pocketexpression.module.home;
+
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,9 +33,9 @@ public class HomeCategoryAdapter extends BaseQuickAdapter<ExpressionCategory, Ba
         coverImgOne = helper.getView(R.id.category_cover_dv_1);
         coverImgTwo = helper.getView(R.id.category_cover_dv_2);
         coverImgThree = helper.getView(R.id.category_cover_dv_3);
-        FrescoProxy.showSimpleView(coverImgOne, item.getCoverImgOne());
-        FrescoProxy.showSimpleView(coverImgTwo, item.getCoverImgTwo());
-        FrescoProxy.showSimpleView(coverImgThree, item.getCoverImgThree());
+        FrescoProxy.showNetSimpleView(coverImgOne, item.getCoverImgOne());
+        FrescoProxy.showNetSimpleView(coverImgTwo, item.getCoverImgTwo());
+        FrescoProxy.showNetSimpleView(coverImgThree, item.getCoverImgThree());
     }
 
     class MyViewHolder extends BaseViewHolder {

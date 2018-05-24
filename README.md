@@ -17,12 +17,12 @@
 * 权限 [AndPermission](https://github.com/yanzhenjie/AndPermission)
 
 ### 技术尝试
-* AccessibilityService监控Activity跳转
-* Window悬浮窗
+* AccessibilityService监控顶层Activity并通过Broadcast与SuspendService通信
+* 拖拽IconWindow+表情包列表半屏Activity（生命周期）
+* 抽取共有Module，做成aar文件,模块化开发
 * Scrapy爬虫框架
 * 图片压缩上传
 * ContentProvider应用间共享数据（与口袋乐谱账号关联）
-* 抽取共有Module，做成aar文件,模块化开发
 * 各种适配高低版本
 
 ### 项目进度

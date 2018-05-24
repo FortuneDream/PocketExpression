@@ -19,18 +19,5 @@
             android:icon="@drawable/ico_exit"
             android:title="退出登录" />
     </group>
-    <item android:title="自制小玩具">
-        <menu>
-            <item
-                android:id="@+id/rolling_barrage_item"
-                android:icon="@drawable/icon_joy"
-                android:title="滚动弹幕" />
-            <item
-                android:id="@+id/listen_screen_item"
-                android:icon="@drawable/icon_joy"
-                android:title="截屏监听" />
-        </menu>
-    </item>
-
 
 </menu>

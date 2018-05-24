@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dell.fortune.pocketexpression.module.home.SplashActivity">
+    tools:context="com.dell.fortune.pocketexpression.module.SplashActivity">
 
     <TextView
         android:layout_width="match_parent"

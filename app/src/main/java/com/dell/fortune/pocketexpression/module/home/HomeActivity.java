@@ -3,7 +3,7 @@
  * 版块归Github.FortuneDream 所有
  */
 
-package com.dell.fortune.pocketexpression.module;
+package com.dell.fortune.pocketexpression.module.home;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -26,9 +26,7 @@ import android.widget.ViewFlipper;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.dell.fortune.pocketexpression.config.FlagConstant;
-import com.dell.fortune.pocketexpression.module.joy.BarrageActivity;
 import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
-
 import com.dell.fortune.pocketexpression.util.common.UserUtil;
 import com.dell.fortune.tools.IntentUtil;
 import com.dell.fortune.tools.LogUtils;
@@ -44,28 +42,22 @@ import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresenter>
         implements HomePresenter.IView, NavigationView.OnNavigationItemSelectedListener {
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
+
+
     @BindView(R.id.content_user_head_sdv)
     SimpleDraweeView contentUserHeadSdv;
     @BindView(R.id.open_suspend_window_btn)
     Button openSuspendWindowBtn;
-    @BindView(R.id.home_user_nv)
-    NavigationView homeUserNv;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.info_flipper)
     ViewFlipper infoFlipper;
-    @BindView(R.id.category_tv)
-    TextView categoryTv;
-    @BindView(R.id.find_tv)
-    TextView findTv;
-    @BindView(R.id.make_tv)
-    TextView makeTv;
-    @BindView(R.id.tab_ll)
-    LinearLayout tabLl;
     @BindView(R.id.home_content)
     FrameLayout homeContent;
+    @BindView(R.id.home_user_nv)
+    NavigationView homeUserNv;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
 
     @Override
     public int setContentResource() {
@@ -100,7 +92,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
             LogUtils.e("已登录用户：", UserUtil.user.toString());
             //Toolbar
             SimpleDraweeView contentHeadSdv = findViewById(R.id.content_user_head_sdv);
-            FrescoProxy.showSimpleView(contentHeadSdv, UserUtil.user.getHeadUrl());
+            FrescoProxy.showNetSimpleView(contentHeadSdv, UserUtil.user.getHeadUrl());
             //侧拉
             LinearLayout headerLl = (LinearLayout) homeUserNv.getHeaderView(0);
             SimpleDraweeView headerHeadIv = headerLl.findViewById(R.id.user_head_sdv);
@@ -143,16 +135,6 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
 
     @Override
     public void onSelectTabResult(int curIndex, int nextIndex) {
-        if (curIndex != -1 && nextIndex != -1) {
-            tabLl.getChildAt(curIndex).setBackgroundResource(R.drawable.shape_home_tab_normal);
-            tabLl.getChildAt(nextIndex).setBackgroundResource(R.drawable.shape_home_tab_press);
-        } else {
-            //第一次加载
-            tabLl.getChildAt(0).setBackgroundResource(R.drawable.shape_home_tab_press);
-            for (int i = 1; i < 3; i++) {
-                tabLl.getChildAt(i).setBackgroundResource(R.drawable.shape_home_tab_normal);
-            }
-        }
 
     }
 
@@ -162,7 +144,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     }
 
 
-    @OnClick({R.id.content_user_head_sdv, R.id.open_suspend_window_btn, R.id.category_tv, R.id.find_tv, R.id.make_tv})
+    @OnClick({R.id.content_user_head_sdv, R.id.open_suspend_window_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.content_user_head_sdv:
@@ -173,15 +155,6 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
                 break;
             case R.id.open_suspend_window_btn:
                 presenter.openSuspendWindows();
-                break;
-            case R.id.category_tv:
-                presenter.clickBottomTab(0);
-                break;
-            case R.id.find_tv:
-                presenter.clickBottomTab(1);
-                break;
-            case R.id.make_tv:
-                presenter.clickBottomTab(2);
                 break;
         }
     }
@@ -203,9 +176,6 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
                 break;
             case R.id.exit_item:
                 presenter.exitUser();
-                break;
-            case R.id.rolling_barrage_item:
-                presenter.startActivity(BarrageActivity.class);
                 break;
 
         }

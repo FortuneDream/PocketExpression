@@ -1,15 +1,18 @@
-package com.dell.fortune.pocketexpression.module.home.category;
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
+
+package com.dell.fortune.pocketexpression.module.home;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.common.BaseFragment;
-import com.dell.fortune.pocketexpression.common.LoadingDialogEvent;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.event.RefreshingViewEvent;
 
@@ -20,7 +23,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by 81256 on 2018/3/18.

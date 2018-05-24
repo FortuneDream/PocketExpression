@@ -1,4 +1,9 @@
-package com.dell.fortune.pocketexpression.module.home.category.list;
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
+
+package com.dell.fortune.pocketexpression.module.home.list;
 
 
 import android.content.Context;
@@ -17,7 +22,6 @@ import com.dell.fortune.pocketexpression.config.IntentConstant;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.tools.LogUtils;
-
 
 import java.util.List;
 

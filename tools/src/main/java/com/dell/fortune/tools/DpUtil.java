@@ -1,7 +1,6 @@
-package com.dell.fortune.pocketexpression.util.common;
+package com.dell.fortune.tools;
 
 import android.content.Context;
-import android.text.BoringLayout;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -20,6 +19,13 @@ public class DpUtil {
     public static int Px2Dp(Context context, float px) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (px / scale + 0.5f);
+    }
+
+    public static int getStatusHeight(Context context) {
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");//这是什么意思？
+        if (resourceId > 0) {
+            return context.getResources().getDimensionPixelSize(resourceId);
+        } else return 0;
     }
 
     public static DisplayMetrics getScreenMetrics(Context context) {

@@ -1,6 +1,10 @@
-package com.dell.fortune.pocketexpression.module.home.category.list;
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
 
-import android.net.Uri;
+package com.dell.fortune.pocketexpression.module.home.list;
+
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,7 +27,7 @@ public class CategoryListAdapter extends BaseQuickAdapter<ExpressionItem, Catego
     @Override
     protected void convert(MyHolder helper, ExpressionItem item) {
         SimpleDraweeView picSdv = helper.getView(R.id.pic_sdv);
-        FrescoProxy.showSimpleView(picSdv,item.getUrl());
+        FrescoProxy.showNetSimpleView(picSdv,item.getUrl());
 //        LogUtils.e(item.getUrl());
     }
 

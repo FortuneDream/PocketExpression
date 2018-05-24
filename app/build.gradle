@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.dell.fortune.pocketexpression"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -69,6 +69,7 @@ dependencies {
     //Splash动画
     //    implementation 'com.jaredrummler:animated-svg-view:1.0.5'
     //Permission
+    implementation 'com.jaredrummler:android-processes:1.1.1'
     implementation 'com.yanzhenjie:permission:2.0.0-rc5'
     implementation project(':tools')
 }

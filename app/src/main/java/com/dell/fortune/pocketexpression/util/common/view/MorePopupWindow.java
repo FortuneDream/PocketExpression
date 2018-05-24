@@ -11,9 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.util.common.DpUtil;
+import com.dell.fortune.tools.DpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
