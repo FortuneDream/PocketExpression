@@ -3,13 +3,11 @@
  * 版块归Github.FortuneDream 所有
  */
 
-package com.dell.fortune.pocketexpression.module.home.list;
+package com.dell.fortune.pocketexpression.module.home.category.list;
 
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -29,7 +27,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IView, CategoryListPresenter>
-        implements CategoryListPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemLongClickListener {
+        implements CategoryListPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.collection_all_btn)
     Button collectionAllBtn;
@@ -56,11 +54,29 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
         mCategory = (ExpressionCategory) getIntent().getSerializableExtra(IntentConstant.EXTRA_CATEGORY_LIST_ITEM);
         mAdapter = new CategoryListAdapter(R.layout.item_category_list);
         initToolbar(toolbar, mCategory.getName());
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(mAdapter);
+        initRecycler(recyclerView, mAdapter);
         mAdapter.setOnLoadMoreListener(this);
-        mAdapter.setOnItemLongClickListener(this);
+        mAdapter.bindToRecyclerView(recyclerView);//绑定
+        mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtils.e("position", String.valueOf(position));
+                switch (view.getId()) {
+                    case R.id.collection_fab:
+                        presenter.collectionItem(mAdapter.getItem(position));
+                        break;
+                    case R.id.share_fab:
+                        presenter.shareItem(mAdapter.getItem(position));
+                        break;
+                    case R.id.pic_sdv:
+                        View fabLl = mAdapter.getViewByPosition(position, R.id.fab_ll);
+                        fabLl.setVisibility(View.VISIBLE);
+                        break;
+
+                }
+            }
+        });
         presenter.getList(mCategory);
     }
 
@@ -87,14 +103,6 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
     @Override
     public void onLoadMoreRequested() {
         presenter.getList(mCategory);
-    }
-
-    //长按收藏
-    @Override
-    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-        ExpressionItem item = mAdapter.getItem(position);
-        presenter.collectionItem(item);
-        return true;
     }
 
 

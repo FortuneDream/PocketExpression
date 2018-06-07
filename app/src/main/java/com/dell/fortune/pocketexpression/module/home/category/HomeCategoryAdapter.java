@@ -3,7 +3,7 @@
  * 版块归Github.FortuneDream 所有
  */
 
-package com.dell.fortune.pocketexpression.module.home;
+package com.dell.fortune.pocketexpression.module.home.category;
 
 import android.view.View;
 

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018.
+  ~ 版块归Github.FortuneDream 所有
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -32,7 +37,7 @@
             android:textSize="14sp"
             android:visibility="gone" />
 
-        <com.vondear.rxtools.view.dialog.shapeloadingview.RxShapeView
+        <com.dell.fortune.tools.dialog.shapeloadingview.ShapeView
             android:id="@+id/shapeLoadingView"
             android:layout_width="24dp"
             android:layout_height="24dp"

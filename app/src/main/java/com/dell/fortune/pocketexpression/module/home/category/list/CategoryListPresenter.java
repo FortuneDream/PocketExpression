@@ -3,15 +3,17 @@
  * 版块归Github.FortuneDream 所有
  */
 
-package com.dell.fortune.pocketexpression.module.home.list;
+package com.dell.fortune.pocketexpression.module.home.category.list;
 
 
 import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
+import com.dell.fortune.pocketexpression.callback.ToastUpdateListener;
 import com.dell.fortune.pocketexpression.common.BasePresenter;
 import com.dell.fortune.pocketexpression.common.IBaseView;
 import com.dell.fortune.pocketexpression.config.StrConstant;
 import com.dell.fortune.pocketexpression.model.CollectionModel;
 import com.dell.fortune.pocketexpression.model.ItemModel;
+import com.dell.fortune.pocketexpression.model.ShareModel;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
@@ -23,11 +25,13 @@ public class CategoryListPresenter extends BasePresenter<CategoryListPresenter.I
     private int mPage;
     private ItemModel itemModel;
     private CollectionModel collectionModel;
+    private ShareModel shareModel;
 
     public CategoryListPresenter(IView view) {
         super(view);
         itemModel = new ItemModel();
         collectionModel = new CollectionModel();
+        shareModel = new ShareModel();
         mPage = -1;
     }
 
@@ -43,24 +47,33 @@ public class CategoryListPresenter extends BasePresenter<CategoryListPresenter.I
     }
 
     public void collectionItem(ExpressionItem item) {
+        mView.showLoading(true);
         List<ExpressionItem> items = new ArrayList<>();
         items.add(item);
-        collectionModel.addCollection(mContext, items, new CollectionModel.OnAddCollectionResult() {
+        collectionModel.addCollection(mContext, items, new ToastUpdateListener() {
             @Override
-            public void onResult() {
+            public void onSuccess() {
+                mView.showLoading(false);
                 ToastUtil.showToast(StrConstant.COLLECTION_SUCCESS);
             }
         });
     }
 
     public void collectionAllItem(List<ExpressionItem> data) {
-        collectionModel.addCollection(mContext, data, new CollectionModel.OnAddCollectionResult() {
+        collectionModel.addCollection(mContext, data, new ToastUpdateListener() {
             @Override
-            public void onResult() {
+            public void onSuccess() {
                 ToastUtil.showToast(StrConstant.COLLECTION_SUCCESS);
             }
         });
     }
+
+    //分享
+    public void shareItem(final ExpressionItem item) {
+        mView.showLoading(true);
+        shareModel.shareNetPic(mContext, item);
+    }
+
 
     interface IView extends IBaseView {
 

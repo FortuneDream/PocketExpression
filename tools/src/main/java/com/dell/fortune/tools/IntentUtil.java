@@ -55,7 +55,7 @@ public class IntentUtil {
     }
 
     //分享图片
-    public static void sharePic(String path, Context context) {
+    public static void sharePic(Context context, String path) {
         File file = new File(path);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);

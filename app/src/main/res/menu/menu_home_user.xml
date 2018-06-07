@@ -3,10 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/collection_item"
-            android:icon="@drawable/ico_collection"
-            android:title="表情收藏" />
-        <item
             android:id="@+id/invite_item"
             android:icon="@drawable/ico_invite"
             android:title="邀请好友" />

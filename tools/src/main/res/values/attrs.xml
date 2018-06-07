@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="RxShapeLoadingView">
+    <declare-styleable name="ShapeLoadingView">
         <attr name="loadingText" format="string"/>
         <attr name="loadingTextAppearance" format="reference"/>
     </declare-styleable>
@@ -24,5 +24,11 @@
         <attr name="click_animation_duration" format="integer"/>
         <attr name="shine_distance_multiple" format="float"/>
         <attr name="shine_size" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="BottomTabView">
+        <attr name="itemTabNoSelectIco" format="reference" />
+        <attr name="itemTabSelectIco" format="reference" />
+        <attr name="itemTabName" format="string" />
     </declare-styleable>
 </resources>

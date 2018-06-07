@@ -21,6 +21,7 @@ import android.view.MenuItem;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.tools.dialog.shapeloadingview.DialogShapeLoading;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,9 +40,10 @@ public abstract class BaseActivity<V extends IBaseView, T extends BasePresenter<
     protected Activity mContext;
     protected T presenter;
     public final String TAG = this.getClass().getName();
-    private static final int FLAG_DISMISS_DIALOG = 2001;
-    public AlertDialog mLoadingDialog;//这个dialog一般在上传，下载，的时候才会用到
+    private static final int FLAG_SHOW_DIALOG = 2002;
+    private static final int FLAG_DISMISS_DIALOG = 2003;
     private boolean mIsViewValid = true;
+    private DialogShapeLoading mDialogShapeLoading;
 
     @Override
     public boolean isViewValid() {
@@ -50,7 +52,7 @@ public abstract class BaseActivity<V extends IBaseView, T extends BasePresenter<
 
     protected abstract T createPresenter();
 
-    private Handler handler = new UIHandler(this);
+    public Handler handler = new UIHandler(this);
 
     //防止dialog内存泄漏
     private static class UIHandler extends Handler {
@@ -63,14 +65,18 @@ public abstract class BaseActivity<V extends IBaseView, T extends BasePresenter<
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            BaseActivity activity = softActivity.get();
+            if (activity == null) {
+                return;
+            }
             switch (msg.what) {
-                case FLAG_DISMISS_DIALOG:
-                    BaseActivity activity = softActivity.get();
-                    if (activity == null) {
-                        return;
+                case FLAG_SHOW_DIALOG:
+                    if (activity.mDialogShapeLoading != null && !activity.mDialogShapeLoading.isShowing()) {
+                        activity.mDialogShapeLoading.show();
                     }
-                    if (activity.mLoadingDialog != null && activity.mLoadingDialog.isShowing()) {
-                        activity.mLoadingDialog.dismiss();
+                case FLAG_DISMISS_DIALOG:
+                    if (activity.mDialogShapeLoading != null && activity.mDialogShapeLoading.isShowing()) {
+                        activity.mDialogShapeLoading.dismiss();
                     }
                     break;
             }
@@ -119,17 +125,21 @@ public abstract class BaseActivity<V extends IBaseView, T extends BasePresenter<
 
     private void initLoadingView() {
         //初始化一个LoadingDialog
-        mLoadingDialog = new AlertDialog.Builder(this)
-                .setCancelable(false)
-                .create();
+        mDialogShapeLoading = new DialogShapeLoading(mContext);
     }
 
+    @Override
     public void showLoading(boolean isShow) {
+        showLoading(isShow, 0);
+    }
+
+    @Override
+    public void showLoading(boolean isShow, int milliseconds) {
         if (isShow) {
-            mLoadingDialog.show();
-            handler.sendEmptyMessageDelayed(FLAG_DISMISS_DIALOG, 5 * 1000);
+            handler.sendEmptyMessageDelayed(FLAG_SHOW_DIALOG, milliseconds);
+            handler.sendEmptyMessageDelayed(FLAG_DISMISS_DIALOG, 5 * 1000);//5秒后消失
         } else {
-            mLoadingDialog.dismiss();
+            handler.sendEmptyMessageDelayed(FLAG_DISMISS_DIALOG, milliseconds);
         }
     }
 
@@ -174,7 +184,7 @@ public abstract class BaseActivity<V extends IBaseView, T extends BasePresenter<
             EventBus.getDefault().unregister(this);
         }
         mIsViewValid = false;
-        mLoadingDialog.dismiss();
+        mDialogShapeLoading.dismiss();
         presenter.detachView();
     }
 

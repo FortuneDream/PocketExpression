@@ -54,7 +54,7 @@ public class SuspendContentActivity extends BaseActivity<SuspendContentPresenter
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        IntentUtil.sharePic(mAdapter.getData().get(position).getPath(), this);
+        IntentUtil.sharePic(mContext, mAdapter.getData().get(position).getPath());
     }
 
 

@@ -3,7 +3,7 @@
  * 版块归Github.FortuneDream 所有
  */
 
-package com.dell.fortune.pocketexpression.module.home.list;
+package com.dell.fortune.pocketexpression.module.home.category.list;
 
 import android.view.View;
 
@@ -25,16 +25,23 @@ public class CategoryListAdapter extends BaseQuickAdapter<ExpressionItem, Catego
     }
 
     @Override
-    protected void convert(MyHolder helper, ExpressionItem item) {
+    protected void convert(final MyHolder helper, ExpressionItem item) {
         SimpleDraweeView picSdv = helper.getView(R.id.pic_sdv);
-        FrescoProxy.showNetSimpleView(picSdv,item.getUrl());
-//        LogUtils.e(item.getUrl());
+        FrescoProxy.showNetSimpleView(picSdv, item.getUrl());
+        helper.setVisible(R.id.fab_ll, false)
+                .addOnClickListener(R.id.collection_fab)
+                .addOnClickListener(R.id.pic_sdv)
+                .addOnClickListener(R.id.fab_ll)
+                .addOnClickListener(R.id.share_fab);//子控件点击事件
+
     }
 
     class MyHolder extends BaseViewHolder {
 
         public MyHolder(View view) {
             super(view);
+
         }
+
     }
 }

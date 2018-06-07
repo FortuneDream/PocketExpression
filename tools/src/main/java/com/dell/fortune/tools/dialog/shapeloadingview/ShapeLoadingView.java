@@ -20,17 +20,13 @@ import android.widget.TextView;
 import com.dell.fortune.tools.R;
 
 
-/**
- * @author Vondear
- * @date 2015/4/6
- */
-public class RxShapeLoadingView extends FrameLayout {
+public class ShapeLoadingView extends FrameLayout {
 
     private static final int ANIMATION_DURATION = 500;
 
     private static float mDistance = 200;
 
-    private RxShapeView mRxShapeView;
+    private ShapeView mRxShapeView;
 
     private ImageView mIndicationIm;
 
@@ -40,11 +36,11 @@ public class RxShapeLoadingView extends FrameLayout {
     private String mLoadText;
 
 
-    public RxShapeLoadingView(Context context) {
+    public ShapeLoadingView(Context context) {
         super(context);
     }
 
-    public RxShapeLoadingView(Context context, AttributeSet attrs) {
+    public ShapeLoadingView(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
         init(context, attrs);
 
@@ -52,15 +48,15 @@ public class RxShapeLoadingView extends FrameLayout {
 
     private void init(Context context, AttributeSet attrs) {
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RxShapeLoadingView);
-        mLoadText = typedArray.getString(R.styleable.RxShapeLoadingView_loadingText);
-        mTextAppearance = typedArray.getResourceId(R.styleable.RxShapeLoadingView_loadingTextAppearance, -1);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ShapeLoadingView);
+        mLoadText = typedArray.getString(R.styleable.ShapeLoadingView_loadingText);
+        mTextAppearance = typedArray.getResourceId(R.styleable.ShapeLoadingView_loadingTextAppearance, -1);
 
         typedArray.recycle();
     }
 
 
-    public RxShapeLoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ShapeLoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -80,12 +76,16 @@ public class RxShapeLoadingView extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_shape_loading_view1, null);
+
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_shape_loading_view_default, null);
+
         mDistance = dip2px(54f);
+
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         layoutParams.gravity = Gravity.CENTER;
 
-        mRxShapeView =  view.findViewById(R.id.shapeLoadingView);
+        mRxShapeView = view.findViewById(R.id.shapeLoadingView);
 
         mIndicationIm = view.findViewById(R.id.indication);
         mLoadTextView = view.findViewById(R.id.promptTV);
@@ -245,8 +245,6 @@ public class RxShapeLoadingView extends FrameLayout {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-
-
                 mRxShapeView.changeShape();
                 upThrow();
             }

@@ -6,8 +6,11 @@
 package com.dell.fortune.pocketexpression.module;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.module.home.HomeActivity;
@@ -19,8 +22,15 @@ import com.yanzhenjie.permission.Permission;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 //这里还需要做的更加的精细化，比如提示用户为什么需要权限
 public class SplashActivity extends AppCompatActivity {
+    @BindView(R.id.icon_iv)
+    ImageView iconIv;
+    @BindView(R.id.version_tv)
+    TextView versionTv;
 //    private Rationale mRationale = new Rationale() {
 //        @Override
 //        public void showRationale(Context context, Object data, final RequestExecutor executor) {
@@ -40,6 +50,13 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ButterKnife.bind(this);
+        try {
+            versionTv.setText("当前版本号：" + getPackageManager().getPackageInfo(
+                    getPackageName(), 0).versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         AndPermission.with(this)
                 .runtime()
                 .permission(Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE, Permission.READ_PHONE_STATE)

@@ -3,7 +3,7 @@
  * 版块归Github.FortuneDream 所有
  */
 
-package com.dell.fortune.pocketexpression.module.home;
+package com.dell.fortune.pocketexpression.module.home.category;
 
 
 import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
@@ -12,7 +12,7 @@ import com.dell.fortune.pocketexpression.common.IBaseView;
 import com.dell.fortune.pocketexpression.config.FlagConstant;
 import com.dell.fortune.pocketexpression.model.CategoryModel;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
-import com.dell.fortune.pocketexpression.module.home.list.CategoryListActivity;
+import com.dell.fortune.pocketexpression.module.home.category.list.CategoryListActivity;
 import com.dell.fortune.pocketexpression.util.common.ToastUtil;
 import com.dell.fortune.tools.LogUtils;
 import com.dell.fortune.tools.SharedPrefsUtil;

@@ -1,4 +1,9 @@
-package com.dell.fortune.pocketexpression.module.user;
+/*
+ * Copyright (c) 2018.
+ * 版块归Github.FortuneDream 所有
+ */
+
+package com.dell.fortune.pocketexpression.module.home.collection;
 
 import android.view.View;
 
@@ -14,10 +19,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
  * Created by 81256 on 2018/4/3.
  */
 
-public class UserCollectionAdapter extends BaseQuickAdapter<LocalExpressionItem, UserCollectionAdapter.MyViewHolder> {
+public class HomeCollectionAdapter extends BaseQuickAdapter<LocalExpressionItem, HomeCollectionAdapter.MyViewHolder> {
 
 
-    public UserCollectionAdapter(int layoutResId) {
+    public HomeCollectionAdapter(int layoutResId) {
         super(layoutResId);
     }
 

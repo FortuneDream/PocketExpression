@@ -15,10 +15,7 @@ import android.view.animation.Interpolator;
 import com.dell.fortune.tools.R;
 
 
-/**
- * @author vondear
- */
-public class RxShapeView extends View {
+public class ShapeView extends View {
 
 
     private static final float genhao3 = 1.7320508075689f;
@@ -37,22 +34,22 @@ public class RxShapeView extends View {
      */
     private float mMagicNumber = 0.55228475f;
 
-    public RxShapeView(Context context) {
+    public ShapeView(Context context) {
         super(context);
         init();
     }
 
-    public RxShapeView(Context context, AttributeSet attrs) {
+    public ShapeView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public RxShapeView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ShapeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public RxShapeView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ShapeView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }

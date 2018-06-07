@@ -51,13 +51,10 @@
 
         <activity android:name=".module.home.HomeActivity" />
         <activity
-            android:name=".module.home.list.CategoryListActivity"
+            android:name="com.dell.fortune.pocketexpression.module.home.category.list.CategoryListActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".module.auth.login.LoginActivity" />
         <activity android:name=".module.auth.register.RegisterActivity" />
-        <activity
-            android:name=".module.user.UserCollectionActivity"
-            android:screenOrientation="portrait" />
         <service
             android:name=".module.service.AccessibilityMonitorService"
             android:enabled="true"

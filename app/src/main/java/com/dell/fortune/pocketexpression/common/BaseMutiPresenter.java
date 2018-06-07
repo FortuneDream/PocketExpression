@@ -17,7 +17,7 @@ public abstract class BaseMutiPresenter<V extends IBaseMutiView> extends BasePre
     public abstract List<Fragment> initFragment();
 
     private Fragment totalFragment;
-    private int mCurIndex = -1;//标记当前Fragment
+    public int mCurIndex = -1;//标记当前Fragment
 
     public BaseMutiPresenter(V mView) {
         super(mView);

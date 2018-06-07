@@ -5,6 +5,9 @@
 
 package com.dell.fortune.pocketexpression.module.home;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -30,11 +33,13 @@ import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
 import com.dell.fortune.pocketexpression.util.common.UserUtil;
 import com.dell.fortune.tools.IntentUtil;
 import com.dell.fortune.tools.LogUtils;
+import com.dell.fortune.tools.tab.BottomTabView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,6 +63,11 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     NavigationView homeUserNv;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.home_category_tab)
+    BottomTabView homeCategoryTab;
+    @BindView(R.id.home_collection_tab)
+    BottomTabView homeCollectionTab;
+    private List<BottomTabView> bottomTabViews = new ArrayList<>();
 
     @Override
     public int setContentResource() {
@@ -70,7 +80,13 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         homeUserNv.setItemIconTintList(null);
         UserUtil.checkLocalUser(false, this);
         initFlipper();
+        initBottomTabList();
         presenter.clickBottomTab(0);
+    }
+
+    private void initBottomTabList() {
+        bottomTabViews.add(0, homeCategoryTab);
+        bottomTabViews.add(1, homeCollectionTab);
     }
 
 
@@ -107,6 +123,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
             TextView headerNickNameTv = headerLl.findViewById(R.id.user_nick_name_tv);
             headerNickNameTv.setText(UserUtil.user.getNickName());
         }
+        presenter.checkAuthority();
     }
 
     @Override
@@ -135,8 +152,21 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
 
     @Override
     public void onSelectTabResult(int curIndex, int nextIndex) {
-
+        for (int i = 0; i < bottomTabViews.size(); i++) {
+            if (i == nextIndex) {
+                BottomTabView selectView = bottomTabViews.get(i);
+                selectView.onSelect(true);
+                selectAnim(selectView);
+            } else {
+                BottomTabView unselectView = bottomTabViews.get(i);
+                unselectView.onSelect(false);
+            }
+        }
+        if (curIndex != presenter.mCurIndex) {//初始态不变
+            unselectAnim(bottomTabViews.get(curIndex));
+        }
     }
+
 
     @Override
     protected HomePresenter createPresenter() {
@@ -144,7 +174,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     }
 
 
-    @OnClick({R.id.content_user_head_sdv, R.id.open_suspend_window_btn})
+    @OnClick({R.id.content_user_head_sdv, R.id.open_suspend_window_btn, R.id.home_category_tab, R.id.home_collection_tab})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.content_user_head_sdv:
@@ -154,7 +184,13 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
                 }
                 break;
             case R.id.open_suspend_window_btn:
-                presenter.openSuspendWindows();
+                presenter.openSuspend();
+                break;
+            case R.id.home_category_tab:
+                presenter.clickBottomTab(0);
+                break;
+            case R.id.home_collection_tab:
+                presenter.clickBottomTab(1);
                 break;
         }
     }
@@ -164,9 +200,6 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.collection_item:
-                presenter.enterUserCollectionActivity();
-                break;
             case R.id.invite_item:
                 IntentUtil.shareText(mContext, "斗图斗图！下载地址：");
                 break;
@@ -177,7 +210,6 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
             case R.id.exit_item:
                 presenter.exitUser();
                 break;
-
         }
         return true;
     }
@@ -188,7 +220,6 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         if (requestCode == FlagConstant.REQUEST_LOGIN) {//请求登录
             UserUtil.onActivityResult(resultCode, data);
         }
-
         if (resultCode == RESULT_OK) {//选择图片后的回调
             switch (requestCode) {
                 case PictureConfig.CHOOSE_REQUEST:
@@ -203,5 +234,31 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
                     break;
             }
         }
+    }
+
+    //未选中动画
+    private void unselectAnim(View view) {
+        ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1.1f, 1f);
+        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1.1f, 1f);
+        AnimatorSet set = new AnimatorSet();
+        List<Animator> list = new ArrayList<>();
+        list.add(scaleXAnimator);
+        list.add(scaleYAnimator);
+        set.setDuration(200);
+        set.playTogether(list);
+        set.start();
+    }
+
+    //选中动画
+    private void selectAnim(View view) {
+        ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(view, "scaleX", 1f, 1.1f);
+        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(view, "scaleY", 1f, 1.1f);
+        AnimatorSet set = new AnimatorSet();
+        List<Animator> list = new ArrayList<>();
+        list.add(scaleXAnimator);
+        list.add(scaleYAnimator);
+        set.setDuration(200);
+        set.playTogether(list);
+        set.start();
     }
 }

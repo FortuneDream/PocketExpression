@@ -31,7 +31,6 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment<V extends IBaseView, T extends BasePresenter<V>> extends Fragment implements IBaseView {
     protected T presenter;
-    public static AlertDialog mLoadingDialog;
     public Context mContext;
     public final String TAG = this.getClass().getName();
     Unbinder unbinder;
@@ -48,6 +47,7 @@ public abstract class BaseFragment<V extends IBaseView, T extends BasePresenter<
         isViewValid = true;
     }
 
+
     protected abstract T createPresenter();
 
     @Override
@@ -55,12 +55,7 @@ public abstract class BaseFragment<V extends IBaseView, T extends BasePresenter<
         super.onCreate(savedInstanceState);
         this.mContext = getContext();
         presenter = createPresenter();
-        presenter.attachView((V)this);
-        if (mLoadingDialog == null) {
-            mLoadingDialog = new AlertDialog.Builder(getActivity())
-                    .setCancelable(false)
-                    .create();
-        }
+        presenter.attachView((V) this);
     }
 
 
@@ -85,11 +80,16 @@ public abstract class BaseFragment<V extends IBaseView, T extends BasePresenter<
         return getContext();
     }
 
+    @Override
     public void showLoading(boolean isShow) {
-        if (isShow) {
-            mLoadingDialog.show();
-        } else {
-            mLoadingDialog.dismiss();
+        showLoading(isShow, 0);
+    }
+
+    @Override
+    public void showLoading(boolean isShow, int milliseconds) {
+        BaseActivity activity = (BaseActivity) getActivity();
+        if (activity != null) {
+            activity.showLoading(isShow, milliseconds);
         }
     }
 
@@ -102,7 +102,7 @@ public abstract class BaseFragment<V extends IBaseView, T extends BasePresenter<
     public void initRecycler(RecyclerView recyclerView, BaseQuickAdapter adapter) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(mContext,LinearLayoutManager.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -114,14 +114,14 @@ public abstract class BaseFragment<V extends IBaseView, T extends BasePresenter<
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void showDialog(LoadingDialogEvent event){
+    public void showDialog(LoadingDialogEvent event) {
         showLoading(event.isShow());
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (EventBus.getDefault().isRegistered(this)){
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
         isViewValid = false;

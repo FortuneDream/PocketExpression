@@ -12,6 +12,8 @@ import com.dell.fortune.tools.SharedPrefsUtil;
 import com.dell.fortune.tools.crash.CrashCatch;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import java.io.File;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.statistics.AppStat;
 
@@ -28,10 +30,22 @@ public class MyApplication extends Application {
         initFresco();
         initGreenDao();
         Bmob.initialize(this, BmobConstant.APP_ID);
-        AppStat.i(BmobConstant.APP_ID, "Bmob");
         CrashCatch crashCatch = CrashCatch.getInstance();
         crashCatch.setListener(new CrashDefaultHandler(this));
         crashCatch.init();
+        createDir();//建立文件夹
+    }
+
+    private void createDir() {
+        File collectionDir = new File(FlagConstant.COLLECTION_DIR);
+        if (!collectionDir.exists()) {
+            collectionDir.mkdirs();
+        }
+        File tempShareDir = new File(FlagConstant.TEMP_SHARE_DIR);
+        if (tempShareDir.exists()) {
+            tempShareDir.mkdirs();
+        }
+
     }
 
     private void initGreenDao() {
@@ -40,7 +54,6 @@ public class MyApplication extends Application {
         DaoMaster master = new DaoMaster(db);
         GreenDaoUtil.setSession(master.newSession());
     }
-
 
 
     private void initFresco() {
