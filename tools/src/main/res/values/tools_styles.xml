@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="tools_SettingBigDivider">
+        <item name="android:background">#eff0f7</item>
+        <item name="android:layout_height">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="tools_SettingDivider">
+        <item name="android:background">#c8c7c7</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+</resources>

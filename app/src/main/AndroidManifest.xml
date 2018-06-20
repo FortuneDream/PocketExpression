@@ -18,14 +18,7 @@
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <application
-        android:name=".config.MyApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+    <application android:theme="@style/AppTheme">
         <activity android:name=".module.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,8 +46,7 @@
         <activity
             android:name="com.dell.fortune.pocketexpression.module.home.category.list.CategoryListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.auth.login.LoginActivity" />
-        <activity android:name=".module.auth.register.RegisterActivity" />
+
         <service
             android:name=".module.service.AccessibilityMonitorService"
             android:enabled="true"
@@ -67,7 +59,7 @@
 
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_service_config" />
+                android:resource="@xml/app_accessibility_service_config" />
         </service>
 
 
@@ -75,6 +67,6 @@
         <activity
             android:name="com.dell.fortune.pocketexpression.module.suspend.SuspendContentActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/TranslucentFullScreenTheme" />
+            android:theme="@style/core_TranslucentFullScreenTheme" />
     </application>
 </manifest>

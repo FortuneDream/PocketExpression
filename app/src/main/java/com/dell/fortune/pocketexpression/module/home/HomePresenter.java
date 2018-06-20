@@ -5,39 +5,30 @@
 
 package com.dell.fortune.pocketexpression.module.home;
 
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.View;
 
-import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
-import com.dell.fortune.pocketexpression.common.BaseActivity;
-import com.dell.fortune.pocketexpression.common.BaseMutiPresenter;
-import com.dell.fortune.pocketexpression.common.IBaseMutiView;
-import com.dell.fortune.pocketexpression.model.bean.MyUser;
+import com.dell.fortune.core.callback.ToastUpdateListener;
+import com.dell.fortune.core.common.BaseMutiPresenter;
+import com.dell.fortune.core.common.IBaseMutiView;
+import com.dell.fortune.core.util.UserUtil;
 import com.dell.fortune.pocketexpression.module.home.category.HomeCategoryFragment;
 import com.dell.fortune.pocketexpression.module.home.collection.HomeCollectionFragment;
 import com.dell.fortune.pocketexpression.module.service.SuspendService;
-import com.dell.fortune.pocketexpression.util.common.DoubleExitUtil;
-import com.dell.fortune.pocketexpression.util.common.PictureSelectorUtil;
-import com.dell.fortune.pocketexpression.util.common.ToastUtil;
+import com.dell.fortune.tools.DoubleExitUtil;
 import com.dell.fortune.tools.LogUtils;
-import com.dell.fortune.tools.dialog.DialogSureCancel;
-import com.dell.fortune.tools.update.UpdateBuilder;
-import com.dell.fortune.tools.update.UpdateConfiguration;
+import com.dell.fortune.tools.toast.ToastUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.update.AppVersion;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UploadFileListener;
 
 /**
  * Created by 81256 on 2018/3/17.
@@ -66,19 +57,27 @@ public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     }
 
     //检测权限
-    public void openSuspend() {
+    public boolean openSuspend() {
         if (!checkAccessibilityAuthority()) {
             Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
             mContext.startActivity(intent);
+            return false;
         } else if (!checkSuspendAuthority()) {//版本号小于M，直接返回True
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
             ToastUtil.showToast("需要取得悬浮窗权限");
             mContext.startActivity(intent);
+            return false;
         } else {
             ToastUtil.showToast("配置成功");
             Intent intent = new Intent(mContext, SuspendService.class);
             mContext.startService(intent);
+            return true;
         }
+    }
+
+    public void closeSuspend() {
+        Intent intent = new Intent(mContext, SuspendService.class);
+        mContext.stopService(intent);
     }
 
 
@@ -126,77 +125,45 @@ public class HomePresenter extends BaseMutiPresenter<HomePresenter.IView> {
     }
 
 
-    public void openPictureSelector() {
-        PictureSelectorUtil.showPictureSelector((BaseActivity) mContext);
-    }
-
-    //注销登录
-    public void exitUser() {
-        final DialogSureCancel dialogSureCancel = new DialogSureCancel(mContext);
-        dialogSureCancel.getTvTitle().setText("退出登录");
-        dialogSureCancel.getTvContent().setText("是否退出登录？（将重启应用）");
-        dialogSureCancel.getTvSure().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyUser.logOut();
-                android.os.Process.killProcess(android.os.Process.myPid());
-                ContextWrapper wrapper = ((ContextWrapper) mContext);
-                Intent i = wrapper.getBaseContext().getPackageManager()
-                        .getLaunchIntentForPackage(wrapper.getBaseContext().getPackageName());
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                mContext.startActivity(i);//重启app
-            }
-        });
-        dialogSureCancel.getTvCancel().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogSureCancel.dismiss();
-            }
-        });
-        dialogSureCancel.show();
-    }
-
-    public void checkVersion() {
-        try {
-            final PackageInfo pi = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), PackageManager.GET_ACTIVITIES);
-            BmobQuery<AppVersion> query = new BmobQuery<>();
-            query.addWhereGreaterThan("version_i", pi.versionCode);
-            query.findObjects(new ToastQueryListener<AppVersion>() {
-                @Override
-                public void onSuccess(List<AppVersion> list) {
-                    if (list.size() >= 1) {
-                        AppVersion appVersion = list.get(list.size() - 1);
-                        String versionContent = appVersion.getUpdate_log();
-                        String versionCodeStr = appVersion.getVersion();
-                        String url = appVersion.getPath().getUrl();
-                        boolean isForce = appVersion.getIsforce();
-                        UpdateBuilder updateBuilder = new UpdateBuilder(mContext);
-                        UpdateConfiguration configuration = new UpdateConfiguration(versionCodeStr,
-                                versionContent,
-                                url,
-                                isForce,
-                                Environment.getExternalStorageDirectory().getPath(),
-                                R.mipmap.ic_launcher);
-                        updateBuilder.setConfiguration(configuration).update();
-                    }
-                }
-            });
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void checkAuthority() {
+    public boolean checkAuthority() {
         if (!checkSuspendAuthority()) {
             ToastUtil.showToast("请打开悬浮窗权限");
+            return false;
         }
 
         if (!checkAccessibilityAuthority()) {
             ToastUtil.showToast("请打开辅助服务");
+            return false;
         }
+        return true;
+    }
+
+    public void changeHead(String path) {
+        mView.showLoading(true);
+        final BmobFile bmobFile = new BmobFile(new File(path));
+        bmobFile.upload(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e != null) {
+                    mView.showLoading(false);
+                    ToastUtil.showToast("发生错误");
+                    return;
+                }
+                UserUtil.user.setHeadUrl(bmobFile.getUrl());
+                UserUtil.user.update(new ToastUpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        mView.showLoading(false);
+                        mView.setHeadUrl(bmobFile.getUrl());
+                    }
+                });
+            }
+
+        });
     }
 
     public interface IView extends IBaseMutiView {
 
+        void setHeadUrl(String url);
     }
 }

@@ -6,8 +6,8 @@
 package com.dell.fortune.pocketexpression.module.suspend;
 
 
-import com.dell.fortune.pocketexpression.common.BasePresenter;
-import com.dell.fortune.pocketexpression.common.IBaseView;
+import com.dell.fortune.core.common.BasePresenter;
+import com.dell.fortune.core.common.IBaseView;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionDaoOpe;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
 import com.dell.fortune.pocketexpression.util.common.RxApi;

@@ -1,0 +1,8 @@
+<resources>
+    <string name="core_app_name">表情包斗图</string>
+    <string name="core_not_found_empty">啊哦，没有数据~</string>
+    <string name="core_no_more">(*￣ω￣) 没有更多了</string>
+    <string name="core_loading_wait">请稍等~正在加载</string>
+    <string name="core_load_more">正在努力加载更多信息~</string>
+    <string name="core_accessibility_description">监控QQ是否已经位于顶层</string>
+</resources>

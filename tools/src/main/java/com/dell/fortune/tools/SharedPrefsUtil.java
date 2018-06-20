@@ -24,6 +24,7 @@ public class SharedPrefsUtil {
         }
     }
 
+
     public static SharedPreferences getInstance() {
         if (sp == null) {
             throw new ExceptionInInitializerError("SharedPreference尚未初始化，请在Application中进行初始化。");

@@ -9,31 +9,27 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.dell.fortune.core.common.BaseActivity;
+import com.dell.fortune.core.config.FlagConstant;
+import com.dell.fortune.core.util.UserUtil;
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.common.BaseActivity;
-import com.dell.fortune.pocketexpression.config.FlagConstant;
 import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
-import com.dell.fortune.pocketexpression.util.common.UserUtil;
-import com.dell.fortune.tools.IntentUtil;
 import com.dell.fortune.tools.LogUtils;
 import com.dell.fortune.tools.tab.BottomTabView;
+import com.dell.fortune.tools.toast.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -42,95 +38,81 @@ import com.luck.picture.lib.entity.LocalMedia;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 
 public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresenter>
-        implements HomePresenter.IView, NavigationView.OnNavigationItemSelectedListener {
+        implements HomePresenter.IView, View.OnClickListener {
 
-
-    @BindView(R.id.content_user_head_sdv)
-    SimpleDraweeView contentUserHeadSdv;
-    @BindView(R.id.open_suspend_window_btn)
-    Button openSuspendWindowBtn;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.info_flipper)
-    ViewFlipper infoFlipper;
-    @BindView(R.id.home_content)
-    FrameLayout homeContent;
-    @BindView(R.id.home_user_nv)
-    NavigationView homeUserNv;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
-    @BindView(R.id.home_category_tab)
-    BottomTabView homeCategoryTab;
-    @BindView(R.id.home_collection_tab)
-    BottomTabView homeCollectionTab;
     private List<BottomTabView> bottomTabViews = new ArrayList<>();
+    private boolean mIsAuthorityStatusOpen;
+    private SimpleDraweeView mContentUserHeadSdv;
+    private SwitchCompat mOpenSuspendWindowSwitch;
+    private Toolbar mToolbar;
+    private ViewFlipper mInfoFlipper;
+    private FrameLayout mHomeContent;
+    private BottomTabView mHomeCategoryTab;
+    private BottomTabView mHomeCollectionTab;
+    private HomeNavigationView mHomeUserNv;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     public int setContentResource() {
-        return R.layout.activity_home;
+        return R.layout.app_activity_home;
     }
 
     @Override
     public void initView() {
-        homeUserNv.setNavigationItemSelectedListener(this);
-        homeUserNv.setItemIconTintList(null);
-        UserUtil.checkLocalUser(false, this);
+        if (!UserUtil.checkLocalUser(false, this)) {
+            ToastUtil.showToast("登录可以收藏表情包哦~");
+        }
         initFlipper();
         initBottomTabList();
+        mIsAuthorityStatusOpen = presenter.checkAuthority();
+        mOpenSuspendWindowSwitch.setChecked(presenter.checkAuthority());//检测是否打开
         presenter.clickBottomTab(0);
+
     }
 
+    //底部栏
     private void initBottomTabList() {
-        bottomTabViews.add(0, homeCategoryTab);
-        bottomTabViews.add(1, homeCollectionTab);
+        bottomTabViews.add(0, mHomeCategoryTab);
+        bottomTabViews.add(1, mHomeCollectionTab);
     }
 
 
+    //消息栏
     private void initFlipper() {
-        for (int i = 0; i < 5; i++) {
-            LinearLayout contentLl = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_info_flipper, null);
+        LinearLayout beginLl = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.app_item_info_flipper, null);
+        TextView beginTv = beginLl.findViewById(R.id.info_tv);
+        beginTv.setText("数码宝贝世界大门打开倒计时！");
+        mInfoFlipper.addView(beginLl);
+        for (int i = 10; i >= 1; i--) {
+            LinearLayout contentLl = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.app_item_info_flipper, null);
             TextView infoTv = contentLl.findViewById(R.id.info_tv);
-            infoTv.setText("这是第" + i + "条");
-            infoFlipper.addView(contentLl);
+            infoTv.setText(i + "!");
+            mInfoFlipper.addView(contentLl);
         }
-        infoFlipper.startFlipping();
+        LinearLayout endLl = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.app_item_info_flipper, null);
+        TextView endTv = endLl.findViewById(R.id.info_tv);
+        endTv.setText("打开！");
+        mInfoFlipper.addView(endLl);
+        mInfoFlipper.startFlipping();
     }
+
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //判断用户是否登录
+    protected void onStart() {
+        super.onStart();
         if (UserUtil.user != null) {
             LogUtils.e("已登录用户：", UserUtil.user.toString());
-            //Toolbar
-            SimpleDraweeView contentHeadSdv = findViewById(R.id.content_user_head_sdv);
-            FrescoProxy.showNetSimpleView(contentHeadSdv, UserUtil.user.getHeadUrl());
-            //侧拉
-            LinearLayout headerLl = (LinearLayout) homeUserNv.getHeaderView(0);
-            SimpleDraweeView headerHeadIv = headerLl.findViewById(R.id.user_head_sdv);
-            headerHeadIv.setImageURI(Uri.parse(UserUtil.user.getHeadUrl()));
-            headerHeadIv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //点击头像，修改头像
-                    presenter.openPictureSelector();
-                }
-            });
-            TextView headerNickNameTv = headerLl.findViewById(R.id.user_nick_name_tv);
-            headerNickNameTv.setText(UserUtil.user.getNickName());
+            setHeadUrl(UserUtil.user.getHeadUrl());
         }
-        presenter.checkAuthority();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (UserUtil.user != null && drawerLayout.isDrawerOpen(Gravity.START)) {
-                drawerLayout.closeDrawer(Gravity.START);//先关闭侧拉栏
+            if (UserUtil.user != null && mDrawerLayout.isDrawerOpen(Gravity.START)) {
+                mDrawerLayout.closeDrawer(Gravity.START);//先关闭侧拉栏
             } else {
                 presenter.doubleExit(keyCode);
             }
@@ -173,46 +155,38 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         return new HomePresenter(this);
     }
 
-
-    @OnClick({R.id.content_user_head_sdv, R.id.open_suspend_window_btn, R.id.home_category_tab, R.id.home_collection_tab})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.content_user_head_sdv:
-                UserUtil.checkLocalUser(true, this);
-                if (UserUtil.user != null) {
-                    drawerLayout.openDrawer(Gravity.START);//点击头像出侧拉栏
-                }
-                break;
-            case R.id.open_suspend_window_btn:
-                presenter.openSuspend();
-                break;
-            case R.id.home_category_tab:
-                presenter.clickBottomTab(0);
-                break;
-            case R.id.home_collection_tab:
-                presenter.clickBottomTab(1);
-                break;
-        }
-    }
-
-
-    //侧拉点击事件
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.invite_item:
-                IntentUtil.shareText(mContext, "斗图斗图！下载地址：");
-                break;
-            case R.id.upgrade_item:
-                //更新
-                presenter.checkVersion();
-                break;
-            case R.id.exit_item:
-                presenter.exitUser();
-                break;
-        }
-        return true;
+    protected void findViewSetListener() {
+        mContentUserHeadSdv = (SimpleDraweeView) findViewById(R.id.content_user_head_sdv);
+        mContentUserHeadSdv.setOnClickListener(this);
+        mOpenSuspendWindowSwitch = (SwitchCompat) findViewById(R.id.open_suspend_window_switch);
+        mOpenSuspendWindowSwitch.setOnClickListener(this);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mInfoFlipper = (ViewFlipper) findViewById(R.id.info_flipper);
+        mHomeContent = (FrameLayout) findViewById(R.id.home_content);
+        mHomeCategoryTab = (BottomTabView) findViewById(R.id.home_category_tab);
+        mHomeCategoryTab.setOnClickListener(this);
+        mHomeCollectionTab = (BottomTabView) findViewById(R.id.home_collection_tab);
+        mHomeCollectionTab.setOnClickListener(this);
+        mHomeUserNv = (HomeNavigationView) findViewById(R.id.home_user_nv);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     }
+
+
+    //修改当前状态
+    private void changeSwitchStatus() {
+        if (mIsAuthorityStatusOpen) {//当前状态为打开
+            presenter.closeSuspend();
+            mIsAuthorityStatusOpen = !mIsAuthorityStatusOpen;
+        } else {
+            boolean isReallyOpen = presenter.openSuspend();//是否真正的开了
+            if (isReallyOpen) {
+                mIsAuthorityStatusOpen = !mIsAuthorityStatusOpen;
+            }
+        }
+        mOpenSuspendWindowSwitch.setChecked(mIsAuthorityStatusOpen);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -223,14 +197,11 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         if (resultCode == RESULT_OK) {//选择图片后的回调
             switch (requestCode) {
                 case PictureConfig.CHOOSE_REQUEST:
-                    // 图片、视频、音频选择结果回调
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                    // 例如 LocalMedia 里面返回三种path
-                    // 1.media.getPath(); 为原图path
-                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     LocalMedia localMedia = selectList.get(0);
+                    LogUtils.e("原图路径", localMedia.getPath());
+                    presenter.changeHead(localMedia.getPath());
                     break;
             }
         }
@@ -260,5 +231,35 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         set.setDuration(200);
         set.playTogether(list);
         set.start();
+    }
+
+    //两个Head
+    @Override
+    public void setHeadUrl(String url) {
+        mHomeUserNv.setHead(url);
+        FrescoProxy.showNetSimpleView(mContentUserHeadSdv, url);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.content_user_head_sdv) {
+            UserUtil.checkLocalUser(true, this);
+            if (UserUtil.user != null) {
+                mDrawerLayout.openDrawer(Gravity.START);//点击头像出侧拉栏
+            }
+
+        } else if (i == R.id.home_category_tab) {
+            presenter.clickBottomTab(0);
+
+        } else if (i == R.id.home_collection_tab) {
+            if (UserUtil.checkLocalUser(true, this)) {
+                presenter.clickBottomTab(1);
+            }
+
+        } else if (i == R.id.open_suspend_window_switch) {
+            changeSwitchStatus();
+
+        }
     }
 }

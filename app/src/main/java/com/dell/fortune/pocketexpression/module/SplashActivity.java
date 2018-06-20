@@ -15,22 +15,18 @@ import android.widget.TextView;
 import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.module.home.HomeActivity;
 import com.dell.fortune.pocketexpression.util.common.RxTimerUtil;
-import com.dell.fortune.pocketexpression.util.common.ToastUtil;
+import com.dell.fortune.tools.toast.ToastUtil;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 //这里还需要做的更加的精细化，比如提示用户为什么需要权限
 public class SplashActivity extends AppCompatActivity {
-    @BindView(R.id.icon_iv)
-    ImageView iconIv;
-    @BindView(R.id.version_tv)
-    TextView versionTv;
+    private ImageView mIconIv;
+    private TextView mVersionTv;
 //    private Rationale mRationale = new Rationale() {
 //        @Override
 //        public void showRationale(Context context, Object data, final RequestExecutor executor) {
@@ -49,10 +45,10 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        ButterKnife.bind(this);
+        setContentView(R.layout.app_activity_splash);
+        findViewSetListener();
         try {
-            versionTv.setText("当前版本号：" + getPackageManager().getPackageInfo(
+            mVersionTv.setText("当前版本号：" + getPackageManager().getPackageInfo(
                     getPackageName(), 0).versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -82,6 +78,11 @@ public class SplashActivity extends AppCompatActivity {
                 })
                 .start();
 
+    }
+
+    private void findViewSetListener() {
+        mIconIv = (ImageView) findViewById(R.id.icon_iv);
+        mVersionTv = (TextView) findViewById(R.id.version_tv);
     }
 
     private void enterHomeActivity() {

@@ -56,13 +56,13 @@ public class ShapeView extends View {
 
     private void init() {
         mPaint = new Paint();
-        mPaint.setColor(getResources().getColor(R.color.triangle));
+        mPaint.setColor(getResources().getColor(R.color.tools_triangle));
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        setBackgroundColor(getResources().getColor(R.color.transparent));
-        mTriangleColor = getResources().getColor(R.color.triangle);
-        mCircleColor = getResources().getColor(R.color.circle);
-        mRectColor = getResources().getColor(R.color.triangle);
+        setBackgroundColor(getResources().getColor(R.color.tools_transparent));
+        mTriangleColor = getResources().getColor(R.color.tools_triangle);
+        mCircleColor = getResources().getColor(R.color.tools_circle);
+        mRectColor = getResources().getColor(R.color.tools_triangle);
     }
 
     public boolean mIsLoading = false;
@@ -109,7 +109,7 @@ public class ShapeView extends View {
 
                 } else {
                     Path path = new Path();
-                    mPaint.setColor(getResources().getColor(R.color.triangle));
+                    mPaint.setColor(getResources().getColor(R.color.tools_triangle));
                     path.moveTo(relativeXFromView(0.5f), relativeYFromView(0f));
                     path.lineTo(relativeXFromView(1), relativeYFromView(genhao3 / 2f));
                     path.lineTo(relativeXFromView(0), relativeYFromView(genhao3 / 2f));
@@ -159,7 +159,7 @@ public class ShapeView extends View {
                     invalidate();
                 } else {
 
-                    mPaint.setColor(getResources().getColor(R.color.circle));
+                    mPaint.setColor(getResources().getColor(R.color.tools_circle));
                     Path path = new Path();
 
                     float magicNumber = mMagicNumber;
@@ -216,7 +216,7 @@ public class ShapeView extends View {
                     invalidate();
 
                 } else {
-                    mPaint.setColor(getResources().getColor(R.color.rect));
+                    mPaint.setColor(getResources().getColor(R.color.tools_rect));
                     mControlX = relativeXFromView(0.5f - genhao3 / 4);
                     mControlY = relativeYFromView(0.75f);
                     Path path = new Path();

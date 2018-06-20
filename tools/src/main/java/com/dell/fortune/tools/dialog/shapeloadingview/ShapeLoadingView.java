@@ -48,9 +48,9 @@ public class ShapeLoadingView extends FrameLayout {
 
     private void init(Context context, AttributeSet attrs) {
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ShapeLoadingView);
-        mLoadText = typedArray.getString(R.styleable.ShapeLoadingView_loadingText);
-        mTextAppearance = typedArray.getResourceId(R.styleable.ShapeLoadingView_loadingTextAppearance, -1);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.tools_ShapeLoadingView);
+        mLoadText = typedArray.getString(R.styleable.tools_ShapeLoadingView_tools_loadingText);
+        mTextAppearance = typedArray.getResourceId(R.styleable.tools_ShapeLoadingView_tools_loadingTextAppearance, -1);
 
         typedArray.recycle();
     }
@@ -64,7 +64,7 @@ public class ShapeLoadingView extends FrameLayout {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public DialogShapeLoadingView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
+        initPrivate(context, attrs);
     }*/
 
     public int dip2px(float dipValue) {
@@ -77,7 +77,7 @@ public class ShapeLoadingView extends FrameLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_shape_loading_view_default, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.tools_dialog_shape_loading_view_default, null);
 
         mDistance = dip2px(54f);
 

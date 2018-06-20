@@ -8,7 +8,7 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.view.View;
 
-import com.dell.fortune.pocketexpression.config.IntentConstant;
+import com.dell.fortune.core.config.IntentConstant;
 import com.dell.fortune.pocketexpression.module.suspend.SuspendContentActivity;
 import com.dell.fortune.pocketexpression.module.suspend.SuspendIconWindowView;
 import com.dell.fortune.tools.LogUtils;

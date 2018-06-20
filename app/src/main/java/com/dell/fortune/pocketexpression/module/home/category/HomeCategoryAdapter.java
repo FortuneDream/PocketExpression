@@ -5,8 +5,6 @@
 
 package com.dell.fortune.pocketexpression.module.home.category;
 
-import android.view.View;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.dell.fortune.pocketexpression.R;
@@ -36,12 +34,5 @@ public class HomeCategoryAdapter extends BaseQuickAdapter<ExpressionCategory, Ba
         FrescoProxy.showNetSimpleView(coverImgOne, item.getCoverImgOne());
         FrescoProxy.showNetSimpleView(coverImgTwo, item.getCoverImgTwo());
         FrescoProxy.showNetSimpleView(coverImgThree, item.getCoverImgThree());
-    }
-
-    class MyViewHolder extends BaseViewHolder {
-
-        public MyViewHolder(View view) {
-            super(view);
-        }
     }
 }

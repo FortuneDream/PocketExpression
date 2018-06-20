@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/content_user_head_sdv"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:placeholderImage="@mipmap/core_ic_launcher"
+                app:roundAsCircle="true" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/open_suspend_window_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp" />
+        </android.support.v7.widget.Toolbar>
+
+        <View style="@style/core_SmallDivider" />
+        <ViewFlipper
+            android:id="@+id/info_flipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:flipInterval="2000"
+            android:inAnimation="@animator/app_anim_flipper_come_in"
+            android:outAnimation="@animator/app_anim_flipper_get_out" />
+
+        <View style="@style/core_SmallDivider" />
+
+        <FrameLayout
+            android:id="@+id/home_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <com.dell.fortune.tools.tab.BottomTabView
+                android:id="@+id/home_category_tab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:tools_tab_name="每日更新"
+                app:tools_tab_normal_ico="@drawable/app_ic_vec_tab_home_normal"
+                app:tools_tab_normal_text_color="@color/core_ui_black_2"
+                app:tools_tab_press_ico="@drawable/app_ic_vec_tab_home_press"
+                app:tools_tab_press_text_color="@color/core_colorAccent" />
+
+            <com.dell.fortune.tools.tab.BottomTabView
+                android:id="@+id/home_collection_tab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:tools_tab_name="我的收藏"
+                app:tools_tab_normal_ico="@drawable/app_ic_vec_tab_collection_normal"
+                app:tools_tab_normal_text_color="@color/core_ui_black_2"
+                app:tools_tab_press_ico="@drawable/app_ic_vec_tab_collection_press"
+                app:tools_tab_press_text_color="@color/core_colorAccent" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.dell.fortune.pocketexpression.module.home.HomeNavigationView
+        android:id="@+id/home_user_nv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start" />
+
+</android.support.v4.widget.DrawerLayout>

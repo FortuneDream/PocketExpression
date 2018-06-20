@@ -1,0 +1,30 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="core_title_right_margin">16dp</dimen>
+    <dimen name="core_text">15sp</dimen>
+    <dimen name="core_sub_text">13sp</dimen>
+
+    <dimen name="core_item_padding_16dp">16dp</dimen>
+
+    <dimen name="core_item_two_txt_main">14sp</dimen>
+    <dimen name="core_item_two_txt_second">12sp</dimen>
+
+    <dimen name="core_item_three_txt_main">14sp</dimen>
+    <dimen name="core_item_three_txt_second">13sp</dimen>
+    <dimen name="core_item_three_txt_third">12sp</dimen>
+
+    <dimen name="core_item_head">48dp</dimen>
+
+    <dimen name="core_ico_launcher_72dp">72dp</dimen>
+    <dimen name="core_text_press_width">80dp</dimen>
+    <dimen name="core_text_press_height">48dp</dimen>
+
+    <dimen name="core_button_sign_width">48dp</dimen>
+    <dimen name="core_button_sign_height">32dp</dimen>
+
+    <dimen name="core_item_head_two_txt_margin_left_8dp">8dp</dimen>
+
+    <dimen name="core_setting_big_divider">8dp</dimen>
+    <dimen name="core_setting_divider">0.5dp</dimen>
+
+</resources>

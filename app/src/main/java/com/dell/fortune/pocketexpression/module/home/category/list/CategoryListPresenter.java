@@ -6,17 +6,17 @@
 package com.dell.fortune.pocketexpression.module.home.category.list;
 
 
-import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
-import com.dell.fortune.pocketexpression.callback.ToastUpdateListener;
-import com.dell.fortune.pocketexpression.common.BasePresenter;
-import com.dell.fortune.pocketexpression.common.IBaseView;
-import com.dell.fortune.pocketexpression.config.StrConstant;
+import com.dell.fortune.core.callback.ToastQueryListener;
+import com.dell.fortune.core.callback.ToastUpdateListener;
+import com.dell.fortune.core.common.BasePresenter;
+import com.dell.fortune.core.common.IBaseView;
+import com.dell.fortune.core.config.StrConstant;
 import com.dell.fortune.pocketexpression.model.CollectionModel;
 import com.dell.fortune.pocketexpression.model.ItemModel;
 import com.dell.fortune.pocketexpression.model.ShareModel;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
-import com.dell.fortune.pocketexpression.util.common.ToastUtil;
+import com.dell.fortune.tools.toast.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;

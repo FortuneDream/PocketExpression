@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2018.
+  ~ 版块归Github.FortuneDream 所有
+  -->
+
+<resources>
+    <string name="app_app_name">表情包斗图</string>
+    <string name="app_not_found_empty">啊哦，没有数据~</string>
+    <string name="app_no_more">(*￣ω￣) 没有更多了</string>
+    <string name="app_loading_wait">请稍等~正在加载</string>
+    <string name="app_load_more">正在努力加载更多信息~</string>
+    <string name="app_accessibility_description">监控QQ是否已经位于顶层</string>
+</resources>

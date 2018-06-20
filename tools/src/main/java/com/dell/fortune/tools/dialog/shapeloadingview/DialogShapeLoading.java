@@ -44,7 +44,7 @@ public class DialogShapeLoading extends BaseDialog{
         }
 
         private void initView(Context context) {
-            mDialogContentView = LayoutInflater.from(context).inflate(R.layout.dialog_shape_loading_view, null);
+            mDialogContentView = LayoutInflater.from(context).inflate(R.layout.tools_dialog_shape_loading_view, null);
             mLoadingView = mDialogContentView.findViewById(R.id.loadView);
             setContentView(mDialogContentView);
         }

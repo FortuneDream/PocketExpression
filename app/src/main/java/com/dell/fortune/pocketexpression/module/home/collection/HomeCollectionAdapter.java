@@ -19,7 +19,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
  * Created by 81256 on 2018/4/3.
  */
 
-public class HomeCollectionAdapter extends BaseQuickAdapter<LocalExpressionItem, HomeCollectionAdapter.MyViewHolder> {
+public class HomeCollectionAdapter extends BaseQuickAdapter<LocalExpressionItem, BaseViewHolder> {
 
 
     public HomeCollectionAdapter(int layoutResId) {
@@ -27,16 +27,9 @@ public class HomeCollectionAdapter extends BaseQuickAdapter<LocalExpressionItem,
     }
 
     @Override
-    protected void convert(MyViewHolder helper, LocalExpressionItem item) {
+    protected void convert(BaseViewHolder helper, LocalExpressionItem item) {
         SimpleDraweeView picSdv = helper.getView(R.id.pic_sdv);
         FrescoProxy.showLocalSimpleView(picSdv, item.getPath());
         LogUtils.e(item.getPath());
-    }
-
-    public class MyViewHolder extends BaseViewHolder {
-
-        public MyViewHolder(View view) {
-            super(view);
-        }
     }
 }

@@ -32,7 +32,7 @@ public class BaseDialog extends Dialog {
 
     private void initView() {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setBackgroundDrawableResource(R.drawable.transparent_bg);
+        getWindow().setBackgroundDrawableResource(R.drawable.tools_transparent_bg);
         mLayoutParams = getWindow().getAttributes();
         mLayoutParams.alpha = 1f;
         getWindow().setAttributes(mLayoutParams);
@@ -45,7 +45,7 @@ public class BaseDialog extends Dialog {
     public BaseDialog(Context context, float alpha, int gravity) {
         super(context);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setBackgroundDrawableResource(R.drawable.transparent_bg);
+        getWindow().setBackgroundDrawableResource(R.drawable.tools_transparent_bg);
         mLayoutParams = getWindow().getAttributes();
         mLayoutParams.alpha = alpha;
         getWindow().setAttributes(mLayoutParams);

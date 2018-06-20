@@ -2,10 +2,8 @@ package com.dell.fortune.pocketexpression.util.common;
 
 import android.app.Activity;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.common.BaseActivity;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -15,8 +13,9 @@ import com.luck.picture.lib.config.PictureMimeType;
  */
 
 public class PictureSelectorUtil {
-    private static final String sCompressPath= Environment.getExternalStorageDirectory()+"/PocketExpressionCompress/";
-    public static void showPictureSelector(Activity activity){
+    private static final String sCompressPath = Environment.getExternalStorageDirectory() + "/PocketExpressionCompress/";
+
+    public static void showPictureSelector(Activity activity) {
         PictureSelector.create(activity)
                 .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                 .theme(R.style.picture_default_style)//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style

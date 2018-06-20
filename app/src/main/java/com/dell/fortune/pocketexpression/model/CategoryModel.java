@@ -1,7 +1,8 @@
 package com.dell.fortune.pocketexpression.model;
 
-import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
-import com.dell.fortune.pocketexpression.common.BaseModel;
+import com.dell.fortune.core.callback.ToastQueryListener;
+import com.dell.fortune.core.common.BaseModel;
+import com.dell.fortune.pocketexpression.R;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 
 import cn.bmob.v3.BmobQuery;

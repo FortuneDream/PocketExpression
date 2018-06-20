@@ -91,7 +91,7 @@ public class Toasts {
     }
 
     public static Toast warning(@NonNull String message, int duration, boolean withIcon) {
-        return custom(getContext(), message, getDrawable(getContext(), R.drawable.ic_error_outline_white_48dp), DEFAULT_TEXT_COLOR, WARNING_COLOR, duration, withIcon, true);
+        return custom(getContext(), message, getDrawable(getContext(), R.drawable.tools_ic_error_outline_white_48dp), DEFAULT_TEXT_COLOR, WARNING_COLOR, duration, withIcon, true);
     }
 
     public static void info(@NonNull String message) {
@@ -103,7 +103,7 @@ public class Toasts {
     }
 
     public static Toast info(@NonNull String message, int duration, boolean withIcon) {
-        return custom(getContext(), message, getDrawable(getContext(), R.drawable.ic_info_outline_white_48dp), DEFAULT_TEXT_COLOR, INFO_COLOR, duration, withIcon, true);
+        return custom(getContext(), message, getDrawable(getContext(), R.drawable.tools_ic_info_outline_white_48dp), DEFAULT_TEXT_COLOR, INFO_COLOR, duration, withIcon, true);
     }
 
     public static void success(@NonNull String message) {
@@ -115,7 +115,7 @@ public class Toasts {
     }
 
     public static Toast success(@NonNull String message, int duration, boolean withIcon) {
-        return custom(getContext(), message, getDrawable(getContext(), R.drawable.ic_check_white_48dp), DEFAULT_TEXT_COLOR, SUCCESS_COLOR, duration, withIcon, true);
+        return custom(getContext(), message, getDrawable(getContext(), R.drawable.tools_ic_check_white_48dp), DEFAULT_TEXT_COLOR, SUCCESS_COLOR, duration, withIcon, true);
     }
 
     public static void error(@NonNull String message) {
@@ -130,7 +130,7 @@ public class Toasts {
     }
 
     public static Toast error(@NonNull String message, int duration, boolean withIcon) {
-        return custom(getContext(), message, getDrawable(getContext(), R.drawable.ic_clear_white_48dp), DEFAULT_TEXT_COLOR, ERROR_COLOR, duration, withIcon, true);
+        return custom(getContext(), message, getDrawable(getContext(), R.drawable.tools_ic_clear_white_48dp), DEFAULT_TEXT_COLOR, ERROR_COLOR, duration, withIcon, true);
     }
 
     @CheckResult
@@ -170,7 +170,7 @@ public class Toasts {
 
     @CheckResult
     public static Toast warning(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ic_error_outline_white_48dp), DEFAULT_TEXT_COLOR, WARNING_COLOR, duration, withIcon, true);
+        return custom(context, message, getDrawable(context, R.drawable.tools_ic_error_outline_white_48dp), DEFAULT_TEXT_COLOR, WARNING_COLOR, duration, withIcon, true);
     }
 
     @CheckResult
@@ -185,7 +185,7 @@ public class Toasts {
 
     @CheckResult
     public static Toast info(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ic_info_outline_white_48dp), DEFAULT_TEXT_COLOR, INFO_COLOR, duration, withIcon, true);
+        return custom(context, message, getDrawable(context, R.drawable.tools_ic_info_outline_white_48dp), DEFAULT_TEXT_COLOR, INFO_COLOR, duration, withIcon, true);
     }
 
     @CheckResult
@@ -200,7 +200,7 @@ public class Toasts {
 
     @CheckResult
     public static Toast success(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ic_check_white_48dp), DEFAULT_TEXT_COLOR, SUCCESS_COLOR, duration, withIcon, true);
+        return custom(context, message, getDrawable(context, R.drawable.tools_ic_check_white_48dp), DEFAULT_TEXT_COLOR, SUCCESS_COLOR, duration, withIcon, true);
     }
 
     @CheckResult
@@ -217,7 +217,7 @@ public class Toasts {
 
     @CheckResult
     public static Toast error(@NonNull Context context, @NonNull String message, int duration, boolean withIcon) {
-        return custom(context, message, getDrawable(context, R.drawable.ic_clear_white_48dp), DEFAULT_TEXT_COLOR, ERROR_COLOR, duration, withIcon, true);
+        return custom(context, message, getDrawable(context, R.drawable.tools_ic_clear_white_48dp), DEFAULT_TEXT_COLOR, ERROR_COLOR, duration, withIcon, true);
     }
 
     @CheckResult
@@ -237,7 +237,7 @@ public class Toasts {
         if (currentToast == null) {
             currentToast = new Toast(context);
         }
-        final View toastLayout = View.inflate(context, R.layout.toast_layout, null);
+        final View toastLayout = View.inflate(context, R.layout.tools_toast_layout, null);
         final ImageView toastIcon = toastLayout.findViewById(R.id.toast_icon);
         final TextView toastTextView = toastLayout.findViewById(R.id.toast_text);
         Drawable drawableFrame;
@@ -245,7 +245,7 @@ public class Toasts {
         if (shouldTint) {
             drawableFrame = tint9PatchDrawableFrame(context, tintColor);
         } else {
-            drawableFrame = getDrawable(context, R.drawable.toast_frame);
+            drawableFrame = getDrawable(context, R.drawable.tools_toast_frame);
         }
         setBackground(toastLayout, drawableFrame);
 
@@ -268,7 +268,7 @@ public class Toasts {
     }
 
     public static final Drawable tint9PatchDrawableFrame(@NonNull Context context, @ColorInt int tintColor) {
-        final NinePatchDrawable toastDrawable = (NinePatchDrawable) getDrawable(context, R.drawable.toast_frame);
+        final NinePatchDrawable toastDrawable = (NinePatchDrawable) getDrawable(context, R.drawable.tools_toast_frame);
         toastDrawable.setColorFilter(new PorterDuffColorFilter(tintColor, PorterDuff.Mode.SRC_IN));
         return toastDrawable;
     }

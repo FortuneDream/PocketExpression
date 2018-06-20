@@ -35,7 +35,7 @@ public class SuspendIconWindowView extends RelativeLayout implements View.OnTouc
         initWindowParam();
         //状态栏
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        inflater.inflate(R.layout.view_suspend_window_icon, this, true);
+        inflater.inflate(R.layout.app_view_suspend_window_icon, this, true);
         measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);//主动测量
         setOnTouchListener(this);
     }

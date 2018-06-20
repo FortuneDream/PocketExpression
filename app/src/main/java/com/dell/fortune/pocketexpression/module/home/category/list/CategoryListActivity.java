@@ -14,29 +14,26 @@ import android.view.View;
 import android.widget.Button;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.dell.fortune.core.common.BaseActivity;
+import com.dell.fortune.core.config.IntentConstant;
 import com.dell.fortune.pocketexpression.R;
-import com.dell.fortune.pocketexpression.common.BaseActivity;
-import com.dell.fortune.pocketexpression.config.IntentConstant;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.tools.LogUtils;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 
 public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IView, CategoryListPresenter>
-        implements CategoryListPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener {
-
-    @BindView(R.id.collection_all_btn)
-    Button collectionAllBtn;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+        implements CategoryListPresenter.IView, BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener {
     private CategoryListAdapter mAdapter;
     public ExpressionCategory mCategory;
+    /**
+     * 收藏所有表情包
+     */
+    private Button mCollectionAllBtn;
+    private Toolbar mToolbar;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected CategoryListPresenter createPresenter() {
@@ -46,38 +43,46 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
 
     @Override
     public int setContentResource() {
-        return R.layout.activity_category_list;
+        return R.layout.app_activity_category_list;
     }
 
     @Override
     public void initView() {
         mCategory = (ExpressionCategory) getIntent().getSerializableExtra(IntentConstant.EXTRA_CATEGORY_LIST_ITEM);
-        mAdapter = new CategoryListAdapter(R.layout.item_category_list);
-        initToolbar(toolbar, mCategory.getName());
-        initRecycler(recyclerView, mAdapter);
+        mAdapter = new CategoryListAdapter(R.layout.app_item_category_list);
+        initToolbar(mToolbar, mCategory.getName());
+        initRecycler(mRecyclerView, mAdapter);
         mAdapter.setOnLoadMoreListener(this);
-        mAdapter.bindToRecyclerView(recyclerView);//绑定
+        mAdapter.bindToRecyclerView(mRecyclerView);//绑定
         mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtils.e("position", String.valueOf(position));
-                switch (view.getId()) {
-                    case R.id.collection_fab:
-                        presenter.collectionItem(mAdapter.getItem(position));
-                        break;
-                    case R.id.share_fab:
-                        presenter.shareItem(mAdapter.getItem(position));
-                        break;
-                    case R.id.pic_sdv:
-                        View fabLl = mAdapter.getViewByPosition(position, R.id.fab_ll);
-                        fabLl.setVisibility(View.VISIBLE);
-                        break;
+                int i = view.getId();
+                if (i == R.id.collection_fab) {
+                    presenter.collectionItem(mAdapter.getItem(position));
+
+                } else if (i == R.id.share_fab) {
+                    presenter.shareItem(mAdapter.getItem(position));
+
+                } else if (i == R.id.pic_sdv) {
+                    View fabLl = mAdapter.getViewByPosition(position, R.id.fab_ll);
+                    fabLl.setVisibility(View.VISIBLE);
 
                 }
             }
         });
         presenter.getList(mCategory);
+
+    }
+
+    @Override
+    protected void findViewSetListener() {
+        mCollectionAllBtn = (Button) findViewById(R.id.collection_all_btn);
+        mCollectionAllBtn.setOnClickListener(this);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
     }
 
 
@@ -106,10 +111,13 @@ public class CategoryListActivity extends BaseActivity<CategoryListPresenter.IVi
     }
 
 
-    @OnClick(R.id.collection_all_btn)
-    public void onViewClicked() {
-        presenter.collectionAllItem(mAdapter.getData());
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.collection_all_btn) {
+            presenter.collectionAllItem(mAdapter.getData());
+
+        } else {
+        }
     }
-
-
 }

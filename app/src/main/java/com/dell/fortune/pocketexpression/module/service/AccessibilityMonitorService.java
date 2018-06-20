@@ -9,7 +9,7 @@ import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
 import android.view.accessibility.AccessibilityEvent;
 
-import com.dell.fortune.pocketexpression.config.IntentConstant;
+import com.dell.fortune.core.config.IntentConstant;
 import com.dell.fortune.tools.LogUtils;
 
 public class AccessibilityMonitorService extends AccessibilityService {

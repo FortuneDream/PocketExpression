@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="tools_colorAccent">#FF4081</color>
+    <color name="tools_black">#000000</color>
+    <color name="tools_white">#FFFFFF</color>
+    <!--其他主题-->
+
+    <color name="tools_BD">#BDBDBD</color>
+    <color name="tools_whiteTrans66">#66FFFFFF</color>
+
+    <color name="tools_triangle">#aa72d572</color>
+    <color name="tools_circle">#aa738ffe</color>
+    <color name="tools_rect">#aae84e40</color>
+
+    <color name="tools_shadow25">#25808080</color>
+    <color name="tools_shadow80">#80808080</color>
+
+
+    <color name="tools_a5">#A5A5A5</color>
+    <color name="tools_8c">#8c8c8c</color>
+
+
+    <color name="tools_hotpink">#FF69B4</color><!--热粉红色 -->
+
+    <color name="tools_blue">#0000FF</color><!--蓝色 -->
+
+
+    <color name="tools_mi_green">#52BA97</color>
+    <color name="tools_light_black">#fd383838</color>
+
+    <color name="tools_transparent">#00000000</color><!-- 透明色 -->
+    <color name="tools_divider_deep">#80808080</color>
+</resources>

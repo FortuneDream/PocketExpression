@@ -37,8 +37,8 @@ public class RxPorterShapeImageView extends RxPorterImageView {
 
     private void setup(Context context, AttributeSet attrs, int defStyle) {
         if(attrs != null){
-            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RxPorterImageView, defStyle, 0);
-            shape = typedArray.getDrawable(R.styleable.RxPorterImageView_siShape);
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.tools_RxPorterImageView, defStyle, 0);
+            shape = typedArray.getDrawable(R.styleable.tools_RxPorterImageView_tools_siShape);
             typedArray.recycle();
         }
         matrix = new Matrix();

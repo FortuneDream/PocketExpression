@@ -78,6 +78,7 @@ public class DialogSureCancel extends BaseDialog {
         super(context, alpha, gravity);
         initView();
     }
+
     public void setSureListener(View.OnClickListener sureListener) {
         mTvSure.setOnClickListener(sureListener);
     }
@@ -87,11 +88,11 @@ public class DialogSureCancel extends BaseDialog {
     }
 
     private void initView() {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_sure_false, null);
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.tools_dialog_sure_false, null);
         mIvLogo = dialogView.findViewById(R.id.iv_logo);
-        mTvSure =  dialogView.findViewById(R.id.tv_sure);
-        mTvCancel =  dialogView.findViewById(R.id.tv_cancel);
-        mTvContent =  dialogView.findViewById(R.id.tv_content);
+        mTvSure = dialogView.findViewById(R.id.tv_sure);
+        mTvCancel = dialogView.findViewById(R.id.tv_cancel);
+        mTvContent = dialogView.findViewById(R.id.tv_content);
         mTvContent.setTextIsSelectable(true);
         mTvTitle = dialogView.findViewById(R.id.tv_title);
         setContentView(dialogView);

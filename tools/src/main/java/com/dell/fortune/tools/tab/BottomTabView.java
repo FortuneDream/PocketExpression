@@ -20,8 +20,10 @@ import com.dell.fortune.tools.R;
 public class BottomTabView extends LinearLayout {
     private TextView tv;
     private AppCompatImageView ico;
-    private int selectResource;
-    private int noSelectResource;
+    private int pressResource;
+    private int normalResource;
+    private int pressTextColor;
+    private int normalTextColor;
 
     public BottomTabView(Context context) {
         this(context, null);
@@ -36,27 +38,30 @@ public class BottomTabView extends LinearLayout {
         initView(attrs);
     }
 
+
     private void initView(AttributeSet attrs) {
-        inflate(getContext(), R.layout.view_bottom_tab, this);
+        inflate(getContext(), R.layout.tools_view_bottom_tab, this);
         setGravity(Gravity.CENTER);
         ico = getView(R.id.ico_iv);
         tv = getView(R.id.name_tv);
-        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.BottomTabView);
-        selectResource = array.getResourceId(R.styleable.BottomTabView_itemTabSelectIco, 0);
-        noSelectResource = array.getResourceId(R.styleable.BottomTabView_itemTabNoSelectIco, 0);
-        String name = array.getString(R.styleable.BottomTabView_itemTabName);
-        ico.setImageResource(noSelectResource);
+        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.tools_BottomTabView);
+        pressResource = array.getResourceId(R.styleable.tools_BottomTabView_tools_tab_press_ico, 0);
+        normalResource = array.getResourceId(R.styleable.tools_BottomTabView_tools_tab_normal_ico, 0);
+        String name = array.getString(R.styleable.tools_BottomTabView_tools_tab_name);
+        normalTextColor = array.getColor(R.styleable.tools_BottomTabView_tools_tab_normal_text_color, ContextCompat.getColor(getContext(), R.color.tools_light_black));
+        pressTextColor = array.getColor(R.styleable.tools_BottomTabView_tools_tab_press_text_color, ContextCompat.getColor(getContext(), R.color.tools_mi_green));
+        ico.setImageResource(normalResource);
         tv.setText(name);
         array.recycle();
     }
 
     public void onSelect(Boolean isSelect) {
         if (isSelect) {
-            ico.setImageResource(selectResource);
-            tv.setTextColor(ContextCompat.getColor(getContext(), R.color.mi_green));
+            ico.setImageResource(pressResource);
+            tv.setTextColor(pressTextColor);
         } else {
-            tv.setTextColor(ContextCompat.getColor(getContext(), R.color.light_black));
-            ico.setImageResource(noSelectResource);
+            tv.setTextColor(normalTextColor);
+            ico.setImageResource(normalResource);
         }
     }
 

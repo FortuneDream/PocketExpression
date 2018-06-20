@@ -2,20 +2,22 @@ package com.dell.fortune.pocketexpression.model;
 
 import android.content.Context;
 
-import com.dell.fortune.pocketexpression.callback.ToastQueryListener;
-import com.dell.fortune.pocketexpression.callback.ToastUpdateListener;
-import com.dell.fortune.pocketexpression.common.BaseActivity;
-import com.dell.fortune.pocketexpression.common.BaseModel;
-import com.dell.fortune.pocketexpression.config.FlagConstant;
-import com.dell.fortune.pocketexpression.config.StrConstant;
+import com.dell.fortune.core.callback.ToastQueryListener;
+import com.dell.fortune.core.callback.ToastUpdateListener;
+import com.dell.fortune.core.common.BaseActivity;
+import com.dell.fortune.core.common.BaseModel;
+import com.dell.fortune.core.config.FlagConstant;
+import com.dell.fortune.core.config.StrConstant;
+import com.dell.fortune.core.util.UserUtil;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.pocketexpression.model.callback.OnCheckCollectionListener;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionDaoOpe;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
+import com.dell.fortune.pocketexpression.module.home.collection.HomeCollectionPresenter;
 import com.dell.fortune.pocketexpression.util.common.RxApi;
-import com.dell.fortune.pocketexpression.util.common.ToastUtil;
-import com.dell.fortune.pocketexpression.util.common.UserUtil;
+
 import com.dell.fortune.tools.LogUtils;
+import com.dell.fortune.tools.toast.ToastUtil;
 
 import java.io.File;
 import java.net.URLConnection;
@@ -31,7 +33,8 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
 import io.reactivex.functions.Consumer;
 
-import static com.dell.fortune.pocketexpression.util.common.UserUtil.user;
+import static com.dell.fortune.core.util.UserUtil.user;
+
 
 /**
  * Created by 81256 on 2018/4/3.
@@ -110,13 +113,14 @@ public class CollectionModel extends BaseModel<ExpressionItem> {
     }
 
     //同步到本地
-    public void synLocal() {
+    public void synLocal(final HomeCollectionPresenter.OnSynSuccessListener listener) {
         checkSyn(new OnCheckCollectionListener() {
             @Override
             public void onCheckResult(boolean isSynSuccess, List<ExpressionItem> notSaveItems) {
                 for (ExpressionItem item : notSaveItems) {
                     downloadItem(item);//下载同步到本地
                 }
+                listener.onSuccess();
             }
         });
     }

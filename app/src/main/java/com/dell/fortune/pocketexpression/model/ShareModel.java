@@ -7,7 +7,7 @@ package com.dell.fortune.pocketexpression.model;
 
 import android.content.Context;
 
-import com.dell.fortune.pocketexpression.config.FlagConstant;
+import com.dell.fortune.core.config.FlagConstant;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.tools.IntentUtil;
 

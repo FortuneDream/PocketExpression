@@ -64,20 +64,20 @@ public class RxShineButton extends RxPorterShapeImageView {
         if (context instanceof Activity) {
             init((Activity) context);
         }
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RxShineButton);
-        btnColor = a.getColor(R.styleable.RxShineButton_btn_color, Color.GRAY);
-        btnFillColor = a.getColor(R.styleable.RxShineButton_btn_fill_color, Color.BLACK);
-        shineParams.allowRandomColor = a.getBoolean(R.styleable.RxShineButton_allow_random_color, false);
-        shineParams.animDuration = a.getInteger(R.styleable.RxShineButton_shine_animation_duration, (int) shineParams.animDuration);
-        shineParams.bigShineColor = a.getColor(R.styleable.RxShineButton_big_shine_color, shineParams.bigShineColor);
-        shineParams.clickAnimDuration = a.getInteger(R.styleable.RxShineButton_click_animation_duration, (int) shineParams.clickAnimDuration);
-        shineParams.enableFlashing = a.getBoolean(R.styleable.RxShineButton_enable_flashing, false);
-        shineParams.shineCount = a.getInteger(R.styleable.RxShineButton_shine_count, shineParams.shineCount);
-        shineParams.shineDistanceMultiple = a.getFloat(R.styleable.RxShineButton_shine_distance_multiple, shineParams.shineDistanceMultiple);
-        shineParams.shineTurnAngle = a.getFloat(R.styleable.RxShineButton_shine_turn_angle, shineParams.shineTurnAngle);
-        shineParams.smallShineColor = a.getColor(R.styleable.RxShineButton_small_shine_color, shineParams.smallShineColor);
-        shineParams.smallShineOffsetAngle = a.getFloat(R.styleable.RxShineButton_small_shine_offset_angle, shineParams.smallShineOffsetAngle);
-        shineParams.shineSize = a.getDimensionPixelSize(R.styleable.RxShineButton_shine_size, shineParams.shineSize);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.tools_RxShineButton);
+        btnColor = a.getColor(R.styleable.tools_RxShineButton_tools_btn_color, Color.GRAY);
+        btnFillColor = a.getColor(R.styleable.tools_RxShineButton_tools_btn_fill_color, Color.BLACK);
+        shineParams.allowRandomColor = a.getBoolean(R.styleable.tools_RxShineButton_tools_allow_random_color, false);
+        shineParams.animDuration = a.getInteger(R.styleable.tools_RxShineButton_tools_shine_animation_duration, (int) shineParams.animDuration);
+        shineParams.bigShineColor = a.getColor(R.styleable.tools_RxShineButton_tools_big_shine_color, shineParams.bigShineColor);
+        shineParams.clickAnimDuration = a.getInteger(R.styleable.tools_RxShineButton_tools_click_animation_duration, (int) shineParams.clickAnimDuration);
+        shineParams.enableFlashing = a.getBoolean(R.styleable.tools_RxShineButton_tools_enable_flashing, false);
+        shineParams.shineCount = a.getInteger(R.styleable.tools_RxShineButton_tools_shine_count, shineParams.shineCount);
+        shineParams.shineDistanceMultiple = a.getFloat(R.styleable.tools_RxShineButton_tools_shine_distance_multiple, shineParams.shineDistanceMultiple);
+        shineParams.shineTurnAngle = a.getFloat(R.styleable.tools_RxShineButton_tools_shine_turn_angle, shineParams.shineTurnAngle);
+        shineParams.smallShineColor = a.getColor(R.styleable.tools_RxShineButton_tools_small_shine_color, shineParams.smallShineColor);
+        shineParams.smallShineOffsetAngle = a.getFloat(R.styleable.tools_RxShineButton_tools_small_shine_offset_angle, shineParams.smallShineOffsetAngle);
+        shineParams.shineSize = a.getDimensionPixelSize(R.styleable.tools_RxShineButton_tools_shine_size, shineParams.shineSize);
         a.recycle();
         setSrcColor(btnColor);
     }
@@ -224,7 +224,7 @@ public class RxShineButton extends RxPorterShapeImageView {
             rootView.addView(mRxShineView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             doShareAnim();
         } else {
-            Log.e(TAG, "Please init.");
+            Log.e(TAG, "Please initPrivate.");
         }
     }
 
@@ -233,7 +233,7 @@ public class RxShineButton extends RxPorterShapeImageView {
             final ViewGroup rootView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);
             rootView.removeView(view);
         } else {
-            Log.e(TAG, "Please init.");
+            Log.e(TAG, "Please initPrivate.");
         }
     }
 

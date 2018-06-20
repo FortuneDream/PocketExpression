@@ -83,7 +83,7 @@ public class DialogEditSureCancel extends BaseDialog {
     }
 
     private void initView() {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edittext_sure_false, null);
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.tools_dialog_edittext_sure_false, null);
         mIvLogo = dialogView.findViewById(R.id.iv_logo);
         mTvTitle = dialogView.findViewById(R.id.tv_title);
         mTvSure = dialogView.findViewById(R.id.tv_sure);

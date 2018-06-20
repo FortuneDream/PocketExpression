@@ -1,15 +1,30 @@
-apply plugin: 'com.android.application'
+if(isModule.toBoolean()){
+    apply plugin: 'com.android.application'
+}else{
+    apply plugin: 'com.android.library'
+//    apply plugin: 'com.jakewharton.butterknife'
+}
 apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+
 android {
     compileSdkVersion 27
+    resourcePrefix 'app_'
     defaultConfig {
-        applicationId "com.dell.fortune.pocketexpression"
+        if(isModule.toBoolean()){
+            applicationId "com.dell.fortune.pocketexpression"
+        }
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName : project.getName()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -25,51 +40,21 @@ android {
         schemaVersion 2
         targetGenDir 'src/main/java'
     }
+    sourceSets {
+        main {
+            if (isModule.toBoolean()) {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
-    //BRVAH
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.35'
-    // GreenDao
-    implementation 'org.greenrobot:greendao:3.2.2'
-    // Fresco
-    implementation 'com.facebook.fresco:fresco:1.8.1'
-    // 在 API < 14 上的机器支持 WebP 时，需要添加
-    implementation 'com.facebook.fresco:animated-base-support:0.12.0'
-    // 支持 GIF 动图，需要添加
-    implementation 'com.facebook.fresco:animated-gif:1.8.0'
-    // 支持 WebP （静态图+动图），需要添加
-    implementation 'com.facebook.fresco:animated-webp:1.8.0'
-    implementation 'com.facebook.fresco:webpsupport:1.8.0'
-    //RxJava
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    //ButterKnife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    // EventBus
-    implementation 'org.greenrobot:eventbus:3.1.1'
-    // Bmob
-    implementation 'cn.bmob.android:bmob-sdk:3.6.0'
-    // RecyclerView
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
-    // MaterialDesign
-    implementation 'com.android.support:design:27.1.1'
-    // CardView
-    implementation 'com.android.support:cardview-v7:27.1.1'
-    //TakePhoto，重复依赖support
-    api('com.github.LuckSiege.PictureSelector:picture_library:v2.2.2') {
-        exclude group: 'com.android.support'
-    }
-    //Splash动画
-    //    implementation 'com.jaredrummler:animated-svg-view:1.0.5'
-    //Permission
-    implementation 'com.jaredrummler:android-processes:1.1.1'
-    implementation 'com.yanzhenjie:permission:2.0.0-rc5'
-    implementation project(':tools')
+    api project(':core')
 }

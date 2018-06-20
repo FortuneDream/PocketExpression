@@ -88,7 +88,7 @@ public class DialogSure extends BaseDialog {
     }
 
     private void initView() {
-        View dialogView = View.inflate(getContext(), R.layout.dialog_sure, null);
+        View dialogView = View.inflate(getContext(), R.layout.tools_dialog_sure, null);
         mTvSure = dialogView.findViewById(R.id.tv_sure);
         mTvTitle = dialogView.findViewById(R.id.tv_title);
         mTvTitle.setTextIsSelectable(true);

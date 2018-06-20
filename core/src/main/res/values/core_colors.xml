@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="core_black">#000000</color>
+    <color name="core_white">#FFFFFF</color>
+
+    <color name="core_test">@color/core_ui_black_1</color>
+    <!--518400  1638400   2156800   1468  #2cc17b-->
+    <color name="core_colorPrimary">@color/core_ui_yellow</color>
+    <color name="core_colorPrimaryDark">@color/core_ui_yellow</color>
+    <color name="core_colorAccent">@color/core_ui_orange</color>
+    <color name="core_colorTitle">@color/core_ui_black_1</color>
+    <color name="core_textPrimary">@color/core_ui_black_1</color>
+
+    <!--透明-->
+    <color name="core_colorTranslate">#00000000</color>
+    <!--灰色背景-->
+    <color name="core_background">@color/core_ui_grey_2</color>
+
+    <!--&lt;!&ndash;纸屑颜色&ndash;&gt;-->
+    <!--<color name="core_confetti_red">@color/md_red_300</color>-->
+    <!--<color name="core_confetti_orange">@color/md_orange_300</color>-->
+    <!--<color name="core_confetti_yellow">@color/md_yellow_300</color>-->
+    <!--<color name="core_confetti_green">@color/md_green_300</color>-->
+    <!--<color name="core_confetti_qing">@color/md_cyan_300</color>-->
+    <!--<color name="core_confetti_blue">@color/md_blue_300</color>-->
+    <!--<color name="core_confetti_zi">@color/md_purple_300</color>-->
+
+    <!--<color name="core_text">@color/md_grey_900</color>-->
+
+
+    <!--分割线,大分割线用浅，小分割线用身-->
+    <color name="core_divider_deep">@color/core_ui_grey_2</color>
+    <color name="core_divider">@color/core_ui_grey_3</color>
+
+    <!--底部tab-->
+    <color name="core_tab_home_normal">@color/core_ui_black_1</color>
+    <color name="core_tab_home_press">@color/core_ui_green</color>
+
+    <!--Vector颜色-->
+    <color name="core_vec_black">@color/core_ui_black_2</color>
+    <color name="core_vec_red">@color/core_ui_red</color>
+    <color name="core_vec_white">@color/core_ui_white</color>
+    <color name="core_vec_purple">@color/core_ui_purple</color>
+    <color name="core_vec_grey">@color/core_ui_grey_1</color>
+    <color name="core_vec_green">@color/core_ui_green</color>
+    <color name="core_vec_blue">@color/core_ui_blue</color>
+    <color name="core_vec_orange">@color/core_ui_orange</color>
+    <color name="core_vec_pink">@color/core_ui_pink</color>
+    <color name="core_vec_indigo">@color/core_ui_indigo</color>
+
+
+    <!--颜色备选1-->
+    <!--大标题-->
+    <color name="core_ui_black_1">#181a1d</color>
+    <!--小标题-->
+    <color name="core_ui_black_2">#333333</color>
+    <!--正文-->
+    <color name="core_ui_black_3">#666666</color>
+    <color name="core_ui_white">#ffffff</color>
+    <!--图标-->
+    <color name="core_ui_grey_1">#999999</color>
+
+    <!--次要文字,小分割线-->
+    <color name="core_ui_grey_2">#c8c7c7</color>
+    <!--大分割线-->
+    <color name="core_ui_grey_3">#eff0f7</color>
+
+    <color name="core_ui_orange">#fb7255</color>
+    <color name="core_ui_purple">#bb68c9</color>
+    <color name="core_ui_green">#2cc17b</color>
+    <color name="core_ui_blue">#64b5f7</color>
+    <color name="core_ui_red">#ff5700</color>
+    <color name="core_ui_pink">#ff5283</color>
+    <color name="core_ui_indigo">#7789cd</color>
+    <color name="core_ui_yellow">#ffba02</color>
+
+</resources>
