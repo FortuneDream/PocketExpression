@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:icon="@mipmap/core_ic_launcher"
         android:name="debug.AuthApplication"
-        android:theme="@style/AppTheme">
+        android:theme="@style/core_AppTheme">
         <activity android:name=".login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

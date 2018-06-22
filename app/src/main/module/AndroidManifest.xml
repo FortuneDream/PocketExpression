@@ -12,14 +12,13 @@
         android:supportsRtl="true"
         android:icon="@mipmap/core_ic_launcher"
         android:name="debug.AppApplication"
-        android:theme="@style/AppTheme">
-        <activity android:name=".module.SplashActivity">
+        android:theme="@style/core_AppTheme">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.dell.fortune.pocketexpression.fileProvider"

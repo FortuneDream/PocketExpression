@@ -24,7 +24,7 @@ public class UserUtil {
         if (user == null) {
             if (enterLoginActivity) {
                 //路由跳转到LoginActivity
-                ARouter.getInstance().build("/auth/LoginActivity").navigation(fragment.getActivity(), FlagConstant.REQUEST_LOGIN);
+                ARouter.getInstance().build("/auth/login").navigation(fragment.getActivity(), FlagConstant.REQUEST_LOGIN);
             }
             return false;
         } else {
@@ -37,7 +37,7 @@ public class UserUtil {
         MyUser user = MyUser.getCurrentUser(MyUser.class);
         if (user == null) {
             if (enterLoginActivity) {
-                ARouter.getInstance().build("/auth/LoginActivity").navigation(activity, FlagConstant.REQUEST_LOGIN);
+                ARouter.getInstance().build("/auth/login").navigation(activity, FlagConstant.REQUEST_LOGIN);
             }
             return false;
         } else {

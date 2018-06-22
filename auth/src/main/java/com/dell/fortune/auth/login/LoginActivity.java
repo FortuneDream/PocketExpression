@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+
 import com.dell.fortune.core.common.BaseActivity;
 import com.dell.fortune.core.config.FlagConstant;
 import com.dell.fortune.core.model.bean.MyUser;
@@ -25,7 +26,7 @@ import com.dell.fortune.tools.view.TextEdit;
 /**
  * Created by 鹏君 on 2016/11/14.
  */
-@Route(path = "/auth/LoginActivity")
+@Route(path = "/auth/login")
 public class LoginActivity extends BaseActivity<LoginPresenter.IView, LoginPresenter>
         implements LoginPresenter.IView, View.OnClickListener {
     private Toolbar mToolbar;

@@ -41,9 +41,9 @@ public class BaseApplication extends Application {
         crashCatch.init();
         //建立文件夹
         createDir();
-        ARouter.init(this);
         ARouter.openLog();
         ARouter.openDebug();
+        ARouter.init(this);
     }
 
     private void createDir() {

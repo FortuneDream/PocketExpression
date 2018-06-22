@@ -3,29 +3,29 @@
  * 版块归Github.FortuneDream 所有
  */
 
-if(isModule.toBoolean()){
+if (isModule.toBoolean()) {
     apply plugin: 'com.android.application'
-}else{
+} else {
     apply plugin: 'com.android.library'
 }
 
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.compileSdkVersion
     resourcePrefix 'auth_'
     defaultConfig {
-        if(isModule.toBoolean()){
+        if (isModule.toBoolean()) {
             applicationId "com.dell.fortune.pocketexpression"
         }
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName : project.getName()]
+                arguments = [moduleName: project.getName()]
             }
         }
     }
@@ -42,6 +42,9 @@ android {
                 manifest.srcFile 'src/main/module/AndroidManifest.xml'
             } else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
+                java {
+                    exclude 'debug/**'
+                }
             }
         }
     }
@@ -54,5 +57,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     api project(':core')
-
+    annotationProcessor ARouter_Processor
 }

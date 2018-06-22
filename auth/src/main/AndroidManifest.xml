@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dell.fortune.pocketexpression">
 
     <application
-        android:theme="@style/AppTheme">
-        <activity android:name="com.dell.fortune.auth.login.LoginActivity"/>
-        <activity android:name="com.dell.fortune.auth.register.RegisterActivity"/>
+        android:theme="@style/core_AppTheme">
+        <activity android:name="com.dell.fortune.auth.login.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.dell.fortune.auth.register.RegisterActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

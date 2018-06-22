@@ -46,6 +46,7 @@
 
 
         <TextView
+            android:gravity="center"
             android:id="@+id/ok_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

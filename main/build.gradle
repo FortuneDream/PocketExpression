@@ -6,23 +6,36 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.compileSdkVersion
     resourcePrefix 'main_'
+    signingConfigs {
+        myConfig {
+            storeFile file("E:\\Application\\PocketMusic-master\\app\\key.jks")
+            storePassword 'lol520152'
+            keyAlias 'Cloud'
+            keyPassword 'hahaha233'
+        }
+    }
 
     defaultConfig {
         applicationId "com.dell.fortune.pocketexpression"
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.myConfig
         }
     }
 
@@ -33,7 +46,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation project(':auth')
-    implementation project(':app')
+    api project(':auth')
+    api project(':app')
 
 }

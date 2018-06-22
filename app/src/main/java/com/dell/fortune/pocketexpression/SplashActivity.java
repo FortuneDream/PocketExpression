@@ -3,7 +3,7 @@
  * 版块归Github.FortuneDream 所有
  */
 
-package com.dell.fortune.pocketexpression.module;
+package com.dell.fortune.pocketexpression;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dell.fortune.pocketexpression.R;
+
 import com.dell.fortune.pocketexpression.module.home.HomeActivity;
 import com.dell.fortune.pocketexpression.util.common.RxTimerUtil;
 import com.dell.fortune.tools.toast.ToastUtil;
