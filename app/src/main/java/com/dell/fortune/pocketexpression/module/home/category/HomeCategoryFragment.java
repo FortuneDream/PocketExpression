@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.core.common.BaseFragment;
-import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.app.R;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.tools.toast.ToastUtil;
 

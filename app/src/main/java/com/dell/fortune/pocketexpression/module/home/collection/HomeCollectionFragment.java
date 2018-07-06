@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.core.common.BaseFragment;
-import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.app.R;
 import com.dell.fortune.pocketexpression.model.dao.LocalExpressionItem;
 import com.dell.fortune.tools.toast.ToastUtil;
 

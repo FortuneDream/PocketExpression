@@ -1,0 +1,28 @@
+
+{
+	"buildFiles" : [ "E:/Application/PocketExpression/app/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"E:\\SDK\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\Application\\PocketExpression\\app\\.externalNativeBuild\\cmake\\release\\armeabi-v7a --target clean"
+	],
+	"libraries" : 
+	{
+		"serial_port-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "serial_port",
+			"buildCommand" : "E:\\SDK\\cmake\\3.6.4111459\\bin\\cmake.exe --build E:\\Application\\PocketExpression\\app\\.externalNativeBuild\\cmake\\release\\armeabi-v7a --target serial_port",
+			"buildType" : "release",
+			"output" : "E:/Application/PocketExpression/app/build/intermediates/cmake/release/obj/armeabi-v7a/libserial_port.so",
+			"toolchain" : "4061565201"
+		}
+	},
+	"toolchains" : 
+	{
+		"4061565201" : 
+		{
+			"cCompilerExecutable" : "E:/SDK/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "E:/SDK/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

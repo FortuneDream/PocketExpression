@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
-import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.app.R;
 import com.dell.fortune.pocketexpression.util.common.ScreenUtil;
 import com.dell.fortune.tools.DpUtil;
 import com.dell.fortune.tools.LogUtils;

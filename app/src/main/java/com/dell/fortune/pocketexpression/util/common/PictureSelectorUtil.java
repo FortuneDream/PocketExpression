@@ -3,7 +3,8 @@ package com.dell.fortune.pocketexpression.util.common;
 import android.app.Activity;
 import android.os.Environment;
 
-import com.dell.fortune.pocketexpression.R;
+
+import com.dell.fortune.pocketexpression.app.R;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;

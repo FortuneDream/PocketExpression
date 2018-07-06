@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dell.fortune.core.common.BaseActivity;
-import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.auth.R;
 import com.dell.fortune.tools.view.TextEdit;
 
 

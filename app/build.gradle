@@ -1,6 +1,6 @@
-if(isModule.toBoolean()){
+if (isModule.toBoolean()) {
     apply plugin: 'com.android.application'
-}else{
+} else {
     apply plugin: 'com.android.library'
 //    apply plugin: 'com.jakewharton.butterknife'
 }
@@ -11,8 +11,11 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     resourcePrefix 'app_'
     defaultConfig {
-        if(isModule.toBoolean()){
+        if (isModule.toBoolean()) {
             applicationId "com.dell.fortune.pocketexpression"
+        }
+        ndk {
+            moduleName "appNDK"
         }
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -22,21 +25,18 @@ android {
         vectorDrawables.useSupportLibrary = true
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName : project.getName()]
+                arguments = [moduleName: project.getName()]
             }
         }
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-    }
-    packagingOptions {
-        exclude 'META-INF/rxjava.properties'
-    }
-    greendao{
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+//
+//    }
+    greendao {
         schemaVersion 2
         targetGenDir 'src/main/java'
     }
@@ -50,6 +50,7 @@ android {
                     exclude 'debug/**'
                 }
             }
+            jni.srcDirs = ['src/main/jni', 'src/main/jni/']
         }
     }
 

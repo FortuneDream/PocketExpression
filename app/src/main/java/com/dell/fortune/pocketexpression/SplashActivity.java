@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.dell.fortune.pocketexpression.app.R;
 import com.dell.fortune.pocketexpression.module.home.HomeActivity;
 import com.dell.fortune.pocketexpression.util.common.RxTimerUtil;
 import com.dell.fortune.tools.toast.ToastUtil;

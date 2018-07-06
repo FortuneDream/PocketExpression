@@ -21,14 +21,16 @@ android {
             }
         }
     }
-
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
     }
+
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+//    }
 }
 
 dependencies {
@@ -47,14 +49,17 @@ dependencies {
     api RxAndroid_Lib
     api EventBus_Lib
     api Bmob_Lib
-    api RecyclerView_Lib
+    api (RecyclerView_Lib,{
+        exclude group: 'com.android.support', module: 'design'
+    })
     api MaterialDesign_Lib
-    api CardView_Lib
+    api (CardView_Lib,{
+        exclude group: 'com.android.support', module: 'design'
+    })
     api(TakePhoto_Lib) {
         exclude group: 'com.android.support'
     }
-    api Permission1_Lib
-    api Permission2_Lib
+    api Permission_Lib
     api ARouter_Lib
     annotationProcessor ARouter_Processor
     api project(':tools')

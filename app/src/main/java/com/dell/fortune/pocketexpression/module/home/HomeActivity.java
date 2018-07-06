@@ -25,8 +25,9 @@ import android.widget.ViewFlipper;
 import com.dell.fortune.core.common.BaseActivity;
 import com.dell.fortune.core.config.FlagConstant;
 import com.dell.fortune.core.util.UserUtil;
-import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.app.R;
 import com.dell.fortune.pocketexpression.util.common.FrescoProxy;
+import com.dell.fortune.pocketexpression.util.common.JNIUtil;
 import com.dell.fortune.tools.LogUtils;
 import com.dell.fortune.tools.tab.BottomTabView;
 import com.dell.fortune.tools.toast.ToastUtil;
@@ -69,7 +70,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.IView, HomePresente
         mIsAuthorityStatusOpen = presenter.checkAuthority();
         mOpenSuspendWindowSwitch.setChecked(presenter.checkAuthority());//检测是否打开
         presenter.clickBottomTab(0);
-
+        ToastUtil.showToast(new JNIUtil().getSignature());
     }
 
     //底部栏

@@ -16,7 +16,7 @@ import android.widget.Button;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dell.fortune.core.common.BaseActivity;
 import com.dell.fortune.core.config.IntentConstant;
-import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.app.R;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionCategory;
 import com.dell.fortune.pocketexpression.model.bean.ExpressionItem;
 import com.dell.fortune.tools.LogUtils;

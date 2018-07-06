@@ -18,7 +18,7 @@ import com.dell.fortune.core.common.BaseActivity;
 import com.dell.fortune.core.config.FlagConstant;
 import com.dell.fortune.core.model.bean.MyUser;
 import com.dell.fortune.core.util.UserUtil;
-import com.dell.fortune.pocketexpression.R;
+import com.dell.fortune.pocketexpression.auth.R;
 import com.dell.fortune.tools.toast.ToastUtil;
 import com.dell.fortune.tools.view.TextEdit;
 

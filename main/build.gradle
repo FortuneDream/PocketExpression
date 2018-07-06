@@ -10,7 +10,7 @@ android {
     resourcePrefix 'main_'
     signingConfigs {
         myConfig {
-            storeFile file("E:\\Application\\PocketMusic-master\\app\\key.jks")
+            storeFile file("E:\\key.jks")
             storePassword 'lol520152'
             keyAlias 'Cloud'
             keyPassword 'hahaha233'
@@ -23,6 +23,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -35,7 +36,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.myConfig
+            signingConfig signingConfigs.myConfig
         }
     }
 
